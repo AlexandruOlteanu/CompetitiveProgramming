@@ -44,7 +44,8 @@ for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
 
 const ll infll = 9e18;
 const int inf = 2e9;
-const ll maxn = 1e5 + 2;
+const ll maxn = 2e5 + 5;
+
 
 
 int main()
@@ -52,15 +53,10 @@ int main()
     FastEverything
     HighPrecision
     int test = 1;
-    cin>>test;
+    // cin>>test;
     for(int tt = 1; tt <= test; ++tt){
-        
-        
-        int a, b;
-        cin >> a >> b;
-        cout << a + b << '\n';
-        
 
+        
     }       
 
 
