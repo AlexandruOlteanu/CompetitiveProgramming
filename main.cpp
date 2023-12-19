@@ -46,6 +46,8 @@ const ll infll = 9e18;
 const int inf = 2e9;
 const ll maxn = 2e5 + 5;
 
+priority_queue<int> q;
+map<char, int> m;
 
 int main()
 {
@@ -55,7 +57,38 @@ int main()
     cin>>test;
     for(int tt = 1; tt <= test; ++tt){
 
-        
+        int n;
+        string s;
+        cin >> n >> s;
+        m.clear();
+        for(auto c : s) {
+            ++m[c];
+        }
+        for (int i = 'a'; i <= 'z'; ++i) {
+            if (m[i] > 0) q.push(m[i]);
+        }
+
+        while (q.size() > 1) {
+            int a = q.top();
+            q.pop();
+            int b = q.top();
+            q.pop();
+            --a;
+            --b;
+            if (a > 0) {
+                q.push(a);
+            }
+            if (b > 0) {
+                q.push(b);
+            }
+        }
+        if (q.empty()) {
+            cout << "0\n";
+        }
+        else {
+            cout << q.top() << '\n';
+            q.pop();
+        }
         
     }
 
