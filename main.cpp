@@ -57,7 +57,7 @@ int main() {
     HighPrecision
     int test = 1;
     cin>>test;
-    for(int tt = 1; tt <= test; ++tt) {
+    for (int tt = 1; tt <= test; ++tt) {
 
         
         
