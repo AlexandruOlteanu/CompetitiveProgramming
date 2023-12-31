@@ -2,9 +2,12 @@
     Template created by Alexandru Olteanu
 */
 
-vector<vector<long long> > mul(vector<vector<long long> > a, vector<vector<long long> > b)
+const ll matrix_mod = 1e9 + 7;
+
+template<typename T>
+vector<vector<T> > mul(vector<vector<T> > a, vector<vector<T> > b)
 {
-	vector<vector<long long> > res;
+	vector<vector<T> > res;
 	res = a;
 	for (int i = 0; i < res.size(); i++)
 	{
@@ -19,14 +22,15 @@ vector<vector<long long> > mul(vector<vector<long long> > a, vector<vector<long 
 		{
 			for (int j = 0; j < res.size(); j++)
 			{
-				res[i][j] = (res[i][j] + a[i][k] * b[k][j]) % bs;
+				res[i][j] = (res[i][j] + a[i][k] * b[k][j]) % matrix_mod;
 			}
 		}
 	}
 	return res;
 }
- 
-vector<vector<long long> > matrix_power(vector<vector<long long> > a, long long b)
+
+template<typename T>
+vector<vector<T> > matrix_power(vector<vector<T> > a, long long b)
 {
 	if (b == 1)
 		return a;
