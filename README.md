@@ -8,5 +8,6 @@ still, I complicated it, we can just notice that on the first bit that differs, 
 so we can consider it's next bits as all 1's, so we can just take the complement that matches the bigger number (easy solution and fast) -> spent around 10 minutes on editorials after solving the problem
     Solved https://codeforces.com/contest/276/problem/C -> 1500 rated in 6 minutes (easy problem), then I solved it in 10 min
 with segment tree but having lazy propagation (I have the template in this repo)
-    Total time spent today : 85 minutes -> 1.41 hours
-    
+    Solved https://codeforces.com/problemset/problem/1430/D -> 1700 rated in 14 minutes (great time, no complications)
+
+    Total time spent today : 99 minutes -> 1.65 hours
