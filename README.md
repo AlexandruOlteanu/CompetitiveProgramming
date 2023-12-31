@@ -3,5 +3,11 @@
 
     Solved https://codeforces.com/problemset/problem/1699/C -> 1700 rated in 31 minutes (really good stating the fact that
 i struggled a little to other 1700 problems)
+    Solved https://codeforces.com/problemset/problem/276/D -> 1700 rated in 38 minutes (proud of me, nice xor problem) -
+still, I complicated it, we can just notice that on the first bit that differs, the small number will have 0 on that bit, 
+so we can consider it's next bits as all 1's, so we can just take the complement that matches the bigger number (easy solution and fast) -> spent around 10 minutes on editorials after solving the problem
+    
+    
+
     
     
