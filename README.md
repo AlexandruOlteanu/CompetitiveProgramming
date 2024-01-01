@@ -29,18 +29,18 @@ of time thinking what can I do after I find that a1 + a2 + ... + an = S, I took 
 as I had no ideas how to continue, after getting the idea of substracting consecutive towns I solved it completely. I would say it was 90% solved
 by me and in a contest probably I would have found the idea but now I didn't want to waste time). Note for myself to substract consecutive ciclic 
 permutations in a system -> Math
+    Participated in https://codeforces.com/contest/1543 as Virtual contest  120 minutes -> I had the performance of a 1732 rated coder with A, B, C solved and 2 
+WA on C. I knew to solve the problem faster but had problems with double comparations and also a time when it worked locally but not on codeforces
+As tip from now, I should be really carefull with float numbers, don't fuck with them and compare them. A, B worked smoothly, I feel like I could 
+have solved D but definetely not both problems, maybe it was a better idea to go for D, more people solved D instead of C so yeah.. Gl, Hf
 
-    Total time spent today : 
-
-
-
-
-
-
+    Total time spent today : 270 minutes -> 4.5 hours
 
 
 
 
 
-Total time spent in 2024 -> 99
+
+
+Total time spent in 2024 -> 369 minutes
 
