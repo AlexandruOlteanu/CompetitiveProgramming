@@ -24,7 +24,11 @@ time I should take a paper and confirm my line of thought) -> Graphs with a litt
 from past problems but I have to be more careful with int vs long long) -> Greedy with some intervals knowledge
     Solved https://codeforces.com/contest/1889/problem/B -> 1700 rated in 45 minutes (Slower time, there is a greedy aproach but I got lost 
 a little in small details, need to learn to go straight to the solution faster) -> Greedy
-    
+    Solved https://codeforces.com/problemset/problem/1618/E -> 1700 rated in 52 minutes (Slow because I spent a lot
+of time thinking what can I do after I find that a1 + a2 + ... + an = S, I took a peek at the editorial after 30 minutes
+as I had no ideas how to continue, after getting the idea of substracting consecutive towns I solved it completely. I would say it was 90% solved
+by me and in a contest probably I would have found the idea but now I didn't want to waste time). Note for myself to substract consecutive ciclic 
+permutations in a system -> Math
 
     Total time spent today : 
 
