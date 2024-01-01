@@ -1,8 +1,13 @@
 /*
     Programmer : Alexandru Olteanu
+    Problem : https://codeforces.com/contest/1699/problem/C
 */
 #include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+template<typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 // GCC Optimizations
 // #pragma GCC optimize("Ofast");
 // #pragma GCC target("fma,sse,sse2,sse3,ssse3,sse4,popcnt")
@@ -46,34 +51,53 @@ const ll infll = 9e18;
 const int inf = 2e9;
 const ll maxn = 2e5 + 5;
 
-map<char, bool> m;
+int a[maxn];
 
-int main()
-{
+map<int, int> m;
+
+int main() {
+
     FastEverything
     HighPrecision
     int test = 1;
     cin>>test;
-    for(int tt = 1; tt <= test; ++tt){
+    for (int tt = 1; tt <= test; ++tt) {
 
         int n;
         cin >> n;
-        string s;
-        cin >> s;
         m.clear();
-        m[s[0]] = true;
-        ll cnt = n;
-        for (int i = 1; i < n; ++i) {
-            if (!m[s[i]])  {
-                cnt += (n - i);
-                m[s[i]] = 1;
-            }
+        for (int i = 1; i <= n; ++i) {
+            cin >> a[i];
+            m[a[i]] = i;
         }
 
-        cout << cnt << '\n';
+        int f = m[0], s = m[1];
+        if (f > s) swap(f, s);
+        ll p = 1;
+        ll opt = s - f - 1;
+        for (int i = 2; i < n; ++i) {
+            int pos = m[i];
+            if (pos > f && pos < s) {
+                p *= opt;
+                --opt;
+                p %= mod;
+            }
+            else {
+                if (pos > s) {
+                    opt += pos - s - 1;
+                    s = pos;
+                }
+                else {
+                    opt += f - pos - 1;
+                    f = pos;
+                }
+            }
+        }
         
+        cout << p << '\n';
+
 
     }
 
     return 0;
-} 
+}

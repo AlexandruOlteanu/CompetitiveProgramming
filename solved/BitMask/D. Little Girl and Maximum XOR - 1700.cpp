@@ -1,5 +1,6 @@
 /*
     Programmer : Alexandru Olteanu
+    Problem : https://codeforces.com/contest/276/problem/D
 */
 #include<bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -56,33 +57,75 @@ int main() {
     FastEverything
     HighPrecision
     int test = 1;
-    cin>>test;
+    // cin>>test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        int n, k;
-        cin >> n >> k;
-        ll p = 1;
-        for (int i = 1; i <= n; ++i) {
-            ll x;
-            cin >> x;
-            p *= x;
+        ll l, r;
+        cin >> l >> r;
+        ll x = l, y = r;
+        for (ll i = 60; i >= 0; --i) {
+            bool bit1 = (x & (1LL << i)) > 0;
+            bool bit2 = (y & (1LL << i)) > 0;
+            if (!bit1 && bit2) {
+                continue;
+            } 
+            if (bit1 && !bit2) {
+                if ((x ^ (1LL << i)) >= l && (y ^ (1LL << i)) <= r) {
+                    x ^= (1LL << i);
+                    y ^= (1LL << i);
+                }
+                continue;
+            }
+            if (bit1 && bit2) {
+                if ((x ^ (1LL << i)) >= l) {
+                    x ^= (1LL << i);
+                }
+                else if ((y ^ (1LL << i)) >= l) {
+                    y ^= (1LL << i);
+                }
+                continue;
+            }
+            if (!bit1 && !bit2) {
+                if ((y ^ (1LL << i)) <= r) {
+                    y ^= (1LL << i);
+                }
+                else if ((x ^ (1LL << i)) <= r) {
+                    x ^= (1LL << i);
+                }
+            }
         }
-        if (2023 % p != 0) {
-            cout << "NO\n";
-            continue;
-        }
 
-        p = 2023 / p;
-        cout << "YES\n";
-        for (int i = 1; i < k; ++i) {
-            cout << "1 ";
-        }
-        cout << p << '\n';
-
-
-
+        cout << (x ^ y) << '\n';
         
     }
 
     return 0;
 } 
+
+
+// 0 ^ 1 = 1
+// 0 ^ 0 = 0
+// 1 ^ 1 = 0
+
+//  1000
+//  1001
+//  1010
+//  1011
+//  1100
+//  1101
+//  1110
+//  1111
+// 10000
+
+
+// 0
+// 1 -> las asa 
+
+// 1
+// 0   -> incerc sa le inversez 
+
+// 1
+// 1  -> incerc sa scad pe cel mai mic 
+
+// 0
+// 0 -> incerc sa cresc pe cel mai mare

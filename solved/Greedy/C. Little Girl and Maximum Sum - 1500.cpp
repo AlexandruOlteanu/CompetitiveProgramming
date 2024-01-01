@@ -1,8 +1,13 @@
 /*
     Programmer : Alexandru Olteanu
+    Problem : https://codeforces.com/contest/276/problem/C
 */
 #include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+template<typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 // GCC Optimizations
 // #pragma GCC optimize("Ofast");
 // #pragma GCC target("fma,sse,sse2,sse3,ssse3,sse4,popcnt")
@@ -46,107 +51,42 @@ const ll infll = 9e18;
 const int inf = 2e9;
 const ll maxn = 2e5 + 5;
 
+int a[maxn];
+int inv[maxn];
 
-vector<int> v[maxn];
-int deg[maxn];
-bool vis[maxn];
-bool vis2[maxn];
+int main() {
 
-void keep_cycle(int x) {
-    if (vis[x]) return;
-    --deg[x];
-    vis[x] = true;
-    for (auto u : v[x]) {
-        if (deg[u] > 0) {
-            --deg[u];
-        }
-        if (deg[u] == 1) {
-            keep_cycle(u);
-        }
-    }
-}
-
-int dist;
-int entry_point;
-void dfs(int x, int d) {
-    if (vis2[x]) return;
-    vis2[x] = true;
-    if (!vis[x]) {
-        if (d < dist) {
-            dist = d;
-            entry_point = x;
-        }
-        dist = min(dist, d);
-        return;
-    }
-    for (auto u : v[x]) {
-        dfs(u, d + 1);
-    }
-}
-
-int d2[maxn];
-void dfs2(int x) {
-    for (auto u : v[x]) {
-        if (d2[u] > d2[x] + 1) {
-            d2[u] = d2[x] + 1;
-            dfs2(u);
-        }
-    }
-}
-
-
-int main()
-{
     FastEverything
     HighPrecision
     int test = 1;
-    cin>>test;
-    for(int tt = 1; tt <= test; ++tt){
+    // cin>>test;
+    for (int tt = 1; tt <= test; ++tt) {
 
-        int n, a, b;
-        cin >> n >> a >> b;
+        int n, k;
+        cin >> n >> k;
         for (int i = 1; i <= n; ++i) {
-            v[i].clear();
-            deg[i] = 0;
-            vis[i] = 0;
-            vis2[i] = 0;
+            cin >> a[i];
         }
-        for (int i = 1; i <= n; ++i) {
+        sort(a + 1, a + n + 1);
+        for (int i = 1; i <= k; ++i) {
             int x, y;
             cin >> x >> y;
-            v[x].pb(y);
-            ++deg[x], ++deg[y];
-            v[y].pb(x);
+            ++inv[y];
+            --inv[x - 1];
         }
-        if (a == b) {
-            cout << "NO\n";
-            continue;
+        for (int i = n - 1; i >= 1; --i) {
+            inv[i] += inv[i + 1];
         }
-
-        for (int i = 1; i <= n; ++i) {
-            if (deg[i] == 1) {
-                keep_cycle(i);
-            }
-        }
-        if (!vis[b]) {
-            cout << "YES\n";
-            continue;
+        sort(inv + 1, inv + n + 1);
+        ll p = 0;
+        for (int i = n ; i >= 1; --i) {
+            p += 1LL * a[i] * inv[i]; 
         }
 
-        dist = inf;
-        dfs(b, 0);
-        for (int i = 1; i <= n; ++i) {
-            vis2[i] = false;
-            d2[i] = inf;
-        }
-        d2[a] = 0;
-        dfs2(a);
-        if (dist < d2[entry_point]) {
-            cout << "YES\n";
-            continue;
-        }
+        cout << p << '\n';
 
-        cout << "NO\n";
+        
+
         
     }
 

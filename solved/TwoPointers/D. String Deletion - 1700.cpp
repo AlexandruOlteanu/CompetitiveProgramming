@@ -1,8 +1,13 @@
 /*
     Programmer : Alexandru Olteanu
+    Problem : https://codeforces.com/contest/1430/problem/D
 */
 #include<bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+template<typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 // GCC Optimizations
 // #pragma GCC optimize("Ofast");
 // #pragma GCC target("fma,sse,sse2,sse3,ssse3,sse4,popcnt")
@@ -46,46 +51,49 @@ const ll infll = 9e18;
 const int inf = 2e9;
 const ll maxn = 2e5 + 5;
 
+deque<int> g;
 
-int a[maxn], h[maxn];
+int main() {
 
-int main()
-{
     FastEverything
     HighPrecision
     int test = 1;
     cin>>test;
-    for(int tt = 1; tt <= test; ++tt){
+    for (int tt = 1; tt <= test; ++tt) {
 
-        int n, k;
-        cin >> n >> k;
-        for (int i = 1; i <= n; ++i) {
-            cin >> a[i];
-        }
-        for (int i = 1; i <= n; ++i) {
-            cin >> h[i];
-        }
-
-        int lmax = 0, l = 0;
-        int i  = 1, j = 1;
-        int sum = 0;
-        while (i <= n) {
-            if (j < i) j = i, l = 0;
-            while (j <= n && (j == i || h[j - 1] % h[j] == 0) && sum + a[j] <= k) {
-                sum += a[j];
-                ++l;
-                ++j;
+        int n;
+        g.clear();
+        cin >> n;
+        string s;
+        cin >> s;
+        s = "#" + s;
+        int l = 1;
+        for (int i = 2; i <= n; ++i) {
+            if (s[i] == s[i - 1]) ++l;
+            else {
+                g.pb(l);
+                l = 1;
             }
-            lmax = max(lmax, l);
-            if (l >= 1) sum -= a[i];
-            ++i;
-            --l;
+        }
+        g.pb(l);
+        int pos = 0;
+        int ans = 0;
+        while (!g.empty()) {
+            int sz = g.size();
+            while (pos < sz && g[pos] == 1) ++pos;
+            if (pos >= sz) pos = sz - 1;
+            --g[pos];
+            if (!g[pos]) g.pop_back();
+            if (!g.empty()) {
+                g.pop_front();
+            }
+            if (pos > 0)--pos;
+            ++ans;
         }
 
-        cout << lmax << '\n';
-
-    }       
-
+        cout << ans << '\n';
+        
+    }
 
     return 0;
 } 

@@ -1,5 +1,6 @@
 /*
     Programmer : Alexandru Olteanu
+    Problem : https://codeforces.com/contest/1093/problem/D
 */
 #include<bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -48,80 +49,67 @@ for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
 
 const ll infll = 9e18;
 const int inf = 2e9;
-const ll maxn = 2e5 + 5;
+const ll maxn = 3e5 + 5;
 
+int is[maxn];
+vector<int> v[maxn];
 
-	
-/*
-    Template created by Alexandru Olteanu
-*/
-template<typename A>
-struct FenwickTree{
-    vector<A> array;
-    int n;
-    FenwickTree(int length){
-        array.resize(length + 1);
-        n = length;
-    }
- 
-    void modify(int x, ll val){
-        for(; x <= n; x += x & -x){
-            array[x] += val;
+bool ok = true;
+int par = 0, imp = 0;
+
+void dfs(int x, int val) {
+    if (!ok) return;
+    is[x] = val;
+    if (val < 0) ++par;
+    else ++imp;
+    for (auto u : v[x]) {
+        if (is[u] == val) {
+            ok = false;
+            return;
         }
-        return;
+        if (is[u] == -val) continue;
+        dfs(u, -val);
     }
-    
-    ll calc(int x){
-        ll val = 0;
-        for(; x > 0; x -= x & -x){
-            val += array[x];
-        }
-        return val;
-    }
-    
-    ll get(int l, int r){
-        if (l > r) return 0;
-        return calc(r) - calc(l - 1);   
-    }
-};
+}
 
-pii a[maxn];
+int main() {
 
-map<int, int> m;
-
-
-int main()
-{
     FastEverything
     HighPrecision
     int test = 1;
     cin>>test;
-    for(int tt = 1; tt <= test; ++tt){
+    for (int tt = 1; tt <= test; ++tt) {
 
-        int n;
-        cin >> n;
+        int n, m;
+        cin >> n >> m;
         for (int i = 1; i <= n; ++i) {
-            cin >> a[i].fi >> a[i].se;
+            is[i] = 0;
+            v[i].clear();
         }
-        sort(a + 1, a + n + 1);
-        vector<int> v;
-        for (int i = 1; i <= n; ++i) {
-            v.pb(a[i].se);
-        }
-        sort(all(v));
-        int k = 1;
-        for (auto u : v) {
-            m[u] = k++;
-        }
-        ll ans = 0;
-        FenwickTree<int> ft(n);
-        ft.modify(m[a[n].se], 1);
-        for (int i = n - 1; i >= 1; --i) {
-            ans += ft.get(1, m[a[i].se]);
-            ft.modify(m[a[i].se], 1);
+        ok = true;
+        for (int i = 1; i <= m; ++i) {
+            int x, y;
+            cin >> x >> y;
+            v[x].pb(y);
+            v[y].pb(x);
         }
 
+        ll ans = 1;
+        for (int i = 1; i <= n; ++i) {
+            if (is[i] == 0) {
+                dfs(i, 1);
+                ans *= mypowr(2, par, md) + mypowr(2, imp, md);
+                ans %= md;
+                par = imp = 0;
+            }
+        }
+        if (!ok) {
+            cout << "0\n";
+            continue;
+        }
         cout << ans << '\n';
+
+        
     }
 
     return 0;
