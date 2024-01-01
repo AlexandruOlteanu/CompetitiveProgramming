@@ -22,7 +22,11 @@ multiplay between the ways of choosing for each component instead of sum. I just
 time I should take a paper and confirm my line of thought) -> Graphs with a little bit of combinatorics
     Solved https://codeforces.com/contest/1000/problem/C -> 1700 rated in 13 minutes (Great time, I somehow knew the implementation idea
 from past problems but I have to be more careful with int vs long long) -> Greedy with some intervals knowledge
+    Solved https://codeforces.com/contest/1889/problem/B -> 1700 rated in 45 minutes (Slower time, there is a greedy aproach but I got lost 
+a little in small details, need to learn to go straight to the solution faster) -> Greedy
     
+
+    Total time spent today : 
 
 
 
