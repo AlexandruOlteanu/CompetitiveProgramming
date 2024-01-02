@@ -40,7 +40,10 @@ have solved D but definetely not both problems, maybe it was a better idea to go
     3. Day 3 -> 02/01/2024 -> 561 rating
 
     Solved https://codeforces.com/problemset/problem/1743/D -> 1700 rated in 21 minutes (Good time but it could have been faster of I red carefully that the 
-tests are randomly generated. This way I wouldn't have thought of a better solution that simulating all the substrings)
+tests are randomly generated. This way I wouldn't have thought of a better solution that simulating all the substrings) -> Greedy
+    Solved https://codeforces.com/problemset/problem/1368/D -> 1700 rated in 37 minutes (Good time for how hard the problem was) -> Bitmask, Math. Then I 
+spent 6 minutes on editoial and tourist solution and found out about a beatiful and faster way of transfering bits to bigger numbers by adding bit k to first
+cnt numbers where cnt is the number of bits of rang k that I had in total, such a simple solution and I overcomplicated it...
     
     Total time spent today :  minutes ->  hours
 
