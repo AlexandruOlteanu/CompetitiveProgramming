@@ -37,8 +37,12 @@ have solved D but definetely not both problems, maybe it was a better idea to go
     Total time spent today : 270 minutes -> 4.5 hours
 
 
+    3. Day 3 -> 02/01/2024 -> 561 rating
 
-
+    Solved https://codeforces.com/problemset/problem/1743/D -> 1700 rated in 21 minutes (Good time but it could have been faster of I red carefully that the 
+tests are randomly generated. This way I wouldn't have thought of a better solution that simulating all the substrings)
+    
+    Total time spent today :  minutes ->  hours
 
 
 
