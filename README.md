@@ -50,7 +50,13 @@ cnt numbers where cnt is the number of bits of rang k that I had in total, such 
     4. Day 4 -> 03/01/2024 -> 561 rating
 
     Solved https://codeforces.com/problemset/problem/1693/B -> 1700 rated in 40 minutes (Ok time, small bugs but good aproach, I could have used a top-down 
-aproach instead of buttom up, a little it cleaner code)
+aproach instead of buttom up, a little it cleaner code) -> Graphs
+    Solved https://codeforces.com/contest/1260/problem/C -> 1700 rated in 55 minutes with a little help from editorial. I got the main idea, actually 90% of it
+but I didn't take into acount that the size of the chunk already starts with a multiple of r, I got all the formulas right but this little mistake costed me
+20 minutes, so I would have solved it in 35 if I saw this little thing from the begining. -> Number Theory
+
+    Total time spent today :  minutes ->  hours
+
     
 
 
