@@ -59,8 +59,10 @@ but I didn't take into acount that the size of the chunk already starts with a m
     Solved https://codeforces.com/problemset/problem/729/D -> 1700 rated in 29 minutes (Good time, ok implementaton, I think it could have been shorter) -> Greedy
     Solved https://codeforces.com/problemset/problem/474/D -> 1700 rated in 12 minutes (Great time, easy dp problem, I also solved it way longer before but 
 didn't really know the solution beforehand) -> Dp
+    Solved https://codeforces.com/contest/622/problem/C -> 1700 rated in 30 minutes (Good time but I missed a really easy greedy solution. I overcomplicated it
+by using segment tree... but it passed tight with the time. I also implemented the greedy version) -> Segment tree, greedy
 
-    Total time spent today : 187 minutes ->  hours
+    Total time spent today : 217 minutes ->  hours
 
     
 
