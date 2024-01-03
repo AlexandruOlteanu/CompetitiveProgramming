@@ -45,9 +45,12 @@ tests are randomly generated. This way I wouldn't have thought of a better solut
 spent 6 minutes on editoial and tourist solution and found out about a beatiful and faster way of transfering bits to bigger numbers by adding bit k to first
 cnt numbers where cnt is the number of bits of rang k that I had in total, such a simple solution and I overcomplicated it...
     
-    Total time spent today :  minutes ->  hours
+    Total time spent today : 64 minutes -> 1.066 hours
+
+    4. Day 4 -> 03/01/2024 -> 561 rating
+
+        
 
 
-
-Total time spent in 2024 -> 369 minutes
+Total time spent in 2024 -> 433 minutes
 
