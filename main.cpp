@@ -8,7 +8,7 @@ using namespace std;
 template<typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 // GCC Optimizations
-// #pragma GCC optimize("Ofast");
+// #pragma GCC optimize("Ofast")
 // #pragma GCC target("fma,sse,sse2,sse3,ssse3,sse4,popcnt")
 // #pragma GCC target("abm,mmx,avx,avx2,tune=native")
 // #pragma GCC optimize(3)
