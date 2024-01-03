@@ -56,6 +56,7 @@ but I didn't take into acount that the size of the chunk already starts with a m
 20 minutes, so I would have solved it in 35 if I saw this little thing from the begining. -> Number Theory
     Solved https://codeforces.com/problemset/problem/464/A -> 1700 rated in 20 minutes -> (Great time) ->  
     Solved https://codeforces.com/contest/1006/problem/D -> 1700 rated in 31 minutes (Good time, some implementation and logic bugs but good run) -> Greedy
+    Solved https://codeforces.com/problemset/problem/729/D -> 1700 rated in 29 minutes (Good time, ok implementaton, I think it could have been shorter) -> Greedy
 
 
     Total time spent today :  minutes ->  hours
