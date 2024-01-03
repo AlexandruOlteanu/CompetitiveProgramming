@@ -49,7 +49,9 @@ cnt numbers where cnt is the number of bits of rang k that I had in total, such 
 
     4. Day 4 -> 03/01/2024 -> 561 rating
 
-        
+    Solved https://codeforces.com/problemset/problem/1693/B -> 1700 rated in 40 minutes (Ok time, small bugs but good aproach, I could have used a top-down 
+aproach instead of buttom up, a little it cleaner code)
+    
 
 
 Total time spent in 2024 -> 433 minutes
