@@ -57,9 +57,10 @@ but I didn't take into acount that the size of the chunk already starts with a m
     Solved https://codeforces.com/problemset/problem/464/A -> 1700 rated in 20 minutes -> (Great time) ->  
     Solved https://codeforces.com/contest/1006/problem/D -> 1700 rated in 31 minutes (Good time, some implementation and logic bugs but good run) -> Greedy
     Solved https://codeforces.com/problemset/problem/729/D -> 1700 rated in 29 minutes (Good time, ok implementaton, I think it could have been shorter) -> Greedy
+    Solved https://codeforces.com/problemset/problem/474/D -> 1700 rated in 12 minutes (Great time, easy dp problem, I also solved it way longer before but 
+didn't really know the solution beforehand) -> Dp
 
-
-    Total time spent today :  minutes ->  hours
+    Total time spent today : 187 minutes ->  hours
 
     
 
