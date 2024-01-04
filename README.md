@@ -64,8 +64,14 @@ by using segment tree... but it passed tight with the time. I also implemented t
 
     Total time spent today : 217 minutes ->  hours
 
-    
+    5. Day 5 -> 04/01/2024 -> 561 rating
+
+    Solved https://codeforces.com/contest/339/problem/D -> 1700 rated in 16 minutes (I already knew the problem, I just modified the segment tree template)
 
 
-Total time spent in 2024 -> 433 minutes
+    Total time spent today : 217 minutes -> 3.616 hours
+
+
+
+Total time spent in 2024 -> 650 minutes
 
