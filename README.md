@@ -67,9 +67,12 @@ by using segment tree... but it passed tight with the time. I also implemented t
     5. Day 5 -> 04/01/2024 -> 561 rating
 
     Solved https://codeforces.com/contest/339/problem/D -> 1700 rated in 16 minutes (I already knew the problem, I just modified the segment tree template)
+    Solved https://codeforces.com/contest/1709/problem/D -> 1700 rated in 25 minutes (It was ready in 15 but apparently I didn't take into considerations that
+the cells can be if reversed order and I had a segmentation fault when calling get from segment tree with an invalid interval). I also solved this after with 
+SparseTable
 
 
-    Total time spent today : 217 minutes -> 3.616 hours
+    Total time spent today : 41 minutes ->  hours
 
 
 
