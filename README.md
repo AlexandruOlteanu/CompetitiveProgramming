@@ -70,11 +70,14 @@ by using segment tree... but it passed tight with the time. I also implemented t
     Solved https://codeforces.com/contest/1709/problem/D -> 1700 rated in 25 minutes (It was ready in 15 but apparently I didn't take into considerations that
 the cells can be if reversed order and I had a segmentation fault when calling get from segment tree with an invalid interval). I also solved this after with 
 SparseTable
+    Spent 60 minutes on https://codeforces.com/contest/1237/problem/C1 -> 1700 rated (I tried to solve the efficient method, I got stuck into a few bugs and
+overall I didn't even solved it yet). I noticed that I a little worse on math related problems I think even thogh they are not really that formulas based..
+maybe I am wrong but I will try to solve more like these.
 
 
-    Total time spent today : 41 minutes ->  hours
+    Total time spent today : 101 minutes ->  hours
 
 
 
-Total time spent in 2024 -> 650 minutes
+Total time spent in 2024 -> 751 minutes
 
