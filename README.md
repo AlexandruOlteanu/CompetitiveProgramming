@@ -72,12 +72,21 @@ the cells can be if reversed order and I had a segmentation fault when calling g
 SparseTable
     Spent 60 minutes on https://codeforces.com/contest/1237/problem/C1 -> 1700 rated (I tried to solve the efficient method, I got stuck into a few bugs and
 overall I didn't even solved it yet). I noticed that I a little worse on math related problems I think even thogh they are not really that formulas based..
-maybe I am wrong but I will try to solve more like these.
+maybe I am wrong but I will try to solve more like these. - 30 min
 
 
-    Total time spent today : 101 minutes ->  hours
+    Total time spent today : 131 minutes ->  hours
+
+    6. Day 6 -> 06/01/2024 -> 991 rating
+
+    Participated in contest https://codeforces.com/contest/1919 and performed around 1750 rating (Good start but need to be better) -> 150 min) I 
+    solved first 3 problems
 
 
+    Total time spent today : 150 min
 
-Total time spent in 2024 -> 751 minutes
+    7. Day 7 -> 07/01/2024
+    
+
+Total time spent in 2024 -> 951 minutes
 
