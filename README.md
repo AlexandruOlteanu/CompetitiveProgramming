@@ -79,13 +79,19 @@ maybe I am wrong but I will try to solve more like these. - 30 min
 
     6. Day 6 -> 06/01/2024 -> 991 rating
 
-    Participated in contest https://codeforces.com/contest/1919 and performed around 1750 rating (Good start but need to be better) -> 150 min) I 
+    Participated in contest https://codeforces.com/contest/1919 and performed around 1750 rating (2439 place) (Good start but need to be better) -> 150 min) I 
     solved first 3 problems
 
 
     Total time spent today : 150 min
 
-    7. Day 7 -> 07/01/2024
+    7. Day 7 -> 07/01/2024 -> 991 rating
+    Virually participated in https://codeforces.com/contest/1547 (Div3) and took place 428 (unoficially) (Good performance I think, I also solved a problem
+with sparse table and segment tree) I solved 6/7. The last problem I made a preety good algorithm for it but apparently something is wrong. I will learn
+Strongly Connected Components theory and create myself a template to use from now and I will try to solve it again after - 120 minutes
+    
+
+    Total time spent today: 120 min
     
 
 Total time spent in 2024 -> 951 minutes
