@@ -92,7 +92,10 @@ Strongly Connected Components theory and create myself a template to use from no
     
 
     Total time spent today: 120 min
+
+   8. Day 8 -> 08/01/2024 -> 991 rating
+   Created myself a template about Directed Graph Strongly Connected Components and then learned more about the algorithm (40 minutes)
     
 
-Total time spent in 2024 -> 951 minutes
+Total time spent in 2024 -> 1071 minutes
 
