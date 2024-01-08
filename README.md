@@ -95,7 +95,11 @@ Strongly Connected Components theory and create myself a template to use from no
 
    8. Day 8 -> 08/01/2024 -> 991 rating
    Created myself a template about Directed Graph Strongly Connected Components and then learned more about the algorithm (40 minutes)
-    
+   Solved https://codeforces.com/contest/1547/problem/G -> 2100 rated in 70 minutes using the new SCC template. Good problem, I think I overcomplicated
+it a little.
+
+    Total time spent today: 110 min
+
 
 Total time spent in 2024 -> 1071 minutes
 

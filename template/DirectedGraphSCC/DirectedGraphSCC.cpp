@@ -3,7 +3,7 @@
 */
 struct DirectedGraphSCC {
     int N;
-    vector<vector<int>> in, out;
+    vector<vector<int>> in, out, in_component;
     vector<int> used, visited, component;
     int scc_nr = -1;
  
@@ -11,6 +11,7 @@ struct DirectedGraphSCC {
         N = n;
         in.resize(n + 1);
         out.resize(n + 1);
+        in_component.resize(n + 1);
         component.resize(n + 1);
     }
  
@@ -27,6 +28,7 @@ struct DirectedGraphSCC {
     void reversed_dfs(int x, int nr) {
         used[x] = true;
         component[x] = nr;
+        in_component[nr].push_back(x);
         for (auto u : in[x]) {
             if (!used[u]) {
                 reversed_dfs(u, nr);
@@ -54,6 +56,8 @@ struct DirectedGraphSCC {
                 reversed_dfs(visited[i], scc_nr++);
             }
         }
+        --scc_nr;
+        in_component.resize(scc_nr + 1);
         return scc_nr;
     }
  
@@ -79,9 +83,9 @@ struct DirectedGraphSCC {
         if (ns == N) {
             return {};
         }
-        vector<int> cnt(ns + 1);
-        for (auto x : component) {
-            cnt[x]++;
+        vector<int> cnt(ns + 1, 0);
+        for (int i = 0; i < (int) component.size(); ++i) {
+            ++cnt[component[i]];
         }
         c = find_if(cnt.begin(), cnt.end(), [](int x) { return x > 1; }) - cnt.begin();
         init = find(component.begin(), component.end(), c) - component.begin();
@@ -95,12 +99,21 @@ struct DirectedGraphSCC {
     // belonging to the same component(The resultant graph is DAG).
     DirectedGraphSCC GenerateTopologicalGraph() {
         DirectedGraphSCC newgraph(scc_nr);
-        for (int i = 1; i <= N; ++i)
+        for (int i = 1; i <= N; ++i) {
             for (auto u : out[i]) {
                 if (component[i] != component[u]) {
                     newgraph.add_edge(component[i], component[u]);
                 }
             }
+        }
+        for (int i = 1; i <= scc_nr; ++i) {
+            sort(newgraph.in[i].begin(), newgraph.in[i].end());
+            sort(newgraph.out[i].begin(), newgraph.out[i].end());
+            newgraph.in[i].erase(unique(newgraph.in[i].begin(), newgraph.in[i].end()), newgraph.in[i].end());
+            newgraph.out[i].erase(unique(newgraph.out[i].begin(), newgraph.out[i].end()), newgraph.out[i].end());
+        }
+        newgraph.in_component = in_component;
+        
         return newgraph;
     }
 };
