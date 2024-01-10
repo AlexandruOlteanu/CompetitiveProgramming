@@ -56,10 +56,15 @@ int main() {
     FastEverything
     HighPrecision
     int test = 1;
-    cin>>test;
+    // cin>>test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        
+        int k;
+        cin >> k;
+        int nr = k + (1 << 17);
+        cout << "2 3\n";
+        cout << nr << " " << (1 << 17) << " 0\n";
+        cout << k << " " << nr << " " << k << '\n';
         
     }
 
