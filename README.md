@@ -108,8 +108,9 @@ and also 2 bugs) -> Greedy
 I initiallly tried to detect cycles but failed to check the conditions, it was really smart to just give the nodes a value based on just one conditions and at the end to check all conditions) 
 -> Graphs
     Solved https://codeforces.com/contest/732/problem/D -> 1700 rated in 18 minutes (Great time, I used Binary search with this) -> Binary Search
+    Solved https://codeforces.com/contest/691/problem/D -> 1700 rated in 8 minutes (Amazing time, just basic dfs) -> Graphs
 
-    Total time spent today: 155 min
+    Total time spent today: 163 min
 
 Total time spent in 2024 -> 1071 minutes
 
