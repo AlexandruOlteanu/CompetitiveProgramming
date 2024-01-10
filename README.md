@@ -111,8 +111,9 @@ I initiallly tried to detect cycles but failed to check the conditions, it was r
     Solved https://codeforces.com/contest/691/problem/D -> 1700 rated in 8 minutes (Amazing time, just basic dfs) -> Graphs
     Solved https://codeforces.com/contest/1009/problem/C -> 1700 rated in 26 minutes (Great time, nice way to learn that it's better not to use double in additions even with just integers,
 you will loose precision) -> Greedy
+    Solved https://codeforces.com/contest/1383/problem/A -> 1700 rated in 17 minutes (Great time, went smoothly) -> Greedy
 
-    Total time spent today: 189 min
+    Total time spent today: 216 min
 
 Total time spent in 2024 -> 1071 minutes
 
