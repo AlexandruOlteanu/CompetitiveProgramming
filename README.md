@@ -109,7 +109,7 @@ I initiallly tried to detect cycles but failed to check the conditions, it was r
 -> Graphs
     Solved https://codeforces.com/contest/732/problem/D -> 1700 rated in 18 minutes (Great time, I used Binary search with this) -> Binary Search
 
-    Total time spent today: 137 min
+    Total time spent today: 155 min
 
 Total time spent in 2024 -> 1071 minutes
 
