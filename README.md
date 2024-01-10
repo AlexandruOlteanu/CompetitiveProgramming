@@ -101,10 +101,11 @@ it a little.
     Total time spent today: 110 min
 
    9. Day 9 -> 10/01/2024 -> 991 rating
-   Solved https://codeforces.com/problemset/problem/1332/D -> 1700 rated in 11 minutes (good time because it was an easy problem) -> Bitmask
+    Solved https://codeforces.com/problemset/problem/1332/D -> 1700 rated in 11 minutes (good time because it was an easy problem) -> Bitmask
+    Solved https://codeforces.com/contest/631/problem/C -> 1700 rated in 48 minutes (very slow, I think I could have made it faster, I also had a few implementation problems
+and also 2 bugs)
 
-
-    Total time spent today: 11 min
+    Total time spent today: 59 min
 
 Total time spent in 2024 -> 1071 minutes
 
