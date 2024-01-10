@@ -104,8 +104,10 @@ it a little.
     Solved https://codeforces.com/problemset/problem/1332/D -> 1700 rated in 11 minutes (good time because it was an easy problem) -> Bitmask
     Solved https://codeforces.com/contest/631/problem/C -> 1700 rated in 48 minutes (very slow, I think I could have made it faster, I also had a few implementation problems
 and also 2 bugs)
+    Solved https://codeforces.com/contest/1850/problem/H -> 1700 rated in 78 minutes (Really bad time, I had to get the help from editorial with the final idea to make it work.
+I initiallly tried to detect cycles but failed to check the conditions, it was really smart to just give the nodes a value based on just one conditions and at the end to check all conditions)
 
-    Total time spent today: 59 min
+    Total time spent today: 137 min
 
 Total time spent in 2024 -> 1071 minutes
 
