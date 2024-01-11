@@ -115,5 +115,8 @@ you will loose precision) -> Greedy
 
     Total time spent today: 216 min
 
+   10. Day 10 -> 11/01/2024 -> 991 rating
+   Solved https://codeforces.com/contest/900/problem/B -> 1300 rated in 6 minutes (great time I would say) -> Math
+
 Total time spent in 2024 -> 1288 minutes
 
