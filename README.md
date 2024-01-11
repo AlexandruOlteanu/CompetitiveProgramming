@@ -117,8 +117,9 @@ you will loose precision) -> Greedy
 
    10. Day 10 -> 11/01/2024 -> 991 rating
    Solved https://codeforces.com/contest/900/problem/B -> 1300 rated in 6 minutes (great time I would say) -> Math
+   Participated in https://codeforces.com/contest/1550 as virtual contest (120 min) with a performance of a 1830 rated coder (Better performance than my current rating)
 
-   Total time spent today: 6 minutes
+   Total time spent today: 126 minutes
 
 Total time spent in 2024 -> 1288 minutes
 
