@@ -124,8 +124,9 @@ you will loose precision) -> Greedy
    11. Day 11 -> 12/01/2024 -> 991 rating
    Solved https://codeforces.com/contest/1474/problem/C -> 1700 rated in 22 minutes (great time) -> Greedy
    Solved first 9 problems from https://projecteuler.net/ in 35 minutes, didn't learn anything new but I want to slowly get to the challenging ones
+   Solved https://codeforces.com/contest/1301/problem/C -> 1700 rated in 18 minutes (great time) -> Combinatorics 
 
-   Total time spent today: 57 minutes
+   Total time spent today: 75 minutes
 
 Total time spent in 2024 -> 1414 minutes
 
