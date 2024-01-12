@@ -126,8 +126,9 @@ you will loose precision) -> Greedy
    Solved first 9 problems from https://projecteuler.net/ in 35 minutes, didn't learn anything new but I want to slowly get to the challenging ones
    Solved https://codeforces.com/contest/1301/problem/C -> 1700 rated in 18 minutes (great time) -> Combinatorics 
    Solved https://codeforces.com/contest/1619/problem/E -> 1700 rated in 37 minutes (kinda slow, I solved this with multiset)
+   Solved https://codeforces.com/contest/1672/problem/D -> 1700 rated in 40 minutes (kinda slow again)
 
-   Total time spent today: 112 minutes
+   Total time spent today: 152 minutes
 
-Total time spent in 2024 -> 1414 minutes
+Total time spent in 2024 -> 1566 minutes
 
