@@ -121,5 +121,10 @@ you will loose precision) -> Greedy
 
    Total time spent today: 126 minutes
 
-Total time spent in 2024 -> 1288 minutes
+   11. Day 11 -> 12/01/2024 -> 991 rating
+   Solved https://codeforces.com/contest/1474/problem/C -> 1700 rated in 22 minutes (great time) -> Greedy
+
+   Total time spent today: 22 minutes
+
+Total time spent in 2024 -> 1414 minutes
 
