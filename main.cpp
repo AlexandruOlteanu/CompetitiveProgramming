@@ -59,23 +59,7 @@ int main() {
     cin>>test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        ll n, m;
-        cin >> n >> m;
-        if (m == 0) {
-            cout << "0\n";
-            continue;
-        }
-        ll ans = n * (n + 1) / 2;
-        ll z = n - m;
-        ll have = z / (m + 1);
-        ll r = z % (m + 1);
-        ans -= r * (have + 1) * (have + 2) / 2;
-        m -= r - 1;
-        ans -= m * have * (have + 1) / 2;
-
-        cout << ans << '\n';
         
-        // 00100100100100
         
     }
 
