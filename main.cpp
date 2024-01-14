@@ -59,73 +59,7 @@ int main() {
     // cin>>test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        int n;
-        cin >> n;
-        deque<int> v;
-        for (int i = 1; i <= n; ++i) {
-            int x;
-            cin >> x;
-            v.pb(x);
-        }
-        string res = "";
-        int last = -1;
-        while (!v.empty() && v.front() != v.back()) {
-            int cur = max(v.front(), v.back());
-            if (cur <= last) {
-                v.clear();
-                break;
-            }
-            if (v.front() > last && v.front() < v.back()) {
-                last = v.front();
-                v.pop_front();
-                res += "L";
-                continue;
-            }
-            if (v.back() > last && v.back() < v.front()) {
-                last = v.back();
-                v.pop_back();
-                res += "R";
-                continue;
-            }
-            if (v.front() > last) {
-                res += "L";
-                last = v.front();
-                v.pop_front();
-            }
-            else {
-                res += "R";
-                last = v.back();
-                v.pop_back();
-            }
-        }
-
-        auto v1 = v;
-        int last1 = last;
-        string d = "";
-        while (!v.empty() && v.front() > last) {
-            d += "L";
-            last = v.front();
-            v.pop_front();
-        }
-        string d1 = "";
-        while (!v1.empty() && v1.back() > last1) {
-            d1 += "R";
-            last1 = v1.back();
-            v1.pop_back();
-        }
-
-        if (d.size() > d1.size()) {
-            res += d;
-        }
-        else {
-            res += d1;
-        }
-
-        cout << res.size() << '\n';
-        for (auto c : res) {
-            cout << c;
-        }
-        cout << '\n';
+        
         
     }
 
