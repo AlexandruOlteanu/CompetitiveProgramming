@@ -130,5 +130,13 @@ you will loose precision) -> Greedy
 
    Total time spent today: 152 minutes
 
-Total time spent in 2024 -> 1566 minutes
+   12. Day 12 -> 13/01/2024 -> 1319 rating
+   Participated in https://codeforces.com/contest/1920 , took place 1030 with a performance of a 1825 rated coder (above my level but I want to push harder) - 120 minutes
+
+   Total time spent today: 120 minutes
+
+   13. Day 13 -> 14/01/2024 -> 1319 rating
+   
+
+Total time spent in 2024 -> 1686 minutes
 
