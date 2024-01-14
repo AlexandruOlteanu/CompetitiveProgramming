@@ -136,7 +136,10 @@ you will loose precision) -> Greedy
    Total time spent today: 120 minutes
 
    13. Day 13 -> 14/01/2024 -> 1319 rating
-   
+   Solved https://codeforces.com/contest/1157/problem/C2 -> 1700 rated in 19 minutes (Slow because the problem was easy) -> Greedy
+
+   Total time spent today: 19 minutes
+
 
 Total time spent in 2024 -> 1686 minutes
 
