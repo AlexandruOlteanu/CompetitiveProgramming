@@ -50,16 +50,31 @@ const ll infll = 9e18;
 const int inf = 2e9;
 const ll maxn = 2e5 + 5;
 
+int a[maxn];
+ll sum[maxn];
 
 int main() {
 
     FastEverything
     HighPrecision
     int test = 1;
-    // cin>>test;
+    cin>>test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        
+        int n, q;
+        cin >> n >> q;
+        for (int i = 1; i <= n; ++i) {
+            cin >> a[i];
+        }
+        for (int i = n; i >= 1; --i) {
+            
+        }
+        while (q--) {
+            int s, d, k;
+            cin >> s >> d >> k;
+            
+        }
+
         
     }
 
