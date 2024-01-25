@@ -1,7 +1,10 @@
 /*
     Template created by Alexandru Olteanu (Source: Topcoder)
 
+    Initialize lvl starting from 0
+
     How to use: 
+        1. LCA<int> lca(n);
         1. populate parrent, level
         2. Call lca.build()
         3. Call lca.query(a, b) whenever needed
