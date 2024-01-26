@@ -46,9 +46,9 @@ for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
 // #define cin in
 // #define cout out
 
-const ll infll = 9e18;
-const int inf = 2e9;
-const ll maxn = 2e5 + 5;
+const ll infll = 0x7fffffffffffffff;
+const int inf = 0x7fffffff;
+const int maxn = 2e5 + 5;
 
 
 
