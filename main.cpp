@@ -25,20 +25,20 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 // Useful
 mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
 #define FastEverything  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-#define HighPrecision cout<<fixed<<setprecision(17);
+#define HighPrecision cout << fixed << setprecision(17);
 typedef long long ll;
 typedef pair<int,int> pii;
-ll const mod=1000000007LL;
-ll const mod2 = 100000000LL;
-ll const md=998244353LL;
-ll mypowr(ll a,ll b, ll mod1) {ll res=1;if(b<0)b=0;a%=mod1; assert(b>=0);
-for(;b;b>>=1){if(b&1)res=res*a%mod1;a=a*a%mod1;}return res;}
-ll mypow(ll a,ll b) {ll res=1;if(b<0)b=0;assert(b>=0);
-for(;b;b>>=1){if(b&1)res=res*a;a=a*a;}return res;}
+const int mod = 1000000007LL;
+const int mod2 = 100000000LL;
+const int md = 998244353LL;
+ll mypowr(ll a, ll b, ll mod1) {ll res = 1; if(b < 0)b = 0; a %= mod1; assert(b >= 0);
+for(; b; b >>= 1){if (b & 1) res = res * a % mod1;a = a * a % mod1;} return res;}
+ll mypow(ll a, ll b) {ll res = 1; if(b < 0)b = 0;assert(b >= 0);
+for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
 #define pb push_back
 #define fi first
 #define se second
-#define all(x) x.begin(),x.end()
+#define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
 
 // ifstream in("input.txt");
