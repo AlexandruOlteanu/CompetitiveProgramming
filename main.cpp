@@ -1,7 +1,7 @@
 /*
     Programmer : Alexandru Olteanu
 */
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds;
 using namespace std;
@@ -27,9 +27,9 @@ mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count(
 #define FastEverything  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define HighPrecision cout << fixed << setprecision(17);
 typedef long long ll;
-typedef pair<int,int> pii;
-const int mod = 1000000007LL;
-const int mod2 = 100000000LL;
+typedef pair<int, int> pii;
+const int mod = 1000000007;
+const int mod2 = 100000000;
 const int md = 998244353LL;
 ll mypowr(ll a, ll b, ll mod1) {ll res = 1; if(b < 0)b = 0; a %= mod1; assert(b >= 0);
 for(; b; b >>= 1){if (b & 1) res = res * a % mod1;a = a * a % mod1;} return res;}
@@ -41,10 +41,10 @@ for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
 
-// ifstream in("input.txt");
-// ofstream out("output.txt");
-// #define cin in
-// #define cout out
+// ifstream fin("input.txt");
+// ofstream fout("output.txt");
+// #define cin fin
+// #define cout fout
 
 const ll infll = 0x7fffffffffffffff;
 const int inf = 0x7fffffff;
