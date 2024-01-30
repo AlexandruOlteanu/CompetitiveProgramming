@@ -1,30 +1,59 @@
 /*
     Template created by Alexandru Olteanu
+
+    How to use: 
+        SegmentTree<int> st(n);
+        st.get(start, end);
+
+        st.array[index] = value;
+        st.update(index, index)
 */
 template<typename A>
 struct SegmentTree{
+    
     vector<A> array;
-    vector<A> tree;
+    struct TreeNode {
+        int val;
+    };
+    vector<TreeNode> tree;
     vector<A> lazy;
+    int N;
 
     SegmentTree(int n){
+        N = n;
         array.resize(n + 1, 0);
-        tree.resize(4 * (n + 1) + 1, 0);
-        lazy.resize(4 * (n + 1) + 1, 0);
+        tree.resize(4 * (n + 1) + 1);
+        lazy.resize(4 * (n + 1) + 1);
     }
 
-    A func(A a, A b){
-        return a + b;       //Probably it needs changes
+    void build(int start, int end) {
+        buildX(1, start, end);
     }
 
-    void build(int node, int l, int r){
+    void update(int start, int end) {
+        updateX(1, 1, N, start, end);
+    }
+
+    TreeNode get(int start, int end) {
+        return getX(1, 1, N, start, end);
+    }
+    
+
+private:
+    TreeNode func(TreeNode a, TreeNode b){
+        TreeNode res;
+        res.val = __gcd(a.val, b.val); //Probably it needs changes
+        return res;      
+    }
+
+    void buildX(int node, int l, int r){
         if(l == r){
-            tree[node] = array[l];
+            tree[node].val = array[l]; //Probably it needs changes
             return;
         }
         int mid = l + (r - l) / 2;
-        build(node * 2, l, mid);
-        build(node * 2 + 1, mid + 1, r);
+        buildX(node * 2, l, mid);
+        buildX(node * 2 + 1, mid + 1, r);
         tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
         return;
     }
@@ -37,14 +66,14 @@ struct SegmentTree{
                 lazy[node * 2 + 1] ^= 1;
             }
             else{
-                tree[node] = array[l];   
+                tree[node].val = array[l];    //Probably it needs changes
             }
             lazy[node] = 0;
         }
         return;
     }
 
-    void update(int node, int l, int r, int L, int R){
+    void updateX(int node, int l, int r, int L, int R){
         push(node, l, r);
         if(r < L || l > R)return;
         if(l >= L && r <= R){
@@ -53,24 +82,24 @@ struct SegmentTree{
             return;
         }
         int mid = l + (r - l) / 2;
-        update(node * 2, l, mid, L, R);
-        update(node * 2 + 1, mid + 1, r, L, R);
+        updateX(node * 2, l, mid, L, R);
+        updateX(node * 2 + 1, mid + 1, r, L, R);
         tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
         return;
     }
 
-    A get(int node, int l, int r, int L, int R){
+    TreeNode getX(int node, int l, int r, int L, int R){
         push(node, l, r);
         if(l >= L && r <= R){
             return tree[node];
         }
         int mid = l + (r - l) / 2;
         if(mid < L){
-            return get(node * 2 + 1, mid + 1, r, L, R);
+            return getX(node * 2 + 1, mid + 1, r, L, R);
         }
         if(mid >= R){
-            return get(node * 2, l, mid, L, R);
+            return getX(node * 2, l, mid, L, R);
         }
-        return func(get(node * 2, l, mid, L, R), get(node * 2 + 1, mid + 1, r, L, R));
+        return func(getX(node * 2, l, mid, L, R), getX(node * 2 + 1, mid + 1, r, L, R));
     }
 };
