@@ -42,7 +42,7 @@ struct SegmentTree{
 private:
     TreeNode func(TreeNode a, TreeNode b){
         TreeNode res;
-        res.val = __gcd(a.val, b.val); //Probably it needs changes
+        res.val = a.val + b.val; //Probably it needs changes
         return res;      
     }
 
