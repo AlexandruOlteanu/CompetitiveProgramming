@@ -57,7 +57,7 @@ int main() {
     FastEverything
     HighPrecision
     int test = 1;
-    cin>>test;
+    cin >> test;
     for (int tt = 1; tt <= test; ++tt) {
 
         
