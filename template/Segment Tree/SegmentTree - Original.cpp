@@ -13,7 +13,7 @@ struct SegmentTree{
     
     vector<A> array;
     struct TreeNode {
-        int val;
+        A val;
     };
     vector<TreeNode> tree;
     vector<A> lazy;

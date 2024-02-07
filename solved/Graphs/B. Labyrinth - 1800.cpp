@@ -139,7 +139,7 @@ int main() {
     return 0;
 }
 
-// Optimal Solution
+// Optimal Solution (Using 0-1 BFS with the idea of only having to minimize left movement)
 // /*
 //     Programmer : Alexandru Olteanu
 // */
