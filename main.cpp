@@ -30,8 +30,8 @@ for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
 // #define cin fin
 // #define cout fout
 
-const ll infll = 0x7fffffffffffffff;
-const int inf = 0x7fffffff;
+const long long infll = numeric_limits<long long> :: max();
+const int inf = numeric_limits<int> :: max();
 const int maxn = 2e5 + 5;
 
 
