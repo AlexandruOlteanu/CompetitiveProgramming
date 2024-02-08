@@ -2,7 +2,7 @@
     Template created by Alexandru Olteanu
 
     How to use: 
-        ModInv<long lon> mi(n, mod);
+        ModInv<long long> mi(n, mod);
         mi.build();
         int res = mi.comb(n, k)
         
