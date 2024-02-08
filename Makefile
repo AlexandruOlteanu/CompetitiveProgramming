@@ -5,7 +5,7 @@ CXX = g++
 CXXFLAGS = -Wall -g
 
 # Name of your executable
-TARGET = main_exe
+TARGET = main
 
 # Source files
 SRC = main.cpp
