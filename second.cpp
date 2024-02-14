@@ -25,8 +25,8 @@ for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
 
-// ifstream fin("input.txt");
-// ofstream fout("output.txt");
+// ifstream fin("input.in");
+// ofstream fout("output.out");
 // #define cin fin
 // #define cout fout
 
