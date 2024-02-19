@@ -25,10 +25,10 @@ for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
 #define all(x) x.begin(), x.end()
 #define rall(x) x.rbegin(), x.rend()
 
-ifstream fin("joc.in");
-ofstream fout("joc.out");
-#define cin fin
-#define cout fout
+// ifstream fin("input.in");
+// ofstream fout("output.out");
+// #define cin fin
+// #define cout fout
 
 const long long infll = numeric_limits<long long> :: max();
 const int inf = numeric_limits<int> :: max();
