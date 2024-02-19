@@ -34,28 +34,7 @@ const long long infll = numeric_limits<long long> :: max();
 const int inf = numeric_limits<int> :: max();
 const int maxn = 2e5 + 5;
 
-int solve(int x) {
-    int d = 2;
-    int mx = 0, nr = 0;
-    while (x != 1) {
-        if (x % d == 0) {
-            int p = 0;
-            while (x % d == 0) x /= d, ++p;
-            if (p == mx) {
-                nr = max(nr, d);
-            }
-            if (p > mx) {
-                mx = p;
-                nr = d;
-            }
-        }
-        if (d == 2) d = 3;
-        else d += 2;
-        if (d * d > x) d = x;
-    }
 
-    return nr;
-}
 
 int main() {
 
@@ -64,39 +43,10 @@ int main() {
     FastEverything
     HighPrecision
     int test = 1;
-    // cin >> test;
+    cin >> test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        int n;
-        cin >> n;
-        vector<int> r1(n + 1), r2(n + 1);
-        for (int i = 1; i <= n; ++i) {
-            int x; cin >> x;
-            r1[i] = solve(x);
-        }
-        int s1 = 0, s2 = 0;
-        for (int i = 1; i <= n; ++i) {
-            int x; cin >> x;
-            r2[i] = solve(x);
-            if (r1[i] == r2[i]) s1 += 5, s2 += 5;
-            if (r1[i] < r2[i]) s2 += 10;
-            if (r1[i] > r2[i]) s1 += 10;
-        }
-        sort(all(r1));
-        sort(all(r2));
-
-        if (s1 < s2) {
-            cout << "2 ";
-        }
-        if (s1 > s2) {
-            cout << "1 ";
-        }
-        if (s1 == s2) {
-            if (r1.back() > r2.back()) cout << "1 ";
-            else cout << "2 ";
-        }
-        cout << max(s1, s2) << " ";
-        cout << max(r1.back(), r2.back()) << '\n';
+        
         
     }
 
