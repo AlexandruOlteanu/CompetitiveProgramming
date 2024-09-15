@@ -16,4 +16,4 @@ else
 fi
 
 # # Run './test.sh' if the above comparison is successful
-./test.sh
+./z_diff_test_linux.sh

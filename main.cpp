@@ -38,8 +38,6 @@ const int maxn = 2e5 + 5;
 
 int main() {
 
-
-
     FastEverything
     HighPrecision
     int test = 1;
