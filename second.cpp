@@ -9,7 +9,7 @@ template<typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 // Useful
 mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
-#define FastEverything  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define LightningFastReadWrite ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define HighPrecision cout << fixed << setprecision(17);
 typedef long long ll;
 typedef pair<int, int> pii;
@@ -38,7 +38,7 @@ const int maxn = 2e5 + 5;
 
 int main() {
 
-    FastEverything
+    LightningFastReadWrite
     HighPrecision
     int test = 1;
     cin >> test;

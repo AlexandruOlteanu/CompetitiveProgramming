@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define FastEverything  ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define LightningFastReadWrite ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 typedef long long ll;
 
 // ifstream fin("input.in");
@@ -16,7 +16,7 @@ const int maxn = 2e5 + 5;
 
 int main() {
 
-    FastEverything
+    LightningFastReadWrite
     
     
 
