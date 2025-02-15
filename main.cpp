@@ -41,12 +41,10 @@ int main() {
     LightningFastReadWrite
     HighPrecision
     int test = 1;
-    // cin >> test;
+    cin >> test;
     for (int tt = 1; tt <= test; ++tt) {
 
-        int x, y, z;
-        cin >> x >> y >> z;
-        cout << z * (3 * x + 2 * y) << '\n';
+        
 
     }
 
