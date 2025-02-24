@@ -6,7 +6,7 @@
 		{
 			"type": "cppbuild",
 			"label": "C/C++: g++ build active file",
-			"command": "C:/msys64/mingw64/bin/g++.exe",
+			"command": "C:/msys64/ucrt64/bin/g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
@@ -15,7 +15,7 @@
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
 			],
 			"options": {
-				"cwd": "C:/msys64/mingw64/bin"
+				"cwd": "C:/msys64/ucrt64/bin"
 			},
 			"problemMatcher": [
 				"$gcc"
@@ -24,7 +24,7 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"detail": "compiler: C:/msys64/mingw64/bin/g++.exe"
+			"detail": "compiler: C:/msys64/ucrt64/bin/g++.exe"
 		}
 	]
 }
