@@ -1,5 +1,5 @@
 /*
-    Programmer : Alexandru Olteanu (dr4caryz)
+    Programmer : Alexandru Olteanu { A1exandruAI }
 */
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
