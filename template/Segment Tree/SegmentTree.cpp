@@ -85,7 +85,7 @@ private:
             lazy[node * 2 + 1] = applyUpdateFunction(lazy[node * 2 + 1], lazy[node]);
             lazyStatus[node * 2] = lazyStatus[node * 2 + 1] = true;
         }
-        lazy[node] = TreeNode();
+        lazy[node] = defaultTreeNode();
         lazyStatus[node] = false;
     }
 
