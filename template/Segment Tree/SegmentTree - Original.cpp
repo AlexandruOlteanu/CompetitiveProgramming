@@ -1,169 +1,123 @@
 /*
     Template created by Alexandru Olteanu
-
-    How to use: 
-      SegmentTree<int> st(n);
-      // No range changes:  
-        st.get(start, end);
-
-        st.array[index] = value;
-        st.update(index, index);
-      
-      // Range changes:
-        st.getM(start, end);
-
-        st.array[index] = value;
-        st.updateM(start, end, value);
-
+    
+    Usage Example:
+    SegmentTree<int> st(n);
+    st.array[i].val = value;
+    st.build(1, n, operation);
+    st.update(l, r, {value}, operation);
+    st.get(l, r, operation);
 */
+
 template<typename A>
-struct SegmentTree{
-    
-    vector<A> array;
+struct SegmentTree {
     struct TreeNode {
-        A val;
+        A val = 0;
     };
-    vector<TreeNode> tree;
-    vector<A> lazy;
+
     int N;
+    vector<TreeNode> array, tree, lazy;
+    vector<bool> lazyStatus;
 
-    SegmentTree(int n){
+    SegmentTree(int n) {
         N = n;
-        array.resize(n + 1, 0);
-        tree.resize(4 * (n + 1) + 1);
-        lazy.resize(4 * (n + 1) + 1);
+        array.resize(N + 1);
+        tree.resize(4 * (N + 1));
+        lazy.resize(4 * (N + 1));
+        lazyStatus.resize(4 * (N + 1), false);
     }
 
-    void build(int start, int end) {
-        buildX(1, start, end);
+    void build(int start, int end, int operation) {
+        buildX(1, start, end, operation, 1);
     }
 
-    void update(int start, int end) {
-        updateX(1, 1, N, start, end);
+    void update(int start, int end, TreeNode value, int operation) {
+        updateX(1, 1, N, start, end, value, operation, 1);
     }
 
-    TreeNode get(int start, int end) {
-        return getX(1, 1, N, start, end);
+    TreeNode get(int start, int end, int operation) {
+        return getX(1, 1, N, start, end, operation, 1);
     }
-
-    // Multiple changes
-
-    void updateM(int start, int end, int value) {
-        updateXM(1, 1, N, start, end, value);
-    }
-
-    TreeNode getM(int start, int end) {
-        return getXM(1, 1, N, start, end);
-    }
-    
 
 private:
-    TreeNode func(TreeNode a, TreeNode b){
+
+    // Things you may need to change
+    TreeNode applyFunction(TreeNode x, TreeNode y, int operation) {
+        if (operation == 1) return function1(x, y);
+        if (operation == 2) return function2(x, y);
+        return TreeNode();
+    }
+
+    TreeNode function1(TreeNode x, TreeNode y) {
         TreeNode res;
-        res.val = a.val + b.val; //Probably it needs changes
-        return res;      
+        res.val = x.val + y.val;
+        return res;
     }
 
-    void buildX(int node, int l, int r){
-        if(l == r){
-            tree[node].val = array[l]; //Probably it needs changes
+    TreeNode function2(TreeNode x, TreeNode y) {
+        TreeNode res;
+        res.val = max(x.val, y.val);
+        return res;
+    }
+
+    int changeOperationAfterLevel(int level, int operation) {
+        return operation;
+    }
+    // End of things you may need to change
+
+
+    void buildX(int node, int l, int r, int operation, int level) {
+        if (l == r) {
+            tree[node] = array[l];
             return;
         }
-        int mid = l + (r - l) / 2;
-        buildX(node * 2, l, mid);
-        buildX(node * 2 + 1, mid + 1, r);
-        tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
-        return;
+        int mid = (l + r) / 2;
+        int nextOp = changeOperationAfterLevel(level, operation);
+        buildX(node * 2, l, mid, nextOp, level + 1);
+        buildX(node * 2 + 1, mid + 1, r, nextOp, level + 1);
+        tree[node] = applyFunction(tree[node * 2], tree[node * 2 + 1], operation);
     }
 
-    void push(int node, int l, int r){
-        if(lazy[node] != 0){
-            if(l != r){
-                tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
-                lazy[node * 2] ^= 1;                    //Probably it needs changes
-                lazy[node * 2 + 1] ^= 1;
-            }
-            else{
-                tree[node].val = array[l];    //Probably it needs changes
-            }
-            lazy[node] = 0;
+    void push(int node, int l, int r, int operation) {
+        if (!lazyStatus[node]) return;
+        tree[node] = applyFunction(tree[node], lazy[node], operation);
+        if (l != r) {
+            lazy[node * 2] = applyFunction(lazy[node * 2], lazy[node], operation);
+            lazy[node * 2 + 1] = applyFunction(lazy[node * 2 + 1], lazy[node], operation);
+            lazyStatus[node * 2] = lazyStatus[node * 2 + 1] = true;
         }
-        return;
+        lazy[node] = TreeNode();
+        lazyStatus[node] = false;
     }
 
-    void updateX(int node, int l, int r, int L, int R){
-        push(node, l, r);
-        if(r < L || l > R)return;
-        if(l >= L && r <= R){
-            lazy[node] ^= 1;
-            push(node, l, r);
+    void updateX(int node, int l, int r, int L, int R, TreeNode value, int operation, int level) {
+        push(node, l, r, operation);
+        if (r < L || l > R) return;
+        if (l >= L && r <= R) {
+            lazy[node] = value;
+            lazyStatus[node] = true;
+            push(node, l, r, operation);
             return;
         }
-        int mid = l + (r - l) / 2;
-        updateX(node * 2, l, mid, L, R);
-        updateX(node * 2 + 1, mid + 1, r, L, R);
-        tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
-        return;
+        int mid = (l + r) / 2;
+        int nextOp = changeOperationAfterLevel(level, operation);
+        updateX(node * 2, l, mid, L, R, value, nextOp, level + 1);
+        updateX(node * 2 + 1, mid + 1, r, L, R, value, nextOp, level + 1);
+        tree[node] = applyFunction(tree[node * 2], tree[node * 2 + 1], operation);
     }
 
-    TreeNode getX(int node, int l, int r, int L, int R){
-        push(node, l, r);
-        if(l >= L && r <= R){
-            return tree[node];
-        }
-        int mid = l + (r - l) / 2;
-        if(mid < L){
-            return getX(node * 2 + 1, mid + 1, r, L, R);
-        }
-        if(mid >= R){
-            return getX(node * 2, l, mid, L, R);
-        }
-        return func(getX(node * 2, l, mid, L, R), getX(node * 2 + 1, mid + 1, r, L, R));
-    }
-
-
-
-    // Multiple changes
-
-    void pushM(int node, int l, int r){
-        if(lazy[node] != 0){
-            tree[node].val += lazy[node];
-            if(l != r){
-                lazy[node * 2] += lazy[node];                    //Probably it needs changes
-                lazy[node * 2 + 1] += lazy[node];
-            }
-            lazy[node] = 0;
-        }
-        return;
-    }
-
-    void updateXM(int node, int l, int r, int L, int R, A value){
-        pushM(node, l, r);
-        if(r < L || l > R)return;
-        if(l >= L && r <= R){
-            lazy[node] += value; // Probably needs changes
-            pushM(node, l, r);
-            return;
-        }
-        int mid = l + (r - l) / 2;
-        updateXM(node * 2, l, mid, L, R, value);
-        updateXM(node * 2 + 1, mid + 1, r, L, R, value);
-        tree[node] = func(tree[node * 2], tree[node * 2 + 1]);
-        return;
-    }
-
-    TreeNode getXM(int node, int l, int r, int L, int R){
-        pushM(node, l, r);
-        if(l >= L && r <= R){
-            return tree[node];
-        }
-        int mid = l + (r - l) / 2;
-        if(mid < L){
-            return getXM(node * 2 + 1, mid + 1, r, L, R);
-        }
-        if(mid >= R){
-            return getXM(node * 2, l, mid, L, R);
-        }
-        return func(getXM(node * 2, l, mid, L, R), getXM(node * 2 + 1, mid + 1, r, L, R));
+    TreeNode getX(int node, int l, int r, int L, int R, int operation, int level) {
+        push(node, l, r, operation);
+        if (r < L || l > R) return TreeNode();
+        if (l >= L && r <= R) return tree[node];
+        int mid = (l + r) / 2;
+        int nextOp = changeOperationAfterLevel(level, operation);
+        if (mid < L) return getX(node * 2 + 1, mid + 1, r, L, R, nextOp, level + 1);
+        if (mid >= R) return getX(node * 2, l, mid, L, R, nextOp, level + 1);
+        return applyFunction(
+            getX(node * 2, l, mid, L, R, nextOp, level + 1),
+            getX(node * 2 + 1, mid + 1, r, L, R, nextOp, level + 1),
+            operation
+        );
     }
 };

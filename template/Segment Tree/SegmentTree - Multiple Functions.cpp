@@ -3,9 +3,14 @@
 */
 template<typename A>
 struct SegmentTree{
-    vector<A> array;
-    vector<A> tree;
-    vector<A> lazy;
+
+    struct TreeNode {
+        A val;
+    };
+
+    vector<TreeNode> array;
+    vector<TreeNode> tree;
+    vector<TreeNode> lazy;
 
     SegmentTree(int n){
         array.resize(n + 1);
@@ -13,12 +18,34 @@ struct SegmentTree{
         lazy.resize(4 * (n + 1) + 1);
     }
 
-    A func(A a, A b, int p){
-        if(p == 1) return min(a, b);
-        return max(a, b);       //Probably it needs changes
+    TreeNode applyFunction(TreeNode x, TreeNode y, int operation) {
+        if (operation == 1) return function1(x, y);
+        if (operation == 2) return function2(x, y);
     }
 
-    void build(int node, int l, int r, int p){
+    // Maybe the function needs some changes
+    TreeNode function1(TreeNode x, TreeNode y) {
+        TreeNode res;
+        res.val = x.val + y.val;
+        return res;
+    }
+
+    TreeNode function2(TreeNode x, TreeNode y) {
+        TreeNode res;
+        if (x.val > y.val) {
+            res = x;
+        } else {
+            res = y;
+        }
+        return res;
+    }
+
+    // maybe the operation needs to be changed by level;
+    int changeOperationAfterLevel(int operation) {
+        return operation;
+    }
+
+    void build(int node, int l, int r, int operation){
         if(l == r){
             tree[node] = array[l];
             return;
@@ -26,7 +53,7 @@ struct SegmentTree{
         int mid = l + (r - l) / 2;
         build(node * 2, l, mid, p);
         build(node * 2 + 1, mid + 1, r, p);
-        tree[node] = func(tree[node * 2], tree[node * 2 + 1], p);
+        tree[node] = applyFunction(tree[node * 2], tree[node * 2 + 1], p);
         return;
     }
 
