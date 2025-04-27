@@ -79,20 +79,26 @@ private:
     }
 
     void push(int node, int l, int r, int operation) {
-        if (!lazyStatus[node]) return;
-        tree[node] = applyFunction(tree[node], lazy[node], operation);
-        if (l != r) {
+        if(!lazyStatus[node]) return;
+        if(l == r){                         
+            tree[node] = lazy[node];
+        }else{
+            tree[node] = applyFunction(tree[node], lazy[node], operation);
             lazy[node * 2] = applyFunction(lazy[node * 2], lazy[node], operation);
             lazy[node * 2 + 1] = applyFunction(lazy[node * 2 + 1], lazy[node], operation);
             lazyStatus[node * 2] = lazyStatus[node * 2 + 1] = true;
         }
-        lazy[node] = TreeNode();
+        lazy[node] = TreeNode{};
         lazyStatus[node] = false;
     }
-
+    
     void updateX(int node, int l, int r, int L, int R, TreeNode value, int operation, int level) {
         push(node, l, r, operation);
         if (r < L || l > R) return;
+        if(l == r) {
+            tree[node] = value;
+            return;
+        }
         if (l >= L && r <= R) {
             lazy[node] = value;
             lazyStatus[node] = true;
