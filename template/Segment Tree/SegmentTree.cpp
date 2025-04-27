@@ -39,8 +39,6 @@ struct SegmentTree {
         return getX(1, 1, N, start, end, operation, 1);
     }
 
-private:
-
     // Things you may need to change
     TreeNode applyFunction(TreeNode x, TreeNode y, int operation) {
         if (operation == 1) return function1(x, y);
