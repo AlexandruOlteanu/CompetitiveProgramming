@@ -72,7 +72,7 @@ private:
         return res;
     }
 
-    int changeOperationAfterLevel(int, int operation) { 
+    int changeOperationAfterLevel(int level, int operation) { 
         return operation; 
     }
     // End of things you may need to change
