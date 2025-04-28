@@ -1,5 +1,5 @@
 /*
-    Template created by Alexandru Olteanu
+    Template created by Alexandru Olteanu {A1exandruAI}
 
     How to use: 
         ModInv<long long> mi(n, mod);

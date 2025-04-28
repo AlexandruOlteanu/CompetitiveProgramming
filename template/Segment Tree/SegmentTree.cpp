@@ -1,5 +1,5 @@
 /*
-    Template created by Alexandru Olteanu
+    Template created by Alexandru Olteanu {A1exandruAI}
     
     Usage Example:
     SegmentTree<int> st(n);
