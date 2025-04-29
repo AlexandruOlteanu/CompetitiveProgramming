@@ -7,7 +7,7 @@ struct FenwickTree{
     vector<A> array;
     int n;
     FenwickTree(int length){
-        array.resize(length + 1);
+        array.resize(length + 1, 0);
         n = length;
     }
  
