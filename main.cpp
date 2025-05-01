@@ -61,10 +61,10 @@ int main() {
 
     LightningFastReadWrite
     HighPrecision
-    int test = 1;
-    cin >> test;
-    for (int tt = 1; tt <= test; ++tt) {
-        solveTask(tt);
+    int totalNrOfTests = 1;
+    cin >> totalNrOfTests;
+    for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
+        solveTask(testNr);
     }
 
     return 0;
