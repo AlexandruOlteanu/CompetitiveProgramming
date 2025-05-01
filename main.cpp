@@ -32,6 +32,8 @@ ll mypowr(ll a, ll b, ll mod1) {ll res = 1; if(b < 0)b = 0; a %= mod1; assert(b 
 for(; b; b >>= 1){if (b & 1) res = res * a % mod1;a = a * a % mod1;} return res;}
 ll mypow(ll a, ll b) {ll res = 1; if(b < 0)b = 0;assert(b >= 0);
 for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
+#define YES cout << "YES\n";
+#define NO cout << "NO\n";
 #define pb push_back
 #define fi first
 #define se second
@@ -49,6 +51,12 @@ const int maxn = 2e5 + 5;
 
 
 
+void solveTask(int testNr) {
+
+    
+
+}
+
 int main() {
 
     LightningFastReadWrite
@@ -56,9 +64,7 @@ int main() {
     int test = 1;
     cin >> test;
     for (int tt = 1; tt <= test; ++tt) {
-
-        
-
+        solveTask(tt);
     }
 
     return 0;
