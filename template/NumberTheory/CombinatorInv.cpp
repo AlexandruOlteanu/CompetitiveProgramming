@@ -2,20 +2,19 @@
     Template created by Alexandru Olteanu {A1exandruAI}
 
     How to use: 
-        ModInv<long long> mi(n, mod);
-        mi.build();
-        int res = mi.comb(n, k)
+        CombinatorInv combinatorInv(n, mod);
+        combinatorInv.build();
+        int res = combinatorInv.comb(n, k)
         
 */
-template<typename A>
-struct ModInv {
+struct CombinatorInv {
 
-    vector<A> fact;
-    vector<A> inv;
+    vector<ll> fact;
+    vector<ll> inv;
     int N;
     ll invMod;
 
-    ModInv(int n, int mod){
+    CombinatorInv(int n, int mod){
         N = n;
         invMod = mod;
         fact.resize(n + 1);
