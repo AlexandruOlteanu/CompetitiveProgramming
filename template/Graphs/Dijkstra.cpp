@@ -1,9 +1,9 @@
-const int inf = 2e9;
-const ll maxn = 1e5 + 2;
+
+// use v[x].push_back({cost, y})
 
 vector<pair<int, int>> v[maxn];
 vector<int> dist(maxn, inf);
-priority_queue<pair<int, int>> q;
+priority_queue<pair<ll, int>> q;
 bool processed[maxn];
 
 void build_dijkstra(int root){
@@ -16,7 +16,7 @@ void build_dijkstra(int root){
             continue;
         }
         processed[u] = true;
-        for(auto i:v[u]){
+        for(auto i : v[u]){
             if (processed[i.second]) {
                 continue;
             }
