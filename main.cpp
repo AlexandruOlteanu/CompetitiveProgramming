@@ -57,12 +57,15 @@ void solveTask(int testNr) {
 
 }
 
+void precompute() {}
+
 int main() {
 
     LightningFastReadWrite
     HighPrecision
     int totalNrOfTests = 1;
     cin >> totalNrOfTests;
+    precompute();
     for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
         solveTask(testNr);
     }
