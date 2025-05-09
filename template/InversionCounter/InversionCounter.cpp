@@ -1,7 +1,12 @@
 template <typename T>
 struct InversionCounter {
 
-    static long long count(std::vector<T>& arr) {
+    static long long count(std::vector<T> arr) {
+        std::vector<T> temp(arr.size());
+        return mergeSortAndCount(arr, temp, 0, arr.size() - 1);
+    }
+
+    static long long countAndSort(std::vector<T>& arr) {
         std::vector<T> temp(arr.size());
         return mergeSortAndCount(arr, temp, 0, arr.size() - 1);
     }
