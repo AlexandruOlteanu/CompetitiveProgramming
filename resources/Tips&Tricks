@@ -1,0 +1,17 @@
+
+GCD
+
+        1) In order to calculate how many pairs (x, y) have gcd(x, y) = k
+        you can have the formula: 
+            gcd(x, y, k) = how many pairs x, y have gcd = k
+            cnt(x, y, k) = how many pairs x, y have the divizor k (not gcd) 
+            
+            Then:
+            gcd(x, y, k) = cnt(x, y, k) - gcd(x, y, 2k) - gcd(x, y, 3k) - gcd(x, y, 4k) .... 
+
+            So you can go backwards and calculate gcd(x, y, k) for all k from 1 to MAX with compelxity
+            O(M * log2(M))
+
+            For this you can also use mobius formula but it's not that flexible inbetween calculations
+
+
