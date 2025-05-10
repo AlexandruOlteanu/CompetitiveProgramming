@@ -6,6 +6,9 @@
         combinatorInv.build();
         int res = combinatorInv.comb(n, k)
         
+    How to use for division:
+        CombinatorInv inv(mod);
+        int res = inv.divideInv(x, y);    
 */
 struct CombinatorInv {
 
@@ -13,6 +16,11 @@ struct CombinatorInv {
     vector<ll> inv;
     int N;
     ll invMod;
+
+    // only for usage of devideInverse
+    CombinatorInv(int mod) {
+        invMod = mod;
+    }
 
     CombinatorInv(int n, int mod){
         N = n;
@@ -48,9 +56,14 @@ struct CombinatorInv {
         }
     }
 
-    long long comb(int n, int k) {
+    long long combInv(int n, int k) {
         if (k > n) return 0;
         if (k < 0 || n < 0) return 0;
         return fact[n] * inv[n - k] % invMod * inv[k] % invMod;
+    }
+
+    long long divideInv(long long x, long long y) {
+        long long yinv = power(y, invMod - 2);
+        return x % invMod * yinv % invMod;
     }
 };
