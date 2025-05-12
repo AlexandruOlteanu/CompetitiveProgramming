@@ -76,7 +76,7 @@ int main() {
     #endif
 
     int totalNrOfTests = 1;
-    // cin >> totalNrOfTests;
+    cin >> totalNrOfTests;
     precompute();
     for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
         solveTask(testNr);
