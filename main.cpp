@@ -1,12 +1,11 @@
 /*
-  ░█████╗░██╗░░░░░██╗░░██╗░█████╗░░█████╗░███╗░░██╗░██████╗░██╗░░░██╗███████╗██████╗░░█████╗░██████╗░
-  ██╔══██╗██║░░░░░╚██╗██╔╝██╔══██╗██╔══██╗████╗░██║██╔═══██╗██║░░░██║██╔════╝██╔══██╗██╔══██╗██╔══██╗
-  ███████║██║░░░░░░╚███╔╝░██║░░╚═╝██║░░██║██╔██╗██║██║██╗██║██║░░░██║█████╗░░██████╔╝██║░░██║██████╔╝
-  ██╔══██║██║░░░░░░██╔██╗░██║░░██╗██║░░██║██║╚████║╚██████╔╝██║░░░██║██╔══╝░░██╔══██╗██║░░██║██╔══██╗
-  ██║░░██║███████╗██╔╝╚██╗╚█████╔╝╚█████╔╝██║░╚███║░╚═██╔═╝░╚██████╔╝███████╗██║░░██║╚█████╔╝██║░░██║
-  ╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝░╚════╝░░╚════╝░╚═╝░░╚══╝░░░╚═╝░░░░╚═════╝░╚══════╝╚═╝░░╚═╝░╚════╝░╚═╝░░╚═╝
-    
-  Discipline Wins Over Talent 
+  ░█████╗░██╗░░░░░███████╗██╗░░██╗░█████╗░███╗░░██╗██████╗░██████╗░██╗░░░██╗███╗░░██╗███████╗██╗░░░██╗
+  ██╔══██╗██║░░░░░██╔════╝╚██╗██╔╝██╔══██╗████╗░██║██╔══██╗██╔══██╗██║░░░██║████╗░██║██╔════╝██║░░░██║
+  ███████║██║░░░░░█████╗░░░╚███╔╝░███████║██╔██╗██║██║░░██║██████╔╝██║░░░██║██╔██╗██║█████╗░░╚██╗░██╔╝
+  ██╔══██║██║░░░░░██╔══╝░░░██╔██╗░██╔══██║██║╚████║██║░░██║██╔══██╗██║░░░██║██║╚████║██╔══╝░░░╚████╔╝░
+  ██║░░██║███████╗███████╗██╔╝╚██╗██║░░██║██║░╚███║██████╔╝██║░░██║╚██████╔╝██║░╚███║███████╗░░╚██╔╝░░
+  ╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝░╚═════╝░╚═╝░░╚══╝╚══════╝░░░╚═╝░░░
+  Never Expose Vulnerability
 */
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,6 +38,7 @@ ll mypowr(ll a, ll b, ll mod1) {ll res = 1; if(b < 0)b = 0; a %= mod1; assert(b 
 for(; b; b >>= 1){if (b & 1) res = res * a % mod1;a = a * a % mod1;} return res;}
 ll mypow(ll a, ll b) {ll res = 1; if(b < 0)b = 0;assert(b >= 0);
 for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
+// #define LocalRun
 #define YES cout << "YES\n";
 #define NO cout << "NO\n";
 #define pb push_back
@@ -71,12 +71,22 @@ int main() {
     LightningFastReadWrite
     RealValuesHighPrecision
 
+    #ifdef LocalRun
+        auto start = chrono::high_resolution_clock::now();
+    #endif
+
     int totalNrOfTests = 1;
-    cin >> totalNrOfTests;
+    // cin >> totalNrOfTests;
     precompute();
     for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
         solveTask(testNr);
     }
+
+    #ifdef LocalRun
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double> duration = end - start;
+        cout << "\nTime taken: " << duration.count() << " seconds." << '\n';
+    #endif
 
     return 0;
 }
