@@ -79,6 +79,8 @@ int main() {
     cin >> totalNrOfTests;
     precompute();
     for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
+        // cout << "Case #" << testNr << ": ";
+        // cout << "Test #" << testNr << ": ";
         solveTask(testNr);
     }
 
