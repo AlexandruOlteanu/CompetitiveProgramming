@@ -29,6 +29,9 @@ struct bigint {
 			x /= Dig;
 		}
 	}
+	bigint(string &s) {
+		toBig(s);
+	}
 	bigint(const bigint &x) {
 		sign = x.sign;
 		num = x.num;
