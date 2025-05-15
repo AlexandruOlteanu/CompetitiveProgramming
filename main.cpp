@@ -40,7 +40,9 @@ ll mypow(ll a, ll b) {ll res = 1; if(b < 0)b = 0;assert(b >= 0);
 for(; b; b >>= 1){if(b & 1) res = res * a;a = a * a;} return res;}
 // #define LocalRun
 #define YES cout << "YES\n";
+#define Yes cout << "Yes\n";
 #define NO cout << "NO\n";
+#define No cout << "No\n";
 #define pb push_back
 #define fi first
 #define se second
