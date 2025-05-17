@@ -12,7 +12,7 @@
 template<typename A>
 struct SegmentTree {
     struct TreeNode {
-        A val = 0;
+        A val;
     };
 
     int N;
@@ -20,11 +20,15 @@ struct SegmentTree {
     vector<bool> lazyStatus;
 
     SegmentTree(int n) {
+        reset(n);
+    }
+
+    void reset(int n) {
         N = n;
-        array.resize(N + 1);
-        tree.resize(4 * (N + 1));
-        lazy.resize(4 * (N + 1));
-        lazyStatus.resize(4 * (N + 1), false);
+        array.assign(N + 1, defaultTreeNode());
+        tree .assign(4 * (N + 1), defaultTreeNode());
+        lazy .assign(4 * (N + 1), defaultTreeNode());
+        lazyStatus.assign(4 * (N + 1), false);
     }
 
     void build(int start, int end, int operation) {
@@ -33,6 +37,33 @@ struct SegmentTree {
 
     void update(int start, int end, TreeNode value, int operation) {
         updateX(1, 1, N, start, end, value, operation, 1);
+    }
+
+    TreeNode getWithExcludedIndices(int start, int end, int operation, vector<int> excluded) {
+        excluded.erase(remove_if(excluded.begin(), excluded.end(),
+                                  [&](int p) { return p < start || p > end; }),
+                                  excluded.end());
+
+        sort(excluded.begin(), excluded.end());
+        excluded.erase(unique(excluded.begin(), excluded.end()), excluded.end());
+
+        TreeNode res = defaultTreeNode();
+        int curL = start;
+
+        for (int p : excluded) {
+            int curR = p - 1;
+            if (curL <= curR) {
+                TreeNode chunk = get(curL, curR, operation);
+                res = applyFunction(res, chunk, operation);
+            }
+            curL = p + 1;
+        }
+
+        if (curL <= end) {
+            TreeNode chunk = get(curL, end, operation);
+            res = applyFunction(res, chunk, operation);
+        }
+        return res;
     }
 
     TreeNode get(int start, int end, int operation) {
