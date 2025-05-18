@@ -5,7 +5,7 @@
   ██╔══██║██║░░░░░██╔══╝░░░██╔██╗░██╔══██║██║╚████║██║░░██║██╔══██╗██║░░░██║██║██║╚████║░╚████╔╝░
   ██║░░██║███████╗███████╗██╔╝╚██╗██║░░██║██║░╚███║██████╔╝██║░░██║╚██████╔╝██║██║░╚███║░░╚██╔╝░░
   ╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═╝░░╚══╝░░░╚═╝░░░
-  They forged me in fire, they broke me in battle, yet here I rise, Invictus! 
+  They forged me in fire, they broke me in battle, yet here I rise, Invictus!
 */
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
