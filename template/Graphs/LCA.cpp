@@ -1,76 +1,69 @@
 /*
-    Template created by Alexandru Olteanu (Source: Topcoder)
+ * 1‑Indexed Binary‑Lifting LCA Template (Competitive Programming)
+ * -------------------------------------------------------------
+ * HOW TO USE
+ *   1. LCA lca(n);                // vertices are 1..n
+ *   2. lca.addEdge(u, v);         // undirected edge (u, v)
+ *   3. lca.build(root = 1);       // preprocess from chosen root (default 1)
+ *   4. lca.lca(u, v);             // returns lowest common ancestor
+ *   5. lca.dist(u, v);            // (optional) distance in edges
+ *
+ * COMPLEXITIES
+ *   build()   : O(n log n)
+ *   lca()     : O(log n)
+ *   dist()    : O(log n)
+ *   memory    : O(n log n)
+ * -------------------------------------------------------------
+ */
 
-    Initialize lvl starting from 0
+#include <bits/stdc++.h>
+using namespace std;
 
-    How to use: 
-        1. LCA<int> lca(n);
-        1. populate parrent, level
-        2. Call lca.build()
-        3. Call lca.query(a, b) whenever needed
-*/
-template<typename A>
 struct LCA {
+    int n, LOG;                       // LOG = ceil(log2(n))
+    vector<vector<int>> up;           // up[k][v] : 2^k‑th ancestor of v
+    vector<int> depth;                // depth[1..n]
+    vector<vector<int>> g;            // adjacency list (1‑indexed)
 
-    vector<A> parrent;
-    vector<A> level;
-    vector<vector<A>> V;
-    int n;
-    LCA(int length){
-        parrent.resize(length + 1);
-        level.resize(length + 1);
-        V.resize(length + 1);
-        n = length;
-        int logMax = 0;
-        int p = 1;
-        while (p <= n) ++logMax, p *= 2;
-        for (int i = 1; i <= n; ++i) {
-            V[i].resize(logMax + 1, -1);
+    explicit LCA(int _n) : n(_n), LOG(32 - __builtin_clz(_n)), up(LOG, vector<int>(_n + 1)), depth(_n + 1), g(_n + 1) {}
+
+    void addEdge(int u, int v) {
+        g[u].push_back(v);
+        g[v].push_back(u);
+    }
+
+    void dfs(int v, int p) {
+        up[0][v] = (p == -1 ? v : p);
+        for (int k = 1; k < LOG; ++k) up[k][v] = up[k - 1][up[k - 1][v]];
+        for (int to : g[v]) if (to != p) {
+            depth[to] = depth[v] + 1;
+            dfs(to, v);
         }
     }
 
-    void buildLCA() {
-        for (int i = 1; i <= n; ++i) {
-            V[i][0] = parrent[i];
-        }
-        for (int j = 1; 1 << j <= n; j++) {
-            for (int i = 1; i <= n; i++) {
-                if (V[i][j - 1] != -1) {
-                    V[i][j] = V[V[i][j - 1]][j - 1];
-                }
-            }
-        }
+    void build(int root = 1) {
+        depth[root] = 0;
+        dfs(root, -1);
     }
 
-    int query(int a, int b) {
-        int log, i;
+    int lift(int v, int k) const {
+        for (int i = 0; i < LOG; ++i) if (k & (1 << i)) v = up[i][v];
+        return v;
+    }
 
-        //if a is situated on a higher level than b then we swap them
-        if (level[a] < level[b])
-            swap(a, b);
-
-        //we compute the value of [log(level[a)]
-        for (log = 1; 1 << log <= level[a]; ++log);
-        --log;
-
-        //we find the ancestor of node a situated on the same level
-        //with b using the values in V
-        for (i = log; i >= 0; --i) {
-            if (level[a] - (1 << i) >= level[b]) {
-                a = V[a][i];
+    int lca(int u, int v) const {
+        if (depth[u] < depth[v]) swap(u, v);
+        u = lift(u, depth[u] - depth[v]);
+        if (u == v) return u;
+        for (int i = LOG - 1; i >= 0; --i)
+            if (up[i][u] != up[i][v]) {
+                u = up[i][u];
+                v = up[i][v];
             }
-        }
+        return up[0][u];
+    }
 
-        if (a == b)
-            return a;
-
-        //we compute LCA(a, b) using the values in V
-        for (i = log; i >= 0; --i) {
-            if (V[a][i] != -1 && V[a][i] != V[b][i]) {
-                a = V[a][i], b = V[b][i];
-            }
-        }
-
-        return parrent[a];
+    int dist(int u, int v) const {
+        return depth[u] + depth[v] - 2 * depth[lca(u, v)];
     }
 };
