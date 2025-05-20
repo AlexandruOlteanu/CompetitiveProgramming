@@ -64,7 +64,7 @@ void Invictus(int testNr) {
 
 }
 
-void precompute() {}
+void Precompute() {}
 
 int main() {
 
@@ -77,7 +77,7 @@ int main() {
 
     int totalNrOfTests = 1;
     cin >> totalNrOfTests;
-    precompute();
+    Precompute();
     for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
