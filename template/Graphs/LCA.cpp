@@ -16,8 +16,6 @@
  * -------------------------------------------------------------
  */
 
-#include <bits/stdc++.h>
-using namespace std;
 
 struct LCA {
     int n, LOG;                       // LOG = ceil(log2(n))
