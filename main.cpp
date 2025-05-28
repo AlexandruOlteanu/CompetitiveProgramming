@@ -89,6 +89,8 @@ using ll  = long long;
 using pii = pair<int, int>;
 constexpr int mod   = 1'000'000'007;
 constexpr int mod1  = 998'244'353;
+constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 constexpr long long infll = numeric_limits<long long> :: max();
 constexpr int inf = numeric_limits<int> :: max();
 
