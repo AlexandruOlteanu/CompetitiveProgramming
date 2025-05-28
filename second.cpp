@@ -54,7 +54,7 @@ struct custom_hash {
 /* ------------------------------------------------------------------------
    Helper functions
 ------------------------------------------------------------------------ */
-long long mypowr(long long a, long long b, long long m = 1'000'000'007) {
+long long mypowr(long long a, long long b, long long m = 1000000007) {
     long long  res = 1; a %= m;
     for (; b > 0; b >>= 1) {
         if (b & 1) res = res * a % m;
@@ -87,8 +87,10 @@ void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cou
 #define rall(x) x.rbegin(), x.rend()
 using ll  = long long;
 using pii = pair<int, int>;
-constexpr int mod   = 1'000'000'007;
-constexpr int mod1  = 998'244'353;
+constexpr int mod   = 1000000007;
+constexpr int mod1  = 998244353;
+constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 constexpr long long infll = numeric_limits<long long> :: max();
 constexpr int inf = numeric_limits<int> :: max();
 
@@ -100,6 +102,8 @@ constexpr int inf = numeric_limits<int> :: max();
 constexpr int maxn = 2e5 + 2;
 
 
+
+/* Solution Main Entry Point */
 void Invictus(int testNr) {
 
 
