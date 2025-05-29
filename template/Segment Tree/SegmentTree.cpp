@@ -1,5 +1,5 @@
 /*
-    Template created by Alexandru Olteanu {A1exandruAI}
+    Template created by Alexandru Olteanu {AlexandruINV}
     
     Usage Example:
     SegmentTree<int> st(n);
@@ -31,15 +31,15 @@ struct SegmentTree {
         lazyStatus.assign(4 * (N + 1), false);
     }
 
-    void build(int start, int end, int operation) {
+    void build(int start, int end, int operation = 1) {
         buildX(1, start, end, operation, 1);
     }
 
-    void update(int start, int end, TreeNode value, int operation) {
+    void update(int start, int end, TreeNode value, int operation = 1) {
         updateX(1, 1, N, start, end, value, operation, 1);
     }
 
-    TreeNode getWithExcludedIndices(int start, int end, int operation, vector<int> excluded) {
+    TreeNode getWithExcludedIndices(int start, int end, vector<int> excluded, int operation = 1) {
         excluded.erase(remove_if(excluded.begin(), excluded.end(),
                                   [&](int p) { return p < start || p > end; }),
                                   excluded.end());
@@ -66,7 +66,7 @@ struct SegmentTree {
         return res;
     }
 
-    TreeNode get(int start, int end, int operation) {
+    TreeNode get(int start, int end, int operation = 1) {
         return getX(1, 1, N, start, end, operation, 1);
     }
 
