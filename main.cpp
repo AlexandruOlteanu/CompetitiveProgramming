@@ -121,10 +121,10 @@ int main() {
         auto start = chrono::high_resolution_clock::now();
     #endif
 
-    int totalNrOfTests = 1;
-    cin >> totalNrOfTests;
+    int numberOfTests = 1;
+    cin >> numberOfTests;
     Precompute();
-    for (int testNr = 1; testNr <= totalNrOfTests; ++testNr) {
+    for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
         Invictus(testNr);
