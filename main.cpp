@@ -36,7 +36,7 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 /* ------------------------------------------------------------------------
    RNG & custom hash for unordered containers
 ------------------------------------------------------------------------ */
-mt19937 rng((unsigned int) chrono::steady_clock::now().time_since_epoch().count());
+mt19937 rng(static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count()));
 
 struct custom_hash {
     static uint64_t splitmix64(uint64_t x) {
@@ -54,7 +54,7 @@ struct custom_hash {
 /* ------------------------------------------------------------------------
    Helper functions
 ------------------------------------------------------------------------ */
-long long mypowr(long long a, long long b, long long m = 1000000007) {
+long long mypowr(long long a, long long b, const long long m = 1000000007) {
     long long  res = 1; a %= m;
     for (; b > 0; b >>= 1) {
         if (b & 1) res = res * a % m;
@@ -103,7 +103,7 @@ constexpr int maxn = 2e5 + 2;
 
 
 
-/* Solution Main Entry Point */
+/* Core computation starts here */
 void Invictus(int testNr) {
 
     
@@ -118,7 +118,7 @@ int main() {
     RealValuesHighPrecision
 
     #ifdef LocalRun
-        auto start = chrono::high_resolution_clock::now();
+        const auto start = chrono::high_resolution_clock::now();
     #endif
 
     int numberOfTests = 1;
@@ -131,8 +131,8 @@ int main() {
     }
 
     #ifdef LocalRun
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double> duration = end - start;
+        const auto end = chrono::high_resolution_clock::now();
+        const chrono::duration<double> duration = end - start;
         cout << "\nTime taken: " << duration.count() << " seconds." << '\n';
     #endif
 
