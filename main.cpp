@@ -33,12 +33,15 @@ using namespace std;
 template<typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+template<typename T>
+using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
 /* ------------------------------------------------------------------------
    RNG & custom hash for unordered containers
 ------------------------------------------------------------------------ */
 mt19937 rng(static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count()));
 
-struct custom_hash {
+struct number_hash {
     static uint64_t splitmix64(uint64_t x) {
         x += 0x9e3779b97f4a7c15ULL;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
@@ -48,6 +51,13 @@ struct custom_hash {
     size_t operator()(uint64_t x) const {
         static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
         return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+template<typename T, typename U>
+struct pair_hash {
+    size_t operator()(const pair<T, U>& p) const {
+        return number_hash{}(p.first ^ (number_hash{}(p.second) << 1));
     }
 };
 
@@ -71,6 +81,31 @@ long long mypow(long long a, long long b) {
     }
     return res;
 }
+
+template<typename T>
+T add_m(T a, T b, int mod = 1000000007) {
+    return (a + b) % mod;
+}
+
+template<typename T>
+T mull_m(T a, T b, int mod = 1000000007) {
+    return (1LL * a * b) % mod;
+}
+
+template<typename T>
+T gcd(T a, T b) {
+    return b ? gcd(b, a % b) : a;
+}
+
+long long lcm(long long a, long long b) {
+    return a / gcd(a, b) * b;
+}
+template<typename T>
+T div_m(T a, T b, int mod = 1000000007) {
+    T inv = mypowr(b, mod - 2, mod);
+    return mul_m(a, inv, mod);
+}
+
 
 void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
 void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
