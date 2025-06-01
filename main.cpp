@@ -88,7 +88,7 @@ T add_m(T a, T b, int mod = 1000000007) {
 }
 
 template<typename T>
-T mull_m(T a, T b, int mod = 1000000007) {
+T mul_m(T a, T b, int mod = 1000000007) {
     return (1LL * a * b) % mod;
 }
 
