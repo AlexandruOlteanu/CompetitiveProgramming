@@ -168,7 +168,7 @@ int main() {
     #ifdef LocalRun
         const auto end = chrono::high_resolution_clock::now();
         const chrono::duration<double> duration = end - start;
-        cout << "\nTime taken: " << duration.count() << " seconds." << '\n';
+        cout << "\nRunning Time: " << duration.count() << " seconds." << '\n';
     #endif
 
     return 0;
