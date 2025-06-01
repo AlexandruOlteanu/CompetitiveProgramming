@@ -134,7 +134,7 @@ constexpr int inf = numeric_limits<int> :: max();
 // #define cin fin
 // #define cout fout
 
-constexpr int maxn = 2e5 + 2;
+constexpr int MAXN = 2e5 + 2;
 
 
 
