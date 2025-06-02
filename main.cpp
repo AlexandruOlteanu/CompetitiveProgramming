@@ -180,7 +180,7 @@ int main() {
         const auto endCoreComputation = chrono::high_resolution_clock::now();
         const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
         cout << "Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
-        const chrono::duration<double> totalComputationDuration = endCoreComputation - startCoreComputation;
+        const chrono::duration<double> totalComputationDuration = endCoreComputation - startPrecomputation;
         cout << "Total Computation Running Time: " << totalComputationDuration.count() << " seconds." << "\n\n";
     #endif
 
