@@ -139,8 +139,14 @@ constexpr int MAXN = 2e5 + 2;
 
 void CoreCompute(const int currentTestNumber) {
 
-
-
+    int test = rng() % 4 + 1;
+    cout << test << '\n';
+    for (int i = 1; i <= test; ++i) {
+        int x, y;
+        x = rng() % 100;
+        y = rng() % 100;
+        cout << x << " " << y << '\n';
+    }
 }
 
 void Precompute() {}
