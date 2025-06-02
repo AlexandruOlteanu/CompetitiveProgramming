@@ -18,7 +18,7 @@ using namespace std;
 ------------------------------------------------------------------------ */
 // #define DebugMode
 // #define Generator
-#if defined(DebugMode) && ! defined(Generator)
+#if defined(DebugMode) && !defined(Generator)
     #include "debug.hpp"
     #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
     #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
@@ -154,13 +154,13 @@ int main() {
     int numberOfTests = 1;
     cin >> numberOfTests;
 
-    #if defined(DebugMode) && ! defined(Generator)
+    #if defined(DebugMode) && !defined(Generator)
         const auto startPrecomputation = chrono::high_resolution_clock::now();
     #endif
 
     Precompute();
 
-    #if defined(DebugMode) && ! defined(Generator)
+    #if defined(DebugMode) && !defined(Generator)
         const auto endPrecompute = chrono::high_resolution_clock::now();
         const chrono::duration<double> precomputationDuration = endPrecompute - startPrecomputation;
         const auto startCoreComputation = chrono::high_resolution_clock::now();
@@ -172,7 +172,7 @@ int main() {
         CoreCompute(currentTestNumber);
     }
 
-    #if defined(DebugMode) && ! defined(Generator)
+    #if defined(DebugMode) && !defined(Generator)
         cout << "\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
         const auto endCoreComputation = chrono::high_resolution_clock::now();
         const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
