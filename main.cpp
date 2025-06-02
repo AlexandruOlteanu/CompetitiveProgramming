@@ -138,7 +138,7 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void CoreCompute(int testNr) {
+void CoreCompute(const int currentTestNumber) {
 
     
 
@@ -170,10 +170,10 @@ int main() {
         const auto startCoreComputation = chrono::high_resolution_clock::now();
     #endif
 
-    for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
+    for (int currentTestNumber = 1; currentTestNumber <= numberOfTests; ++currentTestNumber) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
-        CoreCompute(testNr);
+        CoreCompute(currentTestNumber);
     }
 
     #ifdef LocalRun
