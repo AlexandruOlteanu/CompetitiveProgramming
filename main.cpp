@@ -88,7 +88,7 @@ T add_m(T a, T b, int mod = 1000000007) {
 
 template<typename T>
 T mul_m(T a, T b, int mod = 1000000007) {
-    return (1LL * a * b) % mod;
+    return (static_cast<long long>(a) * b) % mod;
 }
 
 template<typename T>
@@ -96,15 +96,15 @@ T gcd(T a, T b) {
     return b ? gcd(b, a % b) : a;
 }
 
-long long lcm(long long a, long long b) {
+long long lcm(const long long a, const long long b) {
     return a / gcd(a, b) * b;
 }
+
 template<typename T>
 T div_m(T a, T b, int mod = 1000000007) {
     T inv = mypowr(b, mod - 2, mod);
     return mul_m(a, inv, mod);
 }
-
 
 void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
 void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
@@ -117,15 +117,15 @@ void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cou
 #define pb push_back
 #define fi first
 #define se second
-#define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
 using ll  = long long;
 using pii = pair<int, int>;
 constexpr int mod   = 1000000007;
 constexpr int mod1  = 998244353;
 constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
 constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-constexpr long long infll = numeric_limits<long long> :: max();
+constexpr long long infbig = numeric_limits<long long> :: max();
 constexpr int inf = numeric_limits<int> :: max();
 
 // ifstream fin("input.in");
