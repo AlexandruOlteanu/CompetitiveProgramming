@@ -151,7 +151,6 @@ int main() {
     LightningFastReadWrite
     RealValuesHighPrecision
 
-
     int numberOfTests = 1;
     cin >> numberOfTests;
 
