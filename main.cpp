@@ -167,8 +167,8 @@ int main() {
     #endif
 
     for (int currentTestNumber = 1; currentTestNumber <= numberOfTests; ++currentTestNumber) {
-        // cout << "Case #" << testNr << ": ";
-        // cout << "Test #" << testNr << ": ";
+        // cout << "Case #" << currentTestNumber << ": ";
+        // cout << "Test #" << currentTestNumber << ": ";
         CoreCompute(currentTestNumber);
     }
 
