@@ -10,7 +10,7 @@
 			"args": [
 				"-fdiagnostics-color=always",
 				"-g",
-				"-DLocalRun -DDebug",
+				"-DDebugMode",
 				"${file}",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
@@ -42,7 +42,7 @@
 // 			"args": [
 // 				"-fdiagnostics-color=always",
 // 				"-g",
-//				"-DLocalRun",
+//				"-DDebugMode",
 // 				"${file}",
 // 				"-o",
 // 				"${fileDirname}/${fileBasenameNoExtension}"
