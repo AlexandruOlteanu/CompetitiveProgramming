@@ -138,8 +138,7 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-/* Core computation starts here */
-void Invictus(int testNr) {
+void CoreCompute(int testNr) {
 
     
 
@@ -152,23 +151,38 @@ int main() {
     LightningFastReadWrite
     RealValuesHighPrecision
 
-    #ifdef LocalRun
-        const auto start = chrono::high_resolution_clock::now();
-    #endif
 
     int numberOfTests = 1;
     cin >> numberOfTests;
+
+    #ifdef LocalRun
+        const auto startPrecomputation = chrono::high_resolution_clock::now();
+    #endif
+
     Precompute();
+
+    #ifdef LocalRun
+        const auto endPrecompute = chrono::high_resolution_clock::now();
+        const chrono::duration<double> precomputationDuration = endPrecompute - startPrecomputation;
+        cout << "\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
+    #endif
+
+    #ifdef LocalRun
+        const auto startCoreComputation = chrono::high_resolution_clock::now();
+    #endif
+
     for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
-        Invictus(testNr);
+        CoreCompute(testNr);
     }
 
     #ifdef LocalRun
-        const auto end = chrono::high_resolution_clock::now();
-        const chrono::duration<double> duration = end - start;
-        cout << "\nRunning Time: " << duration.count() << " seconds." << '\n';
+        const auto endCoreComputation = chrono::high_resolution_clock::now();
+        const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
+        cout << "Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
+        const chrono::duration<double> totalComputationDuration = endCoreComputation - startCoreComputation;
+        cout << "Total Computation Running Time: " << totalComputationDuration.count() << " seconds." << "\n\n";
     #endif
 
     return 0;
