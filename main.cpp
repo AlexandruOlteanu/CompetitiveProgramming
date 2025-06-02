@@ -162,7 +162,6 @@ int main() {
     #ifdef DebugMode
         const auto endPrecompute = chrono::high_resolution_clock::now();
         const chrono::duration<double> precomputationDuration = endPrecompute - startPrecomputation;
-        cout << "\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
         const auto startCoreComputation = chrono::high_resolution_clock::now();
     #endif
 
@@ -173,6 +172,7 @@ int main() {
     }
 
     #ifdef DebugMode
+        cout << "\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
         const auto endCoreComputation = chrono::high_resolution_clock::now();
         const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
         cout << "Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
