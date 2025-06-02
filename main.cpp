@@ -16,9 +16,8 @@ using namespace std;
 /* ------------------------------------------------------------------------
    Local Run Time and Debugging
 ------------------------------------------------------------------------ */
-// #define LocalRun
-// #define Debug
-#ifdef Debug
+// #define DebugMode
+#ifdef DebugMode
     #include "debug.hpp"
     #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
     #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
@@ -154,19 +153,16 @@ int main() {
     int numberOfTests = 1;
     cin >> numberOfTests;
 
-    #ifdef LocalRun
+    #ifdef DebugMode
         const auto startPrecomputation = chrono::high_resolution_clock::now();
     #endif
 
     Precompute();
 
-    #ifdef LocalRun
+    #ifdef DebugMode
         const auto endPrecompute = chrono::high_resolution_clock::now();
         const chrono::duration<double> precomputationDuration = endPrecompute - startPrecomputation;
         cout << "\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
-    #endif
-
-    #ifdef LocalRun
         const auto startCoreComputation = chrono::high_resolution_clock::now();
     #endif
 
@@ -176,7 +172,7 @@ int main() {
         CoreCompute(currentTestNumber);
     }
 
-    #ifdef LocalRun
+    #ifdef DebugMode
         const auto endCoreComputation = chrono::high_resolution_clock::now();
         const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
         cout << "Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
