@@ -107,6 +107,12 @@ T div_m(T a, T b, int mod = 1000000007) {
     return mul_m(a, inv, mod);
 }
 
+template<typename T>
+void make_unique(std::vector<T>& v) {
+    std::sort(v.begin(), v.end());
+    v.erase(std::unique(v.begin(), v.end()), v.end());
+}
+
 void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
 void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
 
