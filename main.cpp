@@ -87,7 +87,12 @@ long long mypow(long long a, long long b) {
 
 template<typename T>
 T add_m(T a, T b) {
-    a += b;
+    return (a + b) % mod;
+}
+
+template<typename T>
+T sub_m(T a, T b) {
+    a -= b;
     while (a < 0) a += mod;
     return a % mod;
 }
