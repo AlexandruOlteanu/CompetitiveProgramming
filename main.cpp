@@ -179,7 +179,7 @@ int main() {
     }
 
     #if defined(DebugMode) && !defined(Generator)
-        cout << "\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
+        cout << "\n\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
         const auto endCoreComputation = chrono::high_resolution_clock::now();
         const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
         cout << "Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
