@@ -13,6 +13,9 @@
 using namespace __gnu_pbds;
 using namespace std;
 
+constexpr int mod = 1000000007;
+// constexpr int mod = 998244353;
+
 /* ------------------------------------------------------------------------
    Local Run Time and Debugging
 ------------------------------------------------------------------------ */
@@ -83,12 +86,14 @@ long long mypow(long long a, long long b) {
 }
 
 template<typename T>
-T add_m(T a, T b, int mod = 1000000007) {
-    return (a + b) % mod;
+T add_m(T a, T b) {
+    a += b;
+    while (a < 0) a += mod;
+    return a % mod;
 }
 
 template<typename T>
-T mul_m(T a, T b, int mod = 1000000007) {
+T mul_m(T a, T b) {
     return (static_cast<long long>(a) * b) % mod;
 }
 
@@ -102,7 +107,7 @@ long long lcm(const long long a, const long long b) {
 }
 
 template<typename T>
-T div_m(T a, T b, int mod = 1000000007) {
+T div_m(T a, T b) {
     T inv = mypowr(b, mod - 2, mod);
     return mul_m(a, inv, mod);
 }
@@ -128,8 +133,6 @@ void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cou
 #define rall(x) (x).rbegin(), (x).rend()
 using ll  = long long;
 using pii = pair<int, int>;
-constexpr int mod   = 1000000007;
-constexpr int mod1  = 998244353;
 constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
 constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
 constexpr long long infbig = numeric_limits<long long> :: max();
