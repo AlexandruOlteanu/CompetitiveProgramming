@@ -189,12 +189,14 @@ int main() {
     }
 
     #if defined(DebugMode) && !defined(Generator)
-        cout << "\n\nPrecomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
+        cout << "\n\n=================================================================\n";
+        cout << "-> Precomputation Running Time:    " << precomputationDuration.count() << " seconds." << '\n';
         const auto endCoreComputation = chrono::high_resolution_clock::now();
         const chrono::duration<double> coreComputationDuration = endCoreComputation - startCoreComputation;
-        cout << "Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
+        cout << "-> Core Computation Running Time:  " << coreComputationDuration.count() << " seconds." << "\n";
         const chrono::duration<double> totalComputationDuration = endCoreComputation - startPrecomputation;
-        cout << "Total Computation Running Time: " << totalComputationDuration.count() << " seconds." << "\n\n";
+        cout << "-> Total Computation Running Time: " << totalComputationDuration.count() << " seconds." << "\n";
+        cout << "=================================================================\n";
     #endif
 
     return 0;
