@@ -23,8 +23,10 @@ constexpr int mod = 1000000007;
 // #define Generator
 #if defined(DebugMode) && !defined(Generator)
     #include "debug.hpp"
-    #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
-    #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
+    #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
+                     ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
+    #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
+                     ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
 #else
     #define dbg(...) ((void)0)
     #define dbgArr(...) ((void)0)
