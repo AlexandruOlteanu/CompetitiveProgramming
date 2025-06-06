@@ -16,9 +16,9 @@ using namespace std;
 constexpr int mod = 1000000007;
 // constexpr int mod = 998244353;
 
-/* ------------------------------------------------------------------------
-   Local Run Time and Debugging
------------------------------------------------------------------------- */
+/* ========================================================================
+   -> Local Run Time and Debugging
+   ======================================================================== */
 // #define DebugMode
 // #define Generator
 #if defined(DebugMode) && !defined(Generator)
@@ -30,18 +30,18 @@ constexpr int mod = 1000000007;
     #define dbgArr(...) ((void)0)
 #endif
 
-/* ------------------------------------------------------------------------
-   Policy‑based ordered set shortcut
------------------------------------------------------------------------- */
+/* ========================================================================
+   -> Policy‑based ordered set shortcut
+   ======================================================================== */
 template<typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 template<typename T>
 using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-/* ------------------------------------------------------------------------
-   RNG & custom hash for unordered containers
------------------------------------------------------------------------- */
+/* ========================================================================
+   -> RNG & custom hash for unordered containers
+   ======================================================================== */
 mt19937 rng(static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count()));
 
 struct number_hash {
@@ -64,10 +64,11 @@ struct pair_hash {
     }
 };
 
-/* ------------------------------------------------------------------------
-   Helper functions
------------------------------------------------------------------------- */
-long long mypowr(long long a, long long b, const long long m = 1000000007) {
+/* ========================================================================
+   -> Helper functions
+   ======================================================================== */
+long long mypowr(long long a, long long b, long long m = -1) {
+    if (m == -1) m = mod;
     long long  res = 1; a %= m;
     for (; b > 0; b >>= 1) {
         if (b & 1) res = res * a % m;
@@ -86,35 +87,12 @@ long long mypow(long long a, long long b) {
 }
 
 template<typename T>
-T add_m(T a, T b) {
-    return (a + b) % mod;
-}
-
-template<typename T>
-T sub_m(T a, T b) {
-    a -= b;
-    while (a < 0) a += mod;
-    return a % mod;
-}
-
-template<typename T>
-T mul_m(T a, T b) {
-    return (static_cast<long long>(a) * b) % mod;
-}
-
-template<typename T>
 T gcd(T a, T b) {
     return b ? gcd(b, a % b) : a;
 }
 
 long long lcm(const long long a, const long long b) {
     return a / gcd(a, b) * b;
-}
-
-template<typename T>
-T div_m(T a, T b) {
-    T inv = mypowr(b, mod - 2, mod);
-    return mul_m(a, inv, mod);
 }
 
 template<typename T>
@@ -126,14 +104,11 @@ void make_unique(std::vector<T>& v) {
 void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
 void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
 
-/* ------------------------------------------------------------------------
-   Defines
------------------------------------------------------------------------- */
+/* ========================================================================
+   -> Defines
+   ======================================================================== */
 #define LightningFastReadWrite ios_base::sync_with_stdio(false); cin.tie(nullptr);
 #define RealValuesHighPrecision cout << fixed << setprecision(17);
-#define pb push_back
-#define fi first
-#define se second
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 using ll  = long long;
@@ -144,6 +119,14 @@ constexpr long long infBig = numeric_limits<long long> :: max();
 constexpr long long infMid = 1e15;
 constexpr int inf = numeric_limits<int> :: max();
 constexpr int infSmall = 1e9;
+
+/* ========================================================================
+   -> Start of Templates Area
+   ======================================================================== */
+
+/* ========================================================================
+   -> End of Templates Area
+   ======================================================================== */
 
 // ifstream fin("input.in");
 // ofstream fout("output.out");
