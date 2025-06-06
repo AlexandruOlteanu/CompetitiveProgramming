@@ -19,6 +19,7 @@
 // =     Mint f = a / b;        // f = a * inverse(b)
 // =
 // =     int x = c();           // get underlying value of c
+// =     Mint b = static_cast<Mint>(42);  // cast an integer to Mint
 // =
 // = Modular exponentiation:
 // =     Mint x = power(a, 3);  // x = a^3 % mod
@@ -180,8 +181,6 @@ U& operator>>(U& stream, Modular<T>& number) {
     return stream;
 }
 
-
-
 // using ModType = int;
 //
 // struct VarMod { static ModType value; };
@@ -189,8 +188,13 @@ U& operator>>(U& stream, Modular<T>& number) {
 // ModType& MintMod = VarMod::value;
 // using Mint = Modular<VarMod>;
 
-constexpr int MintMod = 998244353;
+constexpr int MintMod = 1000000007;
+// constexpr int MintMod = 998244353;
 using Mint = Modular<std::integral_constant<decay<decltype(MintMod)>::type, MintMod>>;
+
+void print(Mint number) {
+    cerr << number();
+}
 
 vector<Mint> fact(1, 1);
 vector<Mint> inv_fact(1, 1);
@@ -205,7 +209,3 @@ Mint C(int n, int k) {
     }
     return fact[n] * inv_fact[k] * inv_fact[n - k];
 }
-
-// ========================================================================
-// = End of Modular Int Template
-// = ======================================================================
