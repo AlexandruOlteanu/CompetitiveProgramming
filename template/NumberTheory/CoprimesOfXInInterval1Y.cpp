@@ -1,5 +1,5 @@
 /*
-    Template created by Alexandru Olteanu {A1exandruAI}
+    Template created by Alexandru Olteanu {AlexandruINV}
     
     Usage Example:
     Coprime cop;

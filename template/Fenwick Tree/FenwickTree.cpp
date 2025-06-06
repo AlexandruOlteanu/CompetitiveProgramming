@@ -1,6 +1,6 @@
 	
 /*
-    Template created by Alexandru Olteanu {A1exandruAI}
+    Template created by Alexandru Olteanu {AlexandruINV}
 */
 template<typename A>
 struct FenwickTree{
