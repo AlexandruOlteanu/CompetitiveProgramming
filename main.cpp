@@ -156,8 +156,8 @@ void Precompute() {}
 
 int main() {
 
-    FastIO;
-    HighPrecisionOutput;
+    FastIO
+    HighPrecisionOutput
 
     int numberOfTests = 1;
     cin >> numberOfTests;
