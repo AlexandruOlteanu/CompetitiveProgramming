@@ -103,6 +103,11 @@ void make_unique(std::vector<T>& v) {
     v.erase(std::unique(v.begin(), v.end()), v.end());
 }
 
+template<typename T>
+bool hasBit(T x, int bit) {
+    return ((x >> bit) & 1) != 0;
+}
+
 void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
 void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
 
