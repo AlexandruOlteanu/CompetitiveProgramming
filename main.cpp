@@ -98,7 +98,7 @@ long long lcm(const long long a, const long long b) {
 }
 
 template<typename T>
-void make_unique(std::vector<T>& v) {
+void makeUnique(std::vector<T>& v) {
     std::sort(v.begin(), v.end());
     v.erase(std::unique(v.begin(), v.end()), v.end());
 }
