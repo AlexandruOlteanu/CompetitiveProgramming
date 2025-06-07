@@ -114,6 +114,8 @@ void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cou
 /* ========================================================================
    -> Defines
    ======================================================================== */
+#define FastIO ios_base::sync_with_stdio(false); cin.tie(nullptr);
+#define HighPrecisionOutput  cout << fixed << setprecision(17);
 #define all(x) (x).begin(), (x).end()
 #define all1(x) ++(x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
@@ -154,11 +156,11 @@ void Precompute() {}
 
 int main() {
 
+    FastIO;
+    HighPrecisionOutput;
+
     int numberOfTests = 1;
     cin >> numberOfTests;
-
-    ios_base::sync_with_stdio(false); cin.tie(nullptr);
-    cout << fixed << setprecision(17);
 
     #if defined(DebugMode) && !defined(Generator)
         const auto startPrecomputation = chrono::high_resolution_clock::now();
