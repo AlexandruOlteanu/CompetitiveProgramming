@@ -69,7 +69,7 @@ struct pair_hash {
 /* ========================================================================
    -> Helper functions
    ======================================================================== */
-long long mypowr(long long a, long long b, long long m = -1) {
+long long myPowM(long long a, long long b, long long m = -1) {
     if (m == -1) m = mod;
     long long  res = 1; a %= m;
     for (; b > 0; b >>= 1) {
@@ -79,7 +79,7 @@ long long mypowr(long long a, long long b, long long m = -1) {
     return res;
 }
 
-long long mypow(long long a, long long b) {
+long long myPow(long long a, long long b) {
     long long res = 1;
     for (; b > 0; b >>= 1) {
         if (b & 1) res = res * a;
