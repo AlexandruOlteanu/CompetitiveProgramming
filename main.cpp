@@ -146,7 +146,7 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void CoreCompute(const int currentTestNumber) {
+void CoreCompute(const int testIdx, const bool isLastTest) {
 
     
 
@@ -174,10 +174,10 @@ int main() {
         const auto startCoreComputation = chrono::high_resolution_clock::now();
     #endif
 
-    for (int currentTestNumber = 1; currentTestNumber <= numberOfTests; ++currentTestNumber) {
-        // cout << "Case #" << currentTestNumber << ": ";
-        // cout << "Test #" << currentTestNumber << ": ";
-        CoreCompute(currentTestNumber);
+    for (int testIdx = 1; testIdx <= numberOfTests; ++testIdx) {
+        // cout << "Case #" << testIdx << ": ";
+        // cout << "Test #" << testIdx << ": ";
+        CoreCompute(testIdx, testIdx == numberOfTests);
     }
 
     #if defined(DebugMode) && !defined(Generator)
