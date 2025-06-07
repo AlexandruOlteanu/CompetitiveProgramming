@@ -112,7 +112,9 @@ void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cou
 #define LightningFastReadWrite ios_base::sync_with_stdio(false); cin.tie(nullptr);
 #define RealValuesHighPrecision cout << fixed << setprecision(17);
 #define all(x) (x).begin(), (x).end()
+#define all1(x) ++(x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
+#define rall1(x) (x).rbegin(), --(x).rend()
 using ll  = long long;
 using pii = pair<int, int>;
 constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
