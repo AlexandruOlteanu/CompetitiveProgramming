@@ -1,76 +1,131 @@
-/*
-==============================================================================
-  GraphAllInOne Template (C++)
-
-  Description:
-  ----------------------------------------------------------------------------
-  This is a comprehensive graph library template that supports both directed
-  and undirected graphs using a flexible, efficient representation.
-  It uses Compressed Sparse Row (CSR) format for adjacency storage and allows
-  both edge list access and incident edge iteration.
-
-  The template is designed for competitive programming, algorithmic contests,
-  or any system that requires modular and high-performance graph algorithms.
-
-  Usage:
-  ----------------------------------------------------------------------------
-  Step 1: Construct or initialize the graph
-      GraphAllInOne<int, false> g(n);  // undirected graph with n nodes
-      GraphAllInOne<int, true> g(n);   // directed graph with n nodes
-
-  Step 2: Add edges
-      g.addEdge(u, v, weight);        // add edge from u to v with optional weight
-      g.addEdge(u, v);                // default weight = 1
-
-  Step 3: Build internal structure (mandatory before any processing)
-      g.build();                      // finalizes internal CSR representation
-
-  Modules Supported:
-  ----------------------------------------------------------------------------
-
-  1. Shortest Paths
-     - Dijkstra's algorithm (non-negative weights)
-     - Bellman-Ford algorithm (detects negative cycles)
-
-  2. Graph Components
-     - Strongly Connected Components (Tarjan's algorithm)
-     - Bridges and Articulation Points (for undirected graphs)
-
-  3. Maximum Flow (Dinic's Algorithm)
-     - Directed graphs only
-     - Efficient for large capacities and many paths
-
-  4. Bipartite Matching (Hopcroft-Karp)
-     - Assumes left nodes: 0..leftSize-1
-     - Right nodes: leftSize..leftSize+rightSize-1
-
-  5. Minimum Spanning Tree (Kruskal's Algorithm)
-     - Works on undirected graphs
-     - Returns total weight and edge IDs used in MST
-
-  6. Eulerian Path / Circuit
-     - Works on both directed and undirected graphs
-     - Returns the order of nodes in an Eulerian trail or circuit
-
-  7. Topological Sort
-     - For Directed Acyclic Graphs (DAGs)
-     - Returns topological order or empty vector if a cycle exists
-
-  8. Tree Algorithms (LCA & HLD)
-     - Requires the graph to be a tree (connected, acyclic)
-     - Supports:
-         * LCA (Lowest Common Ancestor) using binary lifting
-         * HLD (Heavy-Light Decomposition) for path queries
-
-  Notes:
-  ----------------------------------------------------------------------------
-  - All graph algorithms are implemented in a generic and reusable way.
-  - You can change the Weight type (int, long long, etc.) for edge weights.
-  - Always call `build()` before using any method that processes the graph.
-  - Avoid adding edges after `build()` has been called.
-
-==============================================================================
-*/
+// ============================================================
+// GraphAllInOne — Full Usage Guide and Module Instructions
+// ============================================================
+//
+// STEP 1: DECLARE THE GRAPH
+// --------------------------
+// GraphAllInOne<int, false> g(n);       // Undirected graph
+// GraphAllInOne<long long, true> g(n);  // Directed graph with long long weights
+//
+// STEP 2: ADD EDGES
+// -----------------
+// g.addEdge(u, v);                      // Defaults cost = 1, auto-ID
+// g.addEdge(u, v, cost);                // Adds edge with specific weight
+// DO NOT CALL addEdge() after g.build()
+//
+// STEP 3: BUILD THE GRAPH
+// ------------------------
+// g.build();                            // Must be called before using any module
+//
+// STEP 4: USE THE DESIRED MODULE (SEE BELOW)
+// ==========================================
+//
+// -------------------------------------------
+// 1. SHORTEST PATH ALGORITHMS
+// -------------------------------------------
+// • g.dijkstra(source);
+//   → Returns vector of min distances (non-negative weights only)
+//
+// • g.bellmanFord(source);
+//   → Returns vector of min distances (handles negative weights)
+//   → Throws if a negative cycle is detected
+//
+// -------------------------------------------
+// 2. STRONGLY CONNECTED COMPONENTS (SCC)
+// -------------------------------------------
+// • g.computeStronglyConnectedComponents();
+//   → Returns component ID per node (only for directed graphs)
+//
+// -------------------------------------------
+// 3. BRIDGES & ARTICULATION POINTS (UNDIRECTED ONLY)
+// -------------------------------------------
+// • g.computeBridgesAndArticulationPoints();
+//   → Returns vector of bridge edges and articulation points
+//
+// -------------------------------------------
+// 4. MAXIMUM FLOW (DINIC’S ALGORITHM)
+// -------------------------------------------
+// • g.maxFlow(source, sink);
+//   → Only for directed graphs
+//   → Returns the max flow value
+//
+// -------------------------------------------
+// 5. BIPARTITE MATCHING (HOPCROFT-KARP)
+// -------------------------------------------
+// • g.bipartiteMatching(L, R);
+//   → Total nodes must be L + R
+//   → Left nodes: 0..L-1, Right nodes: L..L+R-1
+//   → Returns number of matches and match for each left node
+//
+// -------------------------------------------
+// 6. MINIMUM SPANNING TREE (KRUSKAL’S ALGORITHM)
+// -------------------------------------------
+// • g.kruskalMST();
+//   → Works on undirected graphs
+//   → Returns total cost and used edge IDs
+//
+// -------------------------------------------
+// 7. EULERIAN PATH OR CIRCUIT
+// -------------------------------------------
+// • g.eulerianPath();
+//   → Returns node path if an Eulerian trail/circuit exists
+//
+// -------------------------------------------
+// 8. TOPOLOGICAL SORT (DAGs ONLY)
+// -------------------------------------------
+// • g.topologicalSort();
+//   → Returns topological ordering or empty if cycle exists
+//
+// -------------------------------------------
+// 9. TREE UTILITIES — LCA & HEAVY-LIGHT DECOMPOSITION
+// -------------------------------------------
+// • g.buildTreeStructure(root);
+//   → REQUIRED before using LCA or HLD
+//
+// • g.lowestCommonAncestor(u, v);
+//   → Requires: buildTreeStructure() called
+//
+// • g.buildHeavyLightDecomposition(root);
+//   → Requires: buildTreeStructure() called
+//
+// • g.heavyLightPathQuery(u, v);
+//   → Returns path as segments (positions in HLD base array)
+//   → Requires: buildHeavyLightDecomposition()
+//
+// • g.getSubtreeSize(node);
+//   → Requires: buildHeavyLightDecomposition() called
+//   → Returns size of subtree rooted at `node` in the tree
+//
+// -------------------------------------------
+// 10. ALL-PAIRS SHORTEST PATH (FLOYD-WARSHALL)
+// -------------------------------------------
+// • g.floydWarshall(); or
+//   vector<vector<int>> path; g.floydWarshall(&path);
+//
+// • g.floydWarshallReconstructPath(u, v, path);
+//   → Reconstructs full path from u to v using path matrix
+//
+// -------------------------------------------
+// 11. LEAF NODES
+// -------------------------------------------
+// • g.findAllLeaves();
+//   → For undirected: nodes with degree = 1
+//   → For directed: nodes with out-degree = 0
+//
+// -------------------------------------------
+// 12. DISJOINT SET UNION (DSU / UNION-FIND)
+// -------------------------------------------
+// • GraphAllInOne<>::DSU dsu(n);
+// • dsu.find(x); dsu.unite(x, y);
+//   → Useful inside Kruskal or custom tree/graph logic
+//
+// ============================================================
+// REMINDERS:
+// - Always call g.build() before running any algorithms
+// - Do not call addEdge() after g.build()
+// - For tree utilities, ensure the graph is a valid tree
+// - Use correct template params: <int, false> or <long long, true>
+// ============================================================
 
 template <typename Weight = int, bool Directed = false>
 class GraphAllInOne {
@@ -131,6 +186,21 @@ public:
     pair<const Edge*, const Edge*> operator[](int node) const {
         assert(isBuilt && "Must call build() before accessing edges!");
         return make_pair(&compressedEdges[indexPointer[node]], &compressedEdges[indexPointer[node + 1]]);
+    }
+
+    vector<int> findAllLeaves() const {
+        assert(isBuilt && "Graph must be built before finding leaves.");
+        vector<int> leaves;
+        for (int node = 0; node < numberOfNodes; ++node) {
+            auto [begin, end] = (*this)[node];
+            if (begin == end) continue; // isolated node, not a leaf
+            int degree = 0;
+            for (const Edge* it = begin; it != end; ++it) degree++;
+            if ((!Directed && degree == 1) || (Directed && indexPointer[node + 1] - indexPointer[node] == 0)) {
+                leaves.push_back(node);
+            }
+        }
+        return leaves;
     }
 
     // The rest of the full implementation continues here...
@@ -567,6 +637,11 @@ public:
         return segments;
     }
 
+    int getSubtreeSize(int node) const {
+        assert(treeStructureBuilt && !heavyLightSubtreeSize.empty());
+        return heavyLightSubtreeSize[node];
+    }
+
     // ===============================
     // Module 9: Disjoint Set Union (DSU / Union-Find)
     struct DSU {
@@ -632,6 +707,4 @@ public:
         reverse(result.begin(), result.end());
         return result;
     }
-
-
 };
