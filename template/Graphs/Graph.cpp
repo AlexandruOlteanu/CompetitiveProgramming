@@ -96,6 +96,10 @@
 //   → Requires: buildHeavyLightDecomposition() called
 //   → Returns size of subtree rooted at `node` in the tree
 //
+// • g.getChildren(node);
+//   → Requires: buildTreeStructure() called
+//   → Returns the childrens of node
+//
 // -------------------------------------------
 // 10. ALL-PAIRS SHORTEST PATH (FLOYD-WARSHALL)
 // -------------------------------------------
@@ -640,6 +644,19 @@ public:
     int getSubtreeSize(int node) const {
         assert(treeStructureBuilt && !heavyLightSubtreeSize.empty());
         return heavyLightSubtreeSize[node];
+    }
+
+    vector<int> getChildren(int node) const {
+        assert(treeStructureBuilt && "Call buildTreeStructure() first!");
+        vector<int> children;
+        auto [begin, end] = (*this)[node];
+        for (const Edge* it = begin; it != end; ++it) {
+            int neighbor = it->to;
+            if (neighbor != parent[node]) {
+                children.push_back(neighbor);
+            }
+        }
+        return children;
     }
 
     // ===============================
