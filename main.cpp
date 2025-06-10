@@ -69,7 +69,16 @@ struct pair_hash {
 /* ========================================================================
    -> Helper functions
    ======================================================================== */
-long long myPowM(long long a, long long b, long long m = -1) {
+void FastIO() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+}
+
+void HighPrecisionOutput() {
+    cout << fixed << setprecision(17);
+}
+
+long long RmyPow(long long a, long long b, long long m = -1) {
     if (m == -1) m = mod;
     long long  res = 1; a %= m;
     for (; b > 0; b >>= 1) {
@@ -120,8 +129,6 @@ void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cou
 /* ========================================================================
    -> Defines
    ======================================================================== */
-#define FastIO ios_base::sync_with_stdio(false); cin.tie(nullptr);
-#define HighPrecisionOutput  cout << fixed << setprecision(17);
 #define all(x) (x).begin(), (x).end()
 #define all1(x) ++(x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
@@ -163,8 +170,8 @@ void Precompute() {}
 
 int main() {
 
-    FastIO
-    HighPrecisionOutput
+    FastIO();
+    HighPrecisionOutput();
 
     int numberOfTests = 1;
     cin >> numberOfTests;
