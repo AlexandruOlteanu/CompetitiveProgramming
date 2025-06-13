@@ -1,3 +1,6 @@
+Primes:
+    To find first N primes you need to check up to 2N * log2(N)
+
 BFS:
     You can actually calculate pretty fast minimum odd distance or even distance from
     a node to all other nodes with a dist[node][par]  where par = 0 or 1
