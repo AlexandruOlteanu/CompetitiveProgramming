@@ -95,16 +95,18 @@ struct func {
     }
 
     static long long RmyPow(long long a, long long b, long long m = -1) {
+        assert(b >= 0);
         if (m == -1) m = mod;
         long long  res = 1; a %= m;
         for (; b > 0; b >>= 1) {
             if (b & 1) res = res * a % m;
             a = a * a % m;
         }
-    return res;
+        return res;
     }
 
     static long long myPow(long long a, long long b) {
+        assert(b >= 0);
         long long res = 1;
         for (; b > 0; b >>= 1) {
             if (b & 1) res = res * a;
