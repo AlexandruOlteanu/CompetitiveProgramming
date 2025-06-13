@@ -17,6 +17,14 @@ constexpr int mod = 1000000007;
 // constexpr int mod = 998244353;
 
 /* ========================================================================
+   -> Read from file
+   ======================================================================== */
+// ifstream fin("input.in");
+// ofstream fout("output.out");
+// #define cin fin
+// #define cout fout
+
+/* ========================================================================
    -> Local Run Time and Debugging
    ======================================================================== */
 // #define DebugMode
@@ -125,9 +133,9 @@ struct func {
     }
 
     template<typename T>
-    static void makeUnique(std::vector<T>& v) {
-        std::sort(v.begin(), v.end());
-        v.erase(std::unique(v.begin(), v.end()), v.end());
+    static void makeUnique(vector<T>& v) {
+        sort(v.begin(), v.end());
+        v.erase(unique(v.begin(), v.end()), v.end());
     }
 
     template<typename T>
@@ -137,12 +145,12 @@ struct func {
 
     template<typename T>
     static int countBits(T x) {
-        if constexpr (std::is_same_v<T, int>) {
+        if constexpr (is_same_v<T, int>) {
             return __builtin_popcount(x);
-        } else if constexpr (std::is_same_v<T, long long>) {
+        } else if constexpr (is_same_v<T, long long>) {
             return __builtin_popcountll(x);
         } else {
-            static_assert(std::is_integral_v<T>, "countBits requires an integral type");
+            static_assert(is_integral_v<T>, "countBits requires an integral type");
             return __builtin_popcountll(static_cast<long long>(x)); // fallback
         }
     }
@@ -150,12 +158,12 @@ struct func {
     template<typename T>
     static int highestBit(T x) {
         if (x == 0) return -1;
-        if constexpr (std::is_same_v<T, int>) {
+        if constexpr (is_same_v<T, int>) {
             return 31 - __builtin_clz(x);
-        } else if constexpr (std::is_same_v<T, long long>) {
+        } else if constexpr (is_same_v<T, long long>) {
             return 63 - __builtin_clzll(x);
         } else {
-            static_assert(std::is_integral_v<T>, "highestBit requires an integral type");
+            static_assert(is_integral_v<T>, "highestBit requires an integral type");
             return 63 - __builtin_clzll(static_cast<long long>(x));
         }
     }
@@ -163,12 +171,12 @@ struct func {
     template<typename T>
     static int lowestBit(T x) {
         if (x == 0) return -1;
-        if constexpr (std::is_same_v<T, int>) {
+        if constexpr (is_same_v<T, int>) {
             return __builtin_ctz(x);
-        } else if constexpr (std::is_same_v<T, long long>) {
+        } else if constexpr (is_same_v<T, long long>) {
             return __builtin_ctzll(x);
         } else {
-            static_assert(std::is_integral_v<T>, "lowestBit requires an integral type");
+            static_assert(is_integral_v<T>, "lowestBit requires an integral type");
             return __builtin_ctzll(static_cast<long long>(x));
         }
     }
@@ -177,6 +185,33 @@ struct func {
     static bool inGrid(T x, T y, T n, T m = -1) {
         if (m == -1) m = n;
         return (x >= 1 && x <= n && y >= 1 && y <= m);
+    }
+
+    static string readLine() {
+        string line;
+        getline(cin, line);
+        return line;
+    }
+
+    static vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
+        const unordered_set<char> delimiters(extraDelimiters.begin(), extraDelimiters.end());
+        vector<string> words;
+        string current;
+
+        for (char ch : line) {
+            if (isalnum(ch)) {
+                current += ch;
+            } else if (!current.empty() && (isspace(ch) || delimiters.count(ch) || !isalnum(ch))) {
+                words.push_back(current);
+                current.clear();
+            }
+        }
+
+        if (!current.empty()) {
+            words.push_back(current);
+        }
+
+        return words;
     }
 };
 
@@ -207,11 +242,6 @@ constexpr int infSmall = 1e9;
 /* ========================================================================
    -> Templates End
    ======================================================================== */
-
-// ifstream fin("input.in");
-// ofstream fout("output.out");
-// #define cin fin
-// #define cout fout
 
 constexpr int MAXN = 2e5 + 2;
 
