@@ -67,27 +67,9 @@ struct pair_hash {
 };
 
 /* ========================================================================
-   -> Y-combinator (used to create local recursive functions)
+   -> Functions
    ======================================================================== */
-template <typename Func>
-struct y_combinator_result {
-    Func func;
-    template <typename... Args>
-    decltype(auto) operator()(Args&&... args) {
-        return func(*this, std::forward<Args>(args)...);
-    }
-};
-//Usage: auto func_name = y_combinator([](auto self, int param1, int param2 ...) -> return_type {  code; });
-template <typename Func>
-decltype(auto) y_combinator(Func&& func) {
-    return y_combinator_result<std::decay_t<Func>>{std::forward<Func>(func)};
-}
-
-/* ========================================================================
-   -> Utils functions
-   ======================================================================== */
-
-struct utils {
+struct func {
 
     static void FastIO() {
         ios_base::sync_with_stdio(false);
@@ -96,6 +78,20 @@ struct utils {
 
     static void HighPrecisionOutput() {
         cout << fixed << setprecision(17);
+    }
+
+    template <typename Func>
+    struct y_combinator_result {
+        Func func;
+        template <typename... Args>
+        decltype(auto) operator()(Args&&... args) {
+            return func(*this, std::forward<Args>(args)...);
+        }
+    };
+    //Usage: auto func_name = y_combinator([](auto self, int param1, int param2 ...) -> return_type {  code; });
+    template <typename Func>
+    static decltype(auto) y_combinator(Func&& func) {
+        return y_combinator_result<std::decay_t<Func>>{std::forward<Func>(func)};
     }
 
     static long long RmyPow(long long a, long long b, long long m = -1) {
@@ -221,7 +217,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void CoreCompute(const int testIdx, const bool isLastTest) {
 
-
+    
 
 }
 
@@ -229,8 +225,8 @@ void Precompute() {}
 
 int main() {
 
-    utils::FastIO();
-    utils::HighPrecisionOutput();
+    func::FastIO();
+    func::HighPrecisionOutput();
 
     int numberOfTests = 1;
     cin >> numberOfTests;
