@@ -84,61 +84,103 @@ decltype(auto) y_combinator(Func&& func) {
 }
 
 /* ========================================================================
-   -> Helper functions
+   -> Utils functions
    ======================================================================== */
-void FastIO() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-}
 
-void HighPrecisionOutput() {
-    cout << fixed << setprecision(17);
-}
+struct utils {
 
-long long RmyPow(long long a, long long b, long long m = -1) {
-    if (m == -1) m = mod;
-    long long  res = 1; a %= m;
-    for (; b > 0; b >>= 1) {
-        if (b & 1) res = res * a % m;
-        a = a * a % m;
+    static void FastIO() {
+        ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
     }
-    return res;
-}
 
-long long myPow(long long a, long long b) {
-    long long res = 1;
-    for (; b > 0; b >>= 1) {
-        if (b & 1) res = res * a;
-        a *= a;
+    static void HighPrecisionOutput() {
+        cout << fixed << setprecision(17);
     }
+
+    static long long RmyPow(long long a, long long b, long long m = -1) {
+        if (m == -1) m = mod;
+        long long  res = 1; a %= m;
+        for (; b > 0; b >>= 1) {
+            if (b & 1) res = res * a % m;
+            a = a * a % m;
+        }
     return res;
-}
+    }
 
-template<typename T>
-T gcd(T a, T b) {
-    return b ? gcd(b, a % b) : a;
-}
+    static long long myPow(long long a, long long b) {
+        long long res = 1;
+        for (; b > 0; b >>= 1) {
+            if (b & 1) res = res * a;
+            a *= a;
+        }
+        return res;
+    }
 
-long long lcm(const long long a, const long long b) {
-    return a / gcd(a, b) * b;
-}
+    template<typename T>
+    static T gcd(T a, T b) {
+        return b ? gcd(b, a % b) : a;
+    }
 
-template<typename T>
-void makeUnique(std::vector<T>& v) {
-    std::sort(v.begin(), v.end());
-    v.erase(std::unique(v.begin(), v.end()), v.end());
-}
+    static long long lcm(const long long a, const long long b) {
+        return a / gcd(a, b) * b;
+    }
 
-template<typename T>
-bool hasBit(T x, int bit) {
-    return ((x >> bit) & 1) != 0;
-}
+    template<typename T>
+    static void makeUnique(std::vector<T>& v) {
+        std::sort(v.begin(), v.end());
+        v.erase(std::unique(v.begin(), v.end()), v.end());
+    }
 
-template<typename T>
-bool inGrid(T x, T y, T n, T m = -1) {
-    if (m == -1) m = n;
-    return (x >= 1 && x <= n && y >= 1 && y <= m);
-}
+    template<typename T>
+    static bool hasBit(T x, int bit) {
+        return ((x >> bit) & 1) != 0;
+    }
+
+    template<typename T>
+    static int countBits(T x) {
+        if constexpr (std::is_same_v<T, int>) {
+            return __builtin_popcount(x);
+        } else if constexpr (std::is_same_v<T, long long>) {
+            return __builtin_popcountll(x);
+        } else {
+            static_assert(std::is_integral_v<T>, "countBits requires an integral type");
+            return __builtin_popcountll(static_cast<long long>(x)); // fallback
+        }
+    }
+
+    template<typename T>
+    static int highestBit(T x) {
+        if (x == 0) return -1;
+        if constexpr (std::is_same_v<T, int>) {
+            return 31 - __builtin_clz(x);
+        } else if constexpr (std::is_same_v<T, long long>) {
+            return 63 - __builtin_clzll(x);
+        } else {
+            static_assert(std::is_integral_v<T>, "highestBit requires an integral type");
+            return 63 - __builtin_clzll(static_cast<long long>(x));
+        }
+    }
+
+    template<typename T>
+    static int lowestBit(T x) {
+        if (x == 0) return -1;
+        if constexpr (std::is_same_v<T, int>) {
+            return __builtin_ctz(x);
+        } else if constexpr (std::is_same_v<T, long long>) {
+            return __builtin_ctzll(x);
+        } else {
+            static_assert(std::is_integral_v<T>, "lowestBit requires an integral type");
+            return __builtin_ctzll(static_cast<long long>(x));
+        }
+    }
+
+    template<typename T>
+    static bool inGrid(T x, T y, T n, T m = -1) {
+        if (m == -1) m = n;
+        return (x >= 1 && x <= n && y >= 1 && y <= m);
+    }
+};
 
 void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
 void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
@@ -179,7 +221,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void CoreCompute(const int testIdx, const bool isLastTest) {
 
-    
+
 
 }
 
@@ -187,8 +229,8 @@ void Precompute() {}
 
 int main() {
 
-    FastIO();
-    HighPrecisionOutput();
+    utils::FastIO();
+    utils::HighPrecisionOutput();
 
     int numberOfTests = 1;
     cin >> numberOfTests;
