@@ -262,13 +262,16 @@ void CoreCompute(const int testIdx, const bool isLastTest) {
 
 void Precompute() {}
 
+#define ComputeMultipleTests
 int main() {
 
     func::FastIO();
     func::HighPrecisionOutput();
 
     int numberOfTests = 1;
-    cin >> numberOfTests;
+    #ifdef ComputeMultipleTests
+        cin >> numberOfTests;
+    #endif
 
     #if defined(DebugMode) && !defined(Generator)
         const auto startPrecomputation = chrono::high_resolution_clock::now();
