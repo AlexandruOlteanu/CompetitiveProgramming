@@ -6,6 +6,13 @@
   ██║░░██║███████╗███████╗██╔╝╚██╗██║░░██║██║░╚███║██████╔╝██║░░██║╚██████╔╝██║██║░╚███║░░╚██╔╝░░
   ╚═╝░░╚═╝╚══════╝╚══════╝╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═════╝░╚═╝░░╚═╝░╚═════╝░╚═╝╚═╝░░╚══╝░░░╚═╝░░░
   They forged me in fire, they broke me in battle, yet here I rise, Invictus!
+
+  Conquered:
+    -> 92   Hard Problems (Aimed to improve my skills and deep thinking)
+    -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
+    -> 12   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
+    -> 13   Virtual Contests Problems (Aimed to simulate live performances)
+    -> 98   Random Problems from different sites
 */
 
 #include <bits/stdc++.h>
