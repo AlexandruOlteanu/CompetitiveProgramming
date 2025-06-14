@@ -69,6 +69,7 @@ class Modular {
   }
 
   const Type& operator()() const { return value; }
+  Type getValue() const { return value; }
   template <typename U>
   explicit operator U() const { return static_cast<U>(value); }
   constexpr static Type mod() { return T::value; }
