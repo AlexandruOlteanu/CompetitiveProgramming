@@ -286,7 +286,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void CoreCompute(const int testIdx, const bool isLastTest) {
 
-
+    
 
 }
 
