@@ -55,11 +55,9 @@ template<typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 /* ========================================================================
-   -> RNG & custom hash for unordered containers
+   -> Custom hash for unordered containers
    ======================================================================== */
-mt19937 rng(static_cast<unsigned int>(chrono::steady_clock::now().time_since_epoch().count()));
-
-struct number_hash {
+struct numberHash {
     static uint64_t splitmix64(uint64_t x) {
         x += 0x9e3779b97f4a7c15ULL;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
@@ -73,26 +71,52 @@ struct number_hash {
 };
 
 template<typename T, typename U>
-struct pair_hash {
+struct pairHash {
     size_t operator()(const pair<T, U>& p) const {
-        return number_hash{}(p.first ^ (number_hash{}(p.second) << 1));
+        return numberHash{}(p.first ^ (numberHash{}(p.second) << 1));
     }
 };
 
 /* ========================================================================
    -> Functions
    ======================================================================== */
-struct func {
+namespace Functions {
 
-    static void FastIO() {
+    namespace private_helpers {
+        // Random Helpers
+        std::mt19937 rng {
+            static_cast<unsigned int>(std::chrono::steady_clock::now().time_since_epoch().count())
+        };
+    }
+
+    // Fast IO and High Pecision
+    void FastIO() {
         ios_base::sync_with_stdio(false);
         cin.tie(nullptr);
     }
 
-    static void HighPrecisionOutput() {
+    void HighPrecisionOutput() {
         cout << fixed << setprecision(17);
     }
 
+    // Random generator
+    template<typename T>
+    T rnd(T x) {
+        assert(x != 0);
+        int sgn = x >= 0 ? 1 : -1;
+        if (x < 0) x = -x;
+        T result = uniform_int_distribution<T>(0, x - 1)(private_helpers::rng) * sgn;
+        return result;
+    }
+
+    template<typename T>
+    T rnd(T x, T y) {
+        if (x > y) swap(x, y);
+        T result = uniform_int_distribution<T>(x, y)(private_helpers::rng);
+        return result;
+    }
+
+    // Y Combinator for recursive calls
     template <typename Func>
     struct y_combinator_result {
         Func func;
@@ -103,11 +127,12 @@ struct func {
     };
     //Usage: auto func_name = y_combinator([](auto self, int param1, int param2 ...) -> return_type {  code; });
     template <typename Func>
-    static decltype(auto) y_combinator(Func&& func) {
+    decltype(auto) y_combinator(Func&& func) {
         return y_combinator_result<std::decay_t<Func>>{std::forward<Func>(func)};
     }
 
-    static long long RmyPow(long long a, long long b, long long m = -1) {
+    // BinPow for fast power calculation
+    long long rBinPow(long long a, long long b, long long m = -1) {
         assert(b >= 0);
         if (m == -1) m = mod;
         long long  res = 1; a %= m;
@@ -118,7 +143,7 @@ struct func {
         return res;
     }
 
-    static long long myPow(long long a, long long b) {
+    long long binPow(long long a, long long b) {
         assert(b >= 0);
         long long res = 1;
         for (; b > 0; b >>= 1) {
@@ -128,28 +153,31 @@ struct func {
         return res;
     }
 
+    // Number Theory
     template<typename T>
-    static T gcd(T a, T b) {
+    T gcd(T a, T b) {
         return b ? gcd(b, a % b) : a;
     }
 
-    static long long lcm(const long long a, const long long b) {
+    long long lcm(const long long a, const long long b) {
         return a / gcd(a, b) * b;
     }
 
+    // Vectors Operations
     template<typename T>
-    static void makeUnique(vector<T>& v) {
+    void makeUnique(vector<T>& v) {
         sort(v.begin(), v.end());
         v.erase(unique(v.begin(), v.end()), v.end());
     }
 
+    // Bit operations
     template<typename T>
-    static bool hasBit(T x, int bit) {
+    bool hasBit(T x, int bit) {
         return ((x >> bit) & 1) != 0;
     }
 
     template<typename T>
-    static int countBits(T x) {
+    int countBits(T x) {
         if constexpr (is_same_v<T, int>) {
             return __builtin_popcount(x);
         } else if constexpr (is_same_v<T, long long>) {
@@ -161,7 +189,7 @@ struct func {
     }
 
     template<typename T>
-    static int highestBit(T x) {
+    int highestBit(T x) {
         if (x == 0) return -1;
         if constexpr (is_same_v<T, int>) {
             return 31 - __builtin_clz(x);
@@ -174,7 +202,7 @@ struct func {
     }
 
     template<typename T>
-    static int lowestBit(T x) {
+    int lowestBit(T x) {
         if (x == 0) return -1;
         if constexpr (is_same_v<T, int>) {
             return __builtin_ctz(x);
@@ -186,19 +214,21 @@ struct func {
         }
     }
 
+    // Matrix
     template<typename T>
-    static bool inGrid(T x, T y, T n, T m = -1) {
+    bool inGrid(T x, T y, T n, T m = -1) {
         if (m == -1) m = n;
         return (x >= 1 && x <= n && y >= 1 && y <= m);
     }
 
-    static string readLine() {
+    // Strings
+    string readLine() {
         string line;
         getline(cin, line);
         return line;
     }
 
-    static vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
+    vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
         const unordered_set<char> delimiters(extraDelimiters.begin(), extraDelimiters.end());
         vector<string> words;
         string current;
@@ -218,10 +248,12 @@ struct func {
 
         return words;
     }
-};
 
-void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
-void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
+    // YES / NO
+    void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
+    void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
+};
+using namespace Functions;
 
 /* ========================================================================
    -> Defines
@@ -254,7 +286,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void CoreCompute(const int testIdx, const bool isLastTest) {
 
-    
+
 
 }
 
@@ -263,8 +295,8 @@ void Precompute() {}
 #define ComputeMultipleTests
 int main() {
 
-    func::FastIO();
-    func::HighPrecisionOutput();
+    FastIO();
+    HighPrecisionOutput();
 
     int numberOfTests = 1;
     #ifdef ComputeMultipleTests
