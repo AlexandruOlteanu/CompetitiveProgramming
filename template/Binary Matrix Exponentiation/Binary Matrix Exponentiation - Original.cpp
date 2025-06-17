@@ -1,7 +1,7 @@
 /*
     Template created by Alexandru Olteanu {AlexandruINV}
 */
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Binary%20Matrix%20Exponentiation/Binary%20Matrix%20Exponentiation%20-%20Original.cpp
 const ll matrix_mod = 1e9 + 7;
 
 template<typename T>
