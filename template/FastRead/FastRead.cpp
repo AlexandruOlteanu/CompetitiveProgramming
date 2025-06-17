@@ -1,3 +1,4 @@
+https://github.com/AlexandruOlteanu/CompetitiveProgramming/edit/main/template/FastRead/FastRead.cpp
 namespace FastRead {
     const int Dim(10000);
     char buff[Dim];
