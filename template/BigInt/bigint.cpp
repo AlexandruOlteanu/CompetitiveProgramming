@@ -1,3 +1,4 @@
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/edit/main/template/BigInt/bigint.cpp
 const int Dig = 10;
  
 struct bigint {
