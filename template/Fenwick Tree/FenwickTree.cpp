@@ -2,7 +2,7 @@
 /*
     Template created by Alexandru Olteanu {AlexandruINV}
 */
-// https://github.com/AlexandruOlteanu/CompetitiveProgramming/edit/main/template/Fenwick%20Tree/FenwickTree.cpp
+https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Fenwick%20Tree/FenwickTree.cpp
 template<typename A>
 struct FenwickTree{
     vector<A> array;
