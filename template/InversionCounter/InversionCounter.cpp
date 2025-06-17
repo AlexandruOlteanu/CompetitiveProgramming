@@ -1,3 +1,4 @@
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/InversionCounter/InversionCounter.cpp
 template <typename T>
 struct InversionCounter {
 

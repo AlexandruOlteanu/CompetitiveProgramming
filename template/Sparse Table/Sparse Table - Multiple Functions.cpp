@@ -1,6 +1,7 @@
 /* 
     Template created by Alexandru Olteanu
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Sparse%20Table/Sparse%20Table%20-%20Multiple%20Functions.cpp
 template<typename A>
 struct SparseTable{
     

@@ -18,6 +18,7 @@
         // This doesn't work with mod, be careful, only for direct calculation
         int res = combinator.combOnce(n, k)
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/Combinator.cpp
 struct Combinator {
 
     vector<vector<int>> c;

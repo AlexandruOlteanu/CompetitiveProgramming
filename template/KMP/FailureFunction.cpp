@@ -1,5 +1,6 @@
 // Returns a vector where pi[i] = Longest prefix in [0..i] that
 // it's also a suffix in [0..i]
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/KMP/FailureFunction.cpp
 template <typename T>
 std::vector<int> buildFailureFunction(const T& pattern) {
     int m = pattern.size();

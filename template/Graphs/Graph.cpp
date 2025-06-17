@@ -131,6 +131,7 @@
 // - Use correct template params: <int, false> or <long long, true>
 // ============================================================
 
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/Graph.cpp
 template <typename Weight = int, bool Directed = false>
 class GraphAllInOne {
 public:

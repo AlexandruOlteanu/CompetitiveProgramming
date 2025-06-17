@@ -5,7 +5,7 @@
     Coprime cop;
     long long res = cop.countCoprime(x, l, r);
 */
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/CoprimesOfXInInterval1Y.cpp
 struct Coprime {
 
     // Counts numbers in interval [start, end] which are coprime with x

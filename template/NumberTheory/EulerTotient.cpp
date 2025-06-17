@@ -1,3 +1,5 @@
+
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/EulerTotient.cpp
 // Algorithm for 1 number
 
 int phi(int n) {

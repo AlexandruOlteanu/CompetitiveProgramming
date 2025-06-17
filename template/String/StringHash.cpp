@@ -1,3 +1,4 @@
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/String/StringHash.cpp
 using hash_t = uint64_t;
 
 mt19937_64 rng1(chrono::steady_clock::now().time_since_epoch().count() * ((uint64_t) new char | 1));

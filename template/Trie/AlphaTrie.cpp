@@ -1,3 +1,4 @@
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Trie/AlphaTrie.cpp
 template <int ALPHA=26>
 class AlphaTrie {
 private:

@@ -1,5 +1,5 @@
 
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/NumberTheoryUtils.cpp
 struct NumberTheoryUtils {
     int maxn;
     vector<int> mu;

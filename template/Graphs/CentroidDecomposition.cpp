@@ -24,7 +24,7 @@
  *   memory     : O(n log n)
  * -----------------------------------------------------------------------------
  */
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/CentroidDecomposition.cpp
 struct CentroidDecomposition {
     using ll = long long;
 

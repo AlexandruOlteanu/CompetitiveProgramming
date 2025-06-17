@@ -11,7 +11,7 @@
 *   vector<int> B = {3, 4};                                     *
 *   auto C = FFT::multiply(A, B);                               *
 *****************************************************************/
-// https://github.com/AlexandruOlteanu/CompetitiveProgramming/edit/main/template/FFT_NTT/FFT_NTT.cpp
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/FFT_NTT/FFT_NTT.cpp
 struct FFT {
     using cd = complex<double>;
     static constexpr double PI = acos(-1.0);

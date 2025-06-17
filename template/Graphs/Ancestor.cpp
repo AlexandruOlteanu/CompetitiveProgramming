@@ -87,7 +87,7 @@
  *
  *  ───────────────────────────────────────────────────────────────
  */
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/Ancestor.cpp
 struct Ancestor {
     explicit Ancestor(int _n) { init(_n); }
 

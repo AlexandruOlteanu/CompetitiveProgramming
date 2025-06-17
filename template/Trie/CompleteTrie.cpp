@@ -6,6 +6,7 @@
 
     Of course it works with strings as well;
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Trie/CompleteTrie.cpp
 template <int N>
 class CompleteTrie {
 private:

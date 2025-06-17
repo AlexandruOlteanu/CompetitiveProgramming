@@ -4,6 +4,7 @@
     or
     BinaryTrie<64> trie64; (for 64 byte numbers)
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Trie/BinaryTrie.cpp
 template <int N>
 class BinaryTrie {
 private:

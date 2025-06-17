@@ -1,6 +1,7 @@
 /*
     Template created by Alexandru Olteanu {AlexandruINV}
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/Minimum%20Spanning%20Tree.cpp
 vector<pair<ll, int>> graph[maxn];
 int p[maxn];
 template<typename A>

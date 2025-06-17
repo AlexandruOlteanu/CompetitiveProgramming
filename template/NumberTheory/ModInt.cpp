@@ -36,6 +36,7 @@
 // =
 // = ======================================================================
 
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/ModInt.cpp
 template <typename T>
 T inverse(T a, T m) {
     T u = 0, v = 1;

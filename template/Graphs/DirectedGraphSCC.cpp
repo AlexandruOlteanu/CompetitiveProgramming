@@ -1,6 +1,7 @@
 /*
     Template created by Alexandru Olteanu {AlexandruINV}
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/DirectedGraphSCC.cpp
 struct DirectedGraphSCC {
     int N;
     vector<vector<int>> in, out, in_component;

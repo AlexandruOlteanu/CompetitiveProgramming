@@ -1,3 +1,4 @@
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/prime.cpp
 bool isPrime(int x) {
     if (x <= 1) return false;
     if (x <= 3) return true;

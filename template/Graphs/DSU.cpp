@@ -1,3 +1,4 @@
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/DSU.cpp
 template<typename A>
 struct DSU {
     vector<int> f, siz;

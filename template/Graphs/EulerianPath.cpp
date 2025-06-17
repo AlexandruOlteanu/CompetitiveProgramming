@@ -34,7 +34,7 @@
         // path contains the Eulerian path (list of nodes visited in order)
     }
 */
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/EulerianPath.cpp
 struct EulerianPath {
     int n;
     bool directed;

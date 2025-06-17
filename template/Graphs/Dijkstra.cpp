@@ -40,7 +40,7 @@
  *    API maps it to −1 for convenience.
  *  ───────────────────────────────────────────────────────────────────────
  */
-
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/Dijkstra.cpp
 struct Dijkstra {
     using ll = long long;
     static constexpr ll INF = std::numeric_limits<ll>::max() / 4;   // safe sentinel

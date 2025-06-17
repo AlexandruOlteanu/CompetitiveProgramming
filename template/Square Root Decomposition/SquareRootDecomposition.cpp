@@ -1,6 +1,7 @@
 /* 
     Template created by Alexandru Olteanu {AlexandruINV}
 */
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Square%20Root%20Decomposition/SquareRootDecomposition.cpp
 template<typename A>
 struct SquareRootDecomposition{
 
