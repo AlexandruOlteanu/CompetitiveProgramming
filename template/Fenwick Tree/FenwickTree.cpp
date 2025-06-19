@@ -1,3 +1,32 @@
+/*
+* Fenwick Tree (Binary Indexed Tree) Template
+ *
+ * Supports:
+ *  - Point updates:     O(log n)
+ *  - Prefix sums:       O(log n)
+ *  - Range sums [l..r]: O(log n)
+ *
+ * Usage:
+ *  FenwickTree<ll> ft(n);        // Create tree with indices 1 to n
+ *  ft.modify(x, delta);          // Add 'delta' to index x
+ *  ft.calc(x);                   // Prefix sum from 1 to x
+ *  ft.get(l, r);                 // Range sum from l to r (inclusive)
+ *  ft.reset();                   // Reset all values to 0
+ *  ft.reset(new_n);             // Resize tree to support 1..new_n
+ *
+ * Notes:
+ *  - 1-based indexing
+ *  - Generic type: supports int, long long, double, etc.
+ *  - Fast and simple alternative to segment trees for sum queries
+ *
+ * Example:
+ *  FenwickTree<ll> ft(10);
+ *  ft.modify(3, 5);     // add 5 at index 3
+ *  ft.modify(7, 2);     // add 2 at index 7
+ *  ft.get(3, 7);        // sum of [3..7] = 5 + ... + 2
+ *
+ */
+
 // https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Fenwick%20Tree/FenwickTree.cpp
 template<typename A>
 struct FenwickTree {
