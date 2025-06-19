@@ -1,7 +1,7 @@
 
 // https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/TopoSort.cpp
 // first build adjacent vector and that's it
-vector<int> topoSort(int n, vector<vector<int>> adjacent) {
+vector<int> topoSort(int n, vector<vector<int>>& adjacent) {
     vector<int> indeg(n + 1);
     for (int u = 1; u <= n; ++u)
         for (int v : adjacent[u]) ++indeg[v];
