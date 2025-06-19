@@ -1,14 +1,51 @@
+/*
+* BigInt Template (Arbitrary Precision Integer)
+ *
+ * Features:
+ *  - Handles integers beyond 64-bit limits
+ *  - Supports: addition, subtraction, multiplication, division, modulo
+ *  - Comparison operators (==, !=, <, <=, >, >=)
+ *  - Bitwise operations (^, &, |, <<, >>) via base conversion
+ *  - Power, GCD, LCM, Square root, and base conversion
+ *  - Built-in like usage: increment/decrement, I/O operators, compound operators (+=, -=, etc.)
+ *
+ * Usage Examples:
+ *  BigInt a = 1234567890123456789LL;
+ *  BigInt b("999999999999999999999999");
+ *  BigInt c = a + b;
+ *  BigInt d = pow(a, 10);         // Exponentiation
+ *  BigInt g = gcd(a, b);          // Greatest common divisor
+ *  BigInt s = sqrt(c);            // Square root
+ *
+ * Utility:
+ *  int BtoI(BigInt x);            // Convert to int (risk of overflow!)
+ *  BigInt CB(x, fromBase, toBase); // Change base (max base = 10)
+ *  x.popcount();                  // Count 1s in binary representation
+ *  x.ctz();                       // Count trailing zeros in binary
+ *
+ * Input/Output:
+ *  cin >> a;
+ *  cout << a;
+ *
+ * Notes:
+ *  - Internally stored as deque of digits (base 10 by default)
+ *  - Negative numbers supported via `sign` field
+ *  - Be mindful of efficiency in tight loops (not optimized like GMP)
+ *
+ */
+
+
 // https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/BigInt/bigint.cpp
 const int Dig = 10;
  
-struct bigint {
+struct BigInt {
 	deque<int> num;
 	int sign = 1;
  
 	//constructor
-	bigint() {
+	BigInt() {
 	}
-	bigint(long long x) {
+	BigInt(long long x) {
 		num.clear();
 		if (x < 0)
 			sign = -1, x = -x;
@@ -19,7 +56,7 @@ struct bigint {
 			x /= Dig;
 		}
 	}
-	bigint(int x) {
+	BigInt(int x) {
 		num.clear();
 		if (x < 0)
 			sign = -1, x = -x;
@@ -30,16 +67,16 @@ struct bigint {
 			x /= Dig;
 		}
 	}
-	bigint(string &s) {
+	BigInt(string &s) {
 		toBig(s);
 	}
-	bigint(const bigint &x) {
+	BigInt(const BigInt &x) {
 		sign = x.sign;
 		num = x.num;
 	}
  
 	// change to int
-	friend int BtoI(const bigint &x) {
+	friend int BtoI(const BigInt &x) {
 		int res = 0, t = 1;
 		for (int i = 0; i < x.num.size(); i++)
 			res += t * x.num[i];
@@ -48,8 +85,8 @@ struct bigint {
 	}
  
 	//absolut
-	friend bigint abs(const bigint &x) {
-		bigint res = x;
+	friend BigInt abs(const BigInt &x) {
+		BigInt res = x;
 		res.sign = 1;
 		return res;
 	}
@@ -95,9 +132,9 @@ struct bigint {
 	}
  
 	//compare operators
-	bool operator<(const bigint &x) const {
-		bigint a = (*this);
-		bigint b = x;
+	bool operator<(const BigInt &x) const {
+		BigInt a = (*this);
+		BigInt b = x;
 		a.normalize();
 		b.normalize();
 		if (a.sign != b.sign)
@@ -121,9 +158,9 @@ struct bigint {
 			return !res;
 		return res;
 	}
-	bool operator==(const bigint &x) const {
-		bigint a = (*this);
-		bigint b = x;
+	bool operator==(const BigInt &x) const {
+		BigInt a = (*this);
+		BigInt b = x;
 		a.normalize();
 		b.normalize();
 		if (a.sign == b.sign and a.num.size() == b.num.size()) {
@@ -136,29 +173,29 @@ struct bigint {
 		else
 			return false;
 	}
-	bool operator<=(const bigint &x) const {
+	bool operator<=(const BigInt &x) const {
 		return (((*this) < x) or ((*this) == x));
 	}
-	bool operator>(const bigint &x) const {
+	bool operator>(const BigInt &x) const {
 		return (!((*this) <= x));
 	}
-	bool operator>=(const bigint &x) const {
+	bool operator>=(const BigInt &x) const {
 		return (!((*this) < x));
 	}
-	bool operator!=(const bigint &x) const {
+	bool operator!=(const BigInt &x) const {
 		return (!((*this) == x));
 	}
-	friend bigint max(bigint &x, bigint &y) {
+	friend BigInt max(BigInt &x, BigInt &y) {
 		return (x > y? x: y);
 	}
-	friend bigint min(bigint &x, bigint &y) {
+	friend BigInt min(BigInt &x, BigInt &y) {
 		return (x < y? x: y);
 	}
  
 	//math operators
-	bigint operator+(const bigint &x) const {
+	BigInt operator+(const BigInt &x) const {
 		if (sign == x.sign) {
-			bigint res;
+			BigInt res;
 			res.sign = sign;
 			for (int i = 0; i < max(x.num.size(), num.size()); i++) {
 				int t = (i >= num.size()? 0: num[i]) + (i >= x.num.size()? 0: x.num[i]);
@@ -172,9 +209,9 @@ struct bigint {
 		else
 			return (*this) - abs(x);
 	}
-	bigint operator-(const bigint &x) const {
+	BigInt operator-(const BigInt &x) const {
 		if (sign == x.sign) {
-			bigint res, a = abs(*this), b = abs(x);
+			BigInt res, a = abs(*this), b = abs(x);
 			a.clr();
 			b.clr();
 			if (a == b) {
@@ -201,44 +238,44 @@ struct bigint {
 			return res;
 		}
 		if (sign == -1) {
-			bigint res = abs(*this) + x;
+			BigInt res = abs(*this) + x;
 			res.sign *= -1;
 			return res;
 		}
 		else
 			return (*this) + abs(x);
 	}
-	void operator+=(const bigint &x) {
+	void operator+=(const BigInt &x) {
 		(*this) = (*this) + x;
 	}
-	void operator-=(const bigint &x) {
+	void operator-=(const BigInt &x) {
 		(*this) = (*this) - x;
 	}
 	void operator++() {
 		(*this) += 1;
 	}
-	bigint operator++(int) {
-		bigint res;
+	BigInt operator++(int) {
+		BigInt res;
 		++(*this);
 		return res;
 	}
 	void operator--() {
 		(*this) -= 1;
 	}
-	bigint operator--(int) {
-		bigint res;
+	BigInt operator--(int) {
+		BigInt res;
 		--(*this);
 		return res;
 	}
-	bigint operator*(const bigint &x) const {
-		bigint res;
-		bigint a = (*this), b = x;
+	BigInt operator*(const BigInt &x) const {
+		BigInt res;
+		BigInt a = (*this), b = x;
 		if (a.isZero() or b.isZero())
 			return 0;
 		a.clr();
 		b.clr();
 		for (int i = 0; i < b.num.size(); i++) {
-			bigint t;
+			BigInt t;
 			for (int j = 1; j <= i; j++)
 				t.num.push_back(0);
 			for (int j = 0; j < a.num.size(); j++)
@@ -250,11 +287,11 @@ struct bigint {
 		res.sign = a.sign * b.sign;
 		return res;
 	}
-	void operator*=(const bigint &x) {
+	void operator*=(const BigInt &x) {
 		(*this) = (*this) * x;
 	}
-	friend pair<bigint, bigint> dmod(const bigint &x, const bigint &y) {
-		bigint res, a = abs(x), b = abs(y), carry;
+	friend pair<BigInt, BigInt> dmod(const BigInt &x, const BigInt &y) {
+		BigInt res, a = abs(x), b = abs(y), carry;
 		res.sign = y.sign * x.sign;
 		a.clr();
 		b.clr();
@@ -269,7 +306,7 @@ struct bigint {
 			cnt = i - 1;
 		}
 		for (int i = 1; i <= 10; i++) {
-			bigint t = b * i;
+			BigInt t = b * i;
 			if (t > carry) {
 				res.num.push_front(i - 1);
 				t -= b;
@@ -282,7 +319,7 @@ struct bigint {
 			carry.normalize();
 			if (carry >= b) {
 				for (int j = 1; j <= 10; j++) {
-					bigint t = b * j;
+					BigInt t = b * j;
 					if (t > carry) {
 						res.num.push_front(j - 1);
 						t -= b;
@@ -301,26 +338,26 @@ struct bigint {
 		return {res, carry};
  
 	}
-	bigint operator/(const bigint &x) const {
-		pair<bigint, bigint> res = dmod((*this), x);
+	BigInt operator/(const BigInt &x) const {
+		pair<BigInt, BigInt> res = dmod((*this), x);
 		return res.first;
 	}
-	void operator/=(const bigint &x) {
+	void operator/=(const BigInt &x) {
 		(*this) = (*this) / x;
 	}
-	bigint operator%(const bigint &x) const {
-		pair<bigint, bigint> res = dmod((*this), x);
+	BigInt operator%(const BigInt &x) const {
+		pair<BigInt, BigInt> res = dmod((*this), x);
 		return res.second;
 	}
-	void operator%=(const bigint &x) {
+	void operator%=(const BigInt &x) {
 		(*this) = (*this) % x;
 	}
-	friend bigint pow(const bigint &x, const bigint &y) {
-		bigint tmp = y;
+	friend BigInt pow(const BigInt &x, const BigInt &y) {
+		BigInt tmp = y;
 		if (tmp.isZero())
 			return 1;
-		bigint res = 1, t = y, a = x;
-	       	pair<bigint, bigint> dm;
+		BigInt res = 1, t = y, a = x;
+	       	pair<BigInt, BigInt> dm;
 		while (t > 0) {
 			if ((t % 2) == 1)
 				res = res * a;
@@ -329,16 +366,16 @@ struct bigint {
 		}
 		return res;
 	}
-	friend bigint gcd(bigint x, bigint y) {
+	friend BigInt gcd(BigInt x, BigInt y) {
 		return (y.isZero()? x: gcd(y, x % y));
 	}
-	friend bigint lcm(const bigint &x, const bigint &y) {
+	friend BigInt lcm(const BigInt &x, const BigInt &y) {
 		return (x * y) / gcd(x, y);
 	}
-	friend bigint sqrt(const bigint &x) {
+	friend BigInt sqrt(const BigInt &x) {
 		if (x.sign == -1)
 			return -1;
-		bigint carry, res, lef;
+		BigInt carry, res, lef;
 		deque<pair<int, int>> t;
 		for (int i = 0; i < x.num.size(); i += 2) {
 			if (i + 1 == x.num.size())
@@ -355,7 +392,7 @@ struct bigint {
 			lef.num.push_front(0);
 			for (int i = 1; i <= 10; i++) {
 				lef.num[0] = i;
-				bigint tmp = (lef) * i;
+				BigInt tmp = (lef) * i;
 				if (tmp > carry) {
 					lef.num[0] = i - 1;
 					tmp = lef * (i - 1);
@@ -388,7 +425,7 @@ struct bigint {
 			num.push_back(t);
 		}
 	}
-	friend string to_string(const bigint &x) {
+	friend string to_string(const BigInt &x) {
 		string res;
 		if (x.num.empty()) {
 			res += '0';
@@ -404,10 +441,10 @@ struct bigint {
 		return res;
 	}
 	//change base
-	friend bigint change_base(const bigint &a, const int y, const int x) {
+	friend BigInt change_base(const BigInt &a, const int y, const int x) {
 		if (y == x)
 			return a;
-		bigint res, t = change_base_rev(a, y, 10);
+		BigInt res, t = change_base_rev(a, y, 10);
 		t.normalize();
 		while (t > 0) {
 			res.num.push_back(BtoI(t % x));
@@ -415,29 +452,29 @@ struct bigint {
 		}
 		return res;
 	}
-	friend bigint change_base_rev(const bigint &a, const int y, const int x) {
+	friend BigInt change_base_rev(const BigInt &a, const int y, const int x) {
 		if (y == x)
 			return a;
 		if (x == 10) {
-			bigint res, t = 1, b = a;
+			BigInt res, t = 1, b = a;
 			b.clr();
 			for (int i = 0; i < b.num.size(); i++)
 				res += t * b.num[i], t *= y;
 			return res;
 		}
-		bigint t = change_base_rev(a, y, 10);
+		BigInt t = change_base_rev(a, y, 10);
 		return change_base(t, 10, x);
  
 	}
-	friend bigint CB(const bigint &a, int y, int x) {
+	friend BigInt CB(const BigInt &a, int y, int x) {
 		if (x > y)
 			return change_base_rev(a, y, x);
 		return change_base(a, y, x);
 	}
  
 	//bitwise operator
-	bigint operator^(const bigint &x) const {
-		bigint res, a = change_base(*this, 10, 2), b = change_base(x, 10, 2);
+	BigInt operator^(const BigInt &x) const {
+		BigInt res, a = change_base(*this, 10, 2), b = change_base(x, 10, 2);
 		for (int i = 0; i < max(a.num.size(), b.num.size()); i++) {
 			int d1 = 0, d2 = 0;
 			if (i < a.num.size())
@@ -451,8 +488,8 @@ struct bigint {
 		res.normalize();
 		return res;
 	}
-	bigint operator&(const bigint &x) const {
-		bigint res, a = change_base(*this, 10, 2), b = change_base(x, 10, 2);
+	BigInt operator&(const BigInt &x) const {
+		BigInt res, a = change_base(*this, 10, 2), b = change_base(x, 10, 2);
 		for (int i = 0; i < max(a.num.size(), b.num.size()); i++) {
 			int d1 = 0, d2 = 0;
 			if (i < a.num.size())
@@ -466,8 +503,8 @@ struct bigint {
 		res.normalize();
 		return res;
 	}
-	bigint operator|(const bigint &x) const {
-		bigint res, a = change_base(*this, 10, 2), b = change_base(x, 10, 2);
+	BigInt operator|(const BigInt &x) const {
+		BigInt res, a = change_base(*this, 10, 2), b = change_base(x, 10, 2);
 		for (int i = 0; i < max(a.num.size(), b.num.size()); i++) {
 			int d1 = 0, d2 = 0;
 			if (i < a.num.size())
@@ -481,51 +518,51 @@ struct bigint {
 		res.normalize();
 		return res;
 	}
-	void operator^=(const bigint &x) {
+	void operator^=(const BigInt &x) {
 		(*this) = (*this) ^ x;
 	}
-	void operator&=(const bigint &x) {
+	void operator&=(const BigInt &x) {
 		(*this) = (*this) & x;
 	}
-	void operator|=(const bigint &x) {
+	void operator|=(const BigInt &x) {
 		(*this) = (*this) | x;
 	}
-	bigint operator<<(const bigint &x) {
-		bigint res = change_base((*this), 10, 2);
-		for (bigint i = 0; i < x; i++)
+	BigInt operator<<(const BigInt &x) {
+		BigInt res = change_base((*this), 10, 2);
+		for (BigInt i = 0; i < x; i++)
 			res.num.push_front(0);
 		res = change_base_rev(res, 2, 10);
 		res.normalize();
 		return res;
 	}
-	bigint operator>>(const bigint &x) {
-		bigint res = change_base((*this), 10, 2);
-		bigint t = (int)res.num.size();
-		for (bigint i = 0; i < min(x, t); i++)
+	BigInt operator>>(const BigInt &x) {
+		BigInt res = change_base((*this), 10, 2);
+		BigInt t = (int)res.num.size();
+		for (BigInt i = 0; i < min(x, t); i++)
 			res.num.pop_front();
 		res = change_base_rev(res, 2, 10);
 		res.normalize();
 		return res;
  
 	}
-	void operator>>=(const bigint &x) {
+	void operator>>=(const BigInt &x) {
 		(*this) = (*this) >> x;
 	}
-	void operator<<=(const bigint &x) {
+	void operator<<=(const BigInt &x) {
 		(*this) = (*this) << x;
 	}
  
 	//builtin fuctions
 	int popcount() {
 		int res = 0;
-		bigint tmp = *this;
+		BigInt tmp = *this;
 		tmp = CB(tmp, 10, 2);
 		for (auto i : tmp.num)
 			res += i;
 		return res;
 	}
 	int ctz() {
-		bigint tmp = *this;
+		BigInt tmp = *this;
 		tmp = CB(tmp, 10, 2);
 		for (int i = 0; i < tmp.num.size(); i++)
 			if (tmp.num[i])
@@ -535,14 +572,14 @@ struct bigint {
 	}
  
 	//cin and cout
-	friend istream& operator>>(istream &stream, bigint &x) {
+	friend istream& operator>>(istream &stream, BigInt &x) {
 		string s;
 		stream >> s;
 		x.toBig(s);
 		x.normalize();
 		return stream;
 	}
-	friend ostream& operator<<(ostream &stream, bigint &x) {
+	friend ostream& operator<<(ostream &stream, BigInt &x) {
 		if (x.num.empty()) {
 			stream << 0;
 			return stream;
