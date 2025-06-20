@@ -18,7 +18,6 @@
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
-using namespace __gnu_pbds;
 using namespace std;
 
 constexpr int mod = 1000000007;
