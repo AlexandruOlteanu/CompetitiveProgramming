@@ -106,7 +106,7 @@ struct SegmentTree {
         return operation; 
     }
     // End of things you may need to change
-
+private:
     void push(int node, int l, int r, int operation) {
         if (!lazyStatus[node]) return;
         tree[node] = applyUpdateFunction(tree[node], lazy[node]);
