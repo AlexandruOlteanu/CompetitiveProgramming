@@ -222,10 +222,20 @@ Mint BigC(long long n, long long k) {
         num *= Mint(n - i);
     }
 
-    while ((long long)inv_fact.size() <= k) {
+    // Maybe change this
+    constexpr int MAX_PRECOMPUTED_K = 1000000;
+    if (inv_fact.size() > k) {
+        return num * inv_fact[k];
+    }
+
+    int min_k = min(1LL * MAX_PRECOMPUTED_K, k);
+    while ((long long)inv_fact.size() <= min_k) {
         fact.push_back(fact.back() * Mint(fact.size()));
         inv_fact.push_back(1 / fact.back());
     }
-
-    return num * inv_fact[k];
+    num *= inv_fact[min_k];
+    for (long long i = min_k + 1; i <= k; ++i) {
+        num /= Mint(i);
+    }
+    return num;
 }
