@@ -211,3 +211,21 @@ Mint C(int n, int k) {
     }
     return fact[n] * inv_fact[k] * inv_fact[n - k];
 }
+
+Mint BigC(long long n, long long k) {
+    if (k < 0 || n < k) return 0;
+    if (k == 0 || n == k) return 1;
+    if (k > n - k) k = n - k;
+
+    Mint num = 1;
+    for (long long i = 0; i < k; ++i) {
+        num *= Mint(n - i);
+    }
+
+    while ((long long)inv_fact.size() <= k) {
+        fact.push_back(fact.back() * Mint(fact.size()));
+        inv_fact.push_back(1 / fact.back());
+    }
+
+    return num * inv_fact[k];
+}
