@@ -288,9 +288,7 @@ namespace Define {
 }
 using namespace Define;
 
-namespace Template {
-
-}
+namespace Template {}
 using namespace Template;
 
 constexpr int MAXN = 2e5 + 2;

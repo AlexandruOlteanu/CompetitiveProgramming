@@ -8,6 +8,7 @@
     st.update(l, r, {value}, operation);
     st.get(l, r, operation);
 */
+
 // https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Segment%20Tree/SegmentTree.cpp
 template<typename A>
 struct SegmentTree {
