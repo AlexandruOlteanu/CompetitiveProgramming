@@ -342,7 +342,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void Compute(const int testId, const bool isLastTest) {
 
-
+    
 }
 
 void Precompute() {}
