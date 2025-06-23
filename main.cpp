@@ -290,7 +290,7 @@ namespace Utils {
         }
 
         vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
-            const unordered_set delimiters(extraDelimiters.begin(), extraDelimiters.end());
+            const unordered_set<char> delimiters(extraDelimiters.begin(), extraDelimiters.end());
             vector<string> words;
             string current;
 
