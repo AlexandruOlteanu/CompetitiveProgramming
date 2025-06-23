@@ -35,151 +35,64 @@ constexpr int mod = 1000000007;
    -> Debugging & Tests Generator
    ======================================================================== */
 // #define DebugMode
-// #define Generator
+// #define TestsGenerator
 namespace Debug {
+    // Flow Debug
     #ifdef DebugMode
         #include "debug/debug.hpp"
         #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
-                    ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
+                ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
         #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
-                    ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
+                ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
     #else
         #define dbg(...) ((void)0)
         #define dbgArr(...) ((void)0)
     #endif
+
+    // Timer Debug
+    using Clock = std::chrono::high_resolution_clock;
+    using TimePoint = Clock::time_point;
+
+    TimePoint startPrecomputation, endPrecomputation, startComputation, endComputation;
+
+    static double getDuration(chrono::high_resolution_clock::time_point start, chrono::high_resolution_clock::time_point end) {
+        return chrono::duration<double>(end - start).count();
+    }
+
+    void showTimings() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+            cout << "\n\n=================================================================\n";
+            cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds.\n";
+            cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds.\n";
+            cout << "-> Total Computation Running Time: " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
+            cout << "=================================================================\n";
+        #endif
+    }
+
+    void reset() {
+        startPrecomputation = endPrecomputation = startComputation = endComputation = TimePoint{};
+    }
+
+    void startPrecomputationTimer() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                startPrecomputation = chrono::high_resolution_clock::now();
+        #endif
+    }
+
+    void endPrecomputationTimerAndStartComputationTimer() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                endPrecomputation = chrono::high_resolution_clock::now();
+                startComputation = chrono::high_resolution_clock::now();
+        #endif
+    }
+
+    void endComputationTimer() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                endComputation = chrono::high_resolution_clock::now();
+        #endif
+    }
 }
 using namespace Debug;
-
-namespace Utils {
-
-    namespace OrderedStructures {}
-
-    namespace Hash {
-        struct numberHash;
-        template<typename T, typename U> struct pairHash;
-    }
-
-    namespace Functions {
-
-        void FastIO();
-        void HighPrecisionOutput();
-
-        template<typename T> T rnd(T);
-        template<typename T> T rnd(T, T);
-
-        template<typename Func> struct y_combinator_result;
-        template<typename Func> decltype(auto) y_combinator(Func&&);
-
-        long long rBinPow(long long a, long long b, long long m);
-        long long binPow(long long a, long long b);
-
-        template<typename T> T gcd(T, T);
-        long long lcm(long long, long long);
-
-        template<typename T> void makeUnique(std::vector<T>&);
-
-        template<typename T> bool hasBit(T, int);
-        template<typename T> int  countBits(T);
-        template<typename T> int  highestBit(T);
-        template<typename T> int  lowestBit(T);
-
-        template<typename T> bool inGrid(T x, T y, T n, T m);
-
-        std::string readLine();
-        std::vector<std::string> splitWords(const std::string&, const std::string&);
-
-        void YES();  void Yes();  void yes();
-        void NO ();  void No ();  void no ();
-    }
-
-    using namespace OrderedStructures;
-    using namespace Hash;
-    using namespace Functions;
-}
-using namespace Utils;
-
-/* ========================================================================
-   -> Defines
-   ======================================================================== */
-namespace Define {
-    #define all(x) (x).begin(), (x).end()
-    #define all1(x) ++(x).begin(), (x).end()
-    #define rall(x) (x).rbegin(), (x).rend()
-    #define rall1(x) (x).rbegin(), --(x).rend()
-    using ll  = long long;
-    using pii = pair<int, int>;
-    constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-    constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
-    constexpr pair<int, int> dirDiag[] = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
-    constexpr long long infBig = numeric_limits<long long> :: max() - 23;
-    constexpr long long infMid = 1e15;
-    constexpr int inf = numeric_limits<int> :: max() - 23;
-    constexpr int infSmall = 1e9;
-}
-using namespace Define;
-
-namespace Template {}
-using namespace Template;
-
-constexpr int MAXN = 2e5 + 2;
-
-
-
-void Compute(const int testId, const bool isLastTest) {
-
-
-
-}
-
-void Precompute() {}
-
-#define ComputeMultipleTests
-int main() {
-
-    FastIO();
-    HighPrecisionOutput();
-
-    int numberOfTests = 1;
-    #ifdef ComputeMultipleTests
-        cin >> numberOfTests;
-    #endif
-
-    #if defined(DebugMode) && !defined(Generator)
-        auto getDuration = [] (auto start, auto end) {return chrono::duration<double>(end - start).count();};
-        const auto startPrecomputation = chrono::high_resolution_clock::now();
-    #endif
-
-    Precompute();
-
-    #if defined(DebugMode) && !defined(Generator)
-        const auto endPrecomputation = chrono::high_resolution_clock::now();
-        const auto startComputation = endPrecomputation;
-    #endif
-
-    for (int testId = 1; testId <= numberOfTests; ++testId) {
-        // cout << "Case #" << testId << ": ";
-        // cout << "Test #" << testId << ": ";
-        Compute(testId, testId == numberOfTests);
-    }
-
-    #if defined(DebugMode) && !defined(Generator)
-        const auto endComputation = chrono::high_resolution_clock::now();
-        cout << "\n\n=================================================================\n";
-        cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds." << '\n';
-        cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds." << "\n";
-        cout << "-> Total Computation Running Time: " << getDuration(startPrecomputation, endComputation) << " seconds." << "\n";
-        cout << "=================================================================\n";
-    #endif
-
-    return 0;
-}
-
-
-
-
-
-
-
 
 namespace Utils {
     /* ========================================================================
@@ -374,7 +287,7 @@ namespace Utils {
         }
 
         vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
-            const unordered_set<char> delimiters(extraDelimiters.begin(), extraDelimiters.end());
+            const unordered_set delimiters(extraDelimiters.begin(), extraDelimiters.end());
             vector<string> words;
             string current;
 
@@ -400,4 +313,62 @@ namespace Utils {
     };
     using namespace Functions;
 
+}
+using namespace Utils;
+
+namespace Define {
+    #define all(x) (x).begin(), (x).end()
+    #define all1(x) ++(x).begin(), (x).end()
+    #define rall(x) (x).rbegin(), (x).rend()
+    #define rall1(x) (x).rbegin(), --(x).rend()
+    using ll  = long long;
+    using pii = pair<int, int>;
+    constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+    constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
+    constexpr pair<int, int> dirDiag[] = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+    constexpr long long infBig = numeric_limits<long long> :: max() - 23;
+    constexpr long long infMid = 1e15;
+    constexpr int inf = numeric_limits<int> :: max() - 23;
+    constexpr int infSmall = 1e9;
+}
+using namespace Define;
+
+namespace Template {}
+using namespace Template;
+
+constexpr int MAXN = 2e5 + 2;
+
+
+
+void Compute(const int testId, const bool isLastTest) {
+
+
+}
+
+void Precompute() {}
+
+int main() {
+
+    FastIO();
+    HighPrecisionOutput();
+
+    int numberOfTests = 1;
+    cin >> numberOfTests;
+
+    startPrecomputationTimer();
+
+    Precompute();
+
+    endPrecomputationTimerAndStartComputationTimer();
+
+    for (int testId = 1; testId <= numberOfTests; ++testId) {
+        // cout << "Case #" << testId << ": ";
+        // cout << "Test #" << testId << ": ";
+        Compute(testId, testId == numberOfTests);
+    }
+
+    endComputationTimer();
+    showTimings();
+
+    return 0;
 }

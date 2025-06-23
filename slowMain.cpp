@@ -8,12 +8,12 @@
   They forged me in fire, they broke me in battle, yet here I rise, Invictus!
 
   Conquered:
-    -> 23   Official Championships Problems
+    -> 26   Official Championships Problems
     -> 92   Hard Problems (Aimed to improve my skills and deep thinking)
     -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
     -> 12   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
     -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 88   Random Problems from different sites
+    -> 90   Random Problems from different sites
 */
 
 #include <bits/stdc++.h>
@@ -32,245 +32,290 @@ constexpr int mod = 1000000007;
 // #define cout fout
 
 /* ========================================================================
-   -> Local Run Time and Debugging
+   -> Debugging & Tests Generator
    ======================================================================== */
 // #define DebugMode
-// #define Generator
+// #define TestsGenerator
 namespace Debug {
+    // Flow Debug
     #ifdef DebugMode
         #include "debug/debug.hpp"
         #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
-                    ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
+                ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
         #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
-                    ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
+                ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
     #else
         #define dbg(...) ((void)0)
         #define dbgArr(...) ((void)0)
     #endif
+
+    // Timer Debug
+    using Clock = std::chrono::high_resolution_clock;
+    using TimePoint = Clock::time_point;
+
+    TimePoint startPrecomputation, endPrecomputation, startComputation, endComputation;
+
+    static double getDuration(chrono::high_resolution_clock::time_point start, chrono::high_resolution_clock::time_point end) {
+        return chrono::duration<double>(end - start).count();
+    }
+
+    void showTimings() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+            cout << "\n\n=================================================================\n";
+            cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds.\n";
+            cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds.\n";
+            cout << "-> Total Computation Running Time: " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
+            cout << "=================================================================\n";
+        #endif
+    }
+
+    void reset() {
+        startPrecomputation = endPrecomputation = startComputation = endComputation = TimePoint{};
+    }
+
+    void startPrecomputationTimer() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                startPrecomputation = chrono::high_resolution_clock::now();
+        #endif
+    }
+
+    void endPrecomputationTimerAndStartComputationTimer() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                endPrecomputation = chrono::high_resolution_clock::now();
+                startComputation = chrono::high_resolution_clock::now();
+        #endif
+    }
+
+    void endComputationTimer() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                endComputation = chrono::high_resolution_clock::now();
+        #endif
+    }
 }
 using namespace Debug;
 
-/* ========================================================================
-   -> Policy‑based ordered set and multiset
-   ======================================================================== */
-namespace OrderedStructures {
-    using namespace __gnu_pbds;
+namespace Utils {
+    /* ========================================================================
+       -> Policy‑based ordered set and multiset
+       ======================================================================== */
+    namespace OrderedStructures {
+        using namespace __gnu_pbds;
 
-    template<class T, class C = std::less<T>>
-    using ordered_set = tree<T, null_type, C, rb_tree_tag, tree_order_statistics_node_update>;
+        template<class T, class C = std::less<T>>
+        using ordered_set = tree<T, null_type, C, rb_tree_tag, tree_order_statistics_node_update>;
 
-    template<class T, class C = std::less<T>>
-    using ordered_multiset = tree<std::pair<T, int>, null_type, C, rb_tree_tag, tree_order_statistics_node_update>;
-}
-using namespace OrderedStructures;
+        template<class T, class C = std::less<T>>
+        using ordered_multiset = tree<std::pair<T, int>, null_type, C, rb_tree_tag, tree_order_statistics_node_update>;
+    }
+    using namespace OrderedStructures;
 
-/* ========================================================================
-   -> Custom hash for unordered containers
-   ======================================================================== */
-namespace Hash {
-    struct numberHash {
-        static uint64_t splitmix64(uint64_t x) {
-            x += 0x9e3779b97f4a7c15ULL;
-            x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
-            x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
-            return x ^ (x >> 31);
-        }
-        size_t operator()(uint64_t x) const {
-            static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-            return splitmix64(x + FIXED_RANDOM);
-        }
-    };
+    /* ========================================================================
+       -> Custom hash for unordered containers
+       ======================================================================== */
+    namespace Hash {
+        struct numberHash {
+            static uint64_t splitmix64(uint64_t x) {
+                x += 0x9e3779b97f4a7c15ULL;
+                x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+                x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+                return x ^ (x >> 31);
+            }
+            size_t operator()(uint64_t x) const {
+                static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+                return splitmix64(x + FIXED_RANDOM);
+            }
+        };
 
-    template<typename T, typename U>
-    struct pairHash {
-        size_t operator()(const pair<T, U>& p) const {
-            return numberHash{}(p.first ^ (numberHash{}(p.second) << 1));
-        }
-    };
-}
-using namespace Hash;
-
-/* ========================================================================
-   -> Functions
-   ======================================================================== */
-namespace Functions {
-
-    namespace private_helpers {
-        // Random Helpers
-        std::mt19937 rng {
-            static_cast<unsigned int>(std::chrono::steady_clock::now().time_since_epoch().count())
+        template<typename T, typename U>
+        struct pairHash {
+            size_t operator()(const pair<T, U>& p) const {
+                return numberHash{}(p.first ^ (numberHash{}(p.second) << 1));
+            }
         };
     }
+    using namespace Hash;
 
-    // Fast IO and High Pecision
-    void FastIO() {
-        ios_base::sync_with_stdio(false);
-        cin.tie(nullptr);
-    }
+    /* ========================================================================
+       -> Functions
+       ======================================================================== */
+    namespace Functions {
 
-    void HighPrecisionOutput() {
-        cout << fixed << setprecision(17);
-    }
-
-    // Random generator
-    template<typename T>
-    T rnd(T x) {
-        assert(x != 0);
-        int sgn = x >= 0 ? 1 : -1;
-        if (x < 0) x = -x;
-        T result = uniform_int_distribution<T>(0, x - 1)(private_helpers::rng) * sgn;
-        return result;
-    }
-
-    template<typename T>
-    T rnd(T x, T y) {
-        if (x > y) swap(x, y);
-        T result = uniform_int_distribution<T>(x, y)(private_helpers::rng);
-        return result;
-    }
-
-    // Y Combinator for recursive calls
-    template <typename Func>
-    struct y_combinator_result {
-        Func func;
-        template <typename... Args>
-        decltype(auto) operator()(Args&&... args) {
-            return func(*this, std::forward<Args>(args)...);
+        namespace private_helpers {
+            // Random Helpers
+            std::mt19937 rng {
+                static_cast<unsigned int>(std::chrono::steady_clock::now().time_since_epoch().count())
+            };
         }
-    };
-    //Usage: auto func_name = y_combinator([](auto self, int param1, int param2 ...) -> return_type {  code; });
-    template <typename Func>
-    decltype(auto) y_combinator(Func&& func) {
-        return y_combinator_result<std::decay_t<Func>>{std::forward<Func>(func)};
-    }
 
-    // BinPow for fast power calculation
-    long long rBinPow(long long a, long long b, long long m = -1) {
-        assert(b >= 0);
-        if (m == -1) m = mod;
-        long long  res = 1; a %= m;
-        for (; b > 0; b >>= 1) {
-            if (b & 1) res = res * a % m;
-            a = a * a % m;
+        // Fast IO and High Pecision
+        void FastIO() {
+            ios_base::sync_with_stdio(false);
+            cin.tie(nullptr);
         }
-        return res;
-    }
 
-    long long binPow(long long a, long long b) {
-        assert(b >= 0);
-        long long res = 1;
-        for (; b > 0; b >>= 1) {
-            if (b & 1) res = res * a;
-            a *= a;
+        void HighPrecisionOutput() {
+            cout << fixed << setprecision(17);
         }
-        return res;
-    }
 
-    // Number Theory
-    template<typename T>
-    T gcd(T a, T b) {
-        return b ? gcd(b, a % b) : a;
-    }
-
-    long long lcm(const long long a, const long long b) {
-        return a / gcd(a, b) * b;
-    }
-
-    // Vectors Operations
-    template<typename T>
-    void makeUnique(vector<T>& v) {
-        sort(v.begin(), v.end());
-        v.erase(unique(v.begin(), v.end()), v.end());
-    }
-
-    // Bit operations
-    template<typename T>
-    bool hasBit(T x, int bit) {
-        return ((x >> bit) & 1) != 0;
-    }
-
-    template<typename T>
-    int countBits(T x) {
-        if constexpr (is_same_v<T, int>) {
-            return __builtin_popcount(x);
-        } else if constexpr (is_same_v<T, long long>) {
-            return __builtin_popcountll(x);
-        } else {
-            static_assert(is_integral_v<T>, "countBits requires an integral type");
-            return __builtin_popcountll(static_cast<long long>(x)); // fallback
+        // Random generator
+        template<typename T>
+        T rnd(T x) {
+            assert(x != 0);
+            int sgn = x >= 0 ? 1 : -1;
+            if (x < 0) x = -x;
+            T result = uniform_int_distribution<T>(0, x - 1)(private_helpers::rng) * sgn;
+            return result;
         }
-    }
 
-    template<typename T>
-    int highestBit(T x) {
-        if (x == 0) return -1;
-        if constexpr (is_same_v<T, int>) {
-            return 31 - __builtin_clz(x);
-        } else if constexpr (is_same_v<T, long long>) {
-            return 63 - __builtin_clzll(x);
-        } else {
-            static_assert(is_integral_v<T>, "highestBit requires an integral type");
-            return 63 - __builtin_clzll(static_cast<long long>(x));
+        template<typename T>
+        T rnd(T x, T y) {
+            if (x > y) swap(x, y);
+            T result = uniform_int_distribution<T>(x, y)(private_helpers::rng);
+            return result;
         }
-    }
 
-    template<typename T>
-    int lowestBit(T x) {
-        if (x == 0) return -1;
-        if constexpr (is_same_v<T, int>) {
-            return __builtin_ctz(x);
-        } else if constexpr (is_same_v<T, long long>) {
-            return __builtin_ctzll(x);
-        } else {
-            static_assert(is_integral_v<T>, "lowestBit requires an integral type");
-            return __builtin_ctzll(static_cast<long long>(x));
+        // Y Combinator for recursive calls
+        template <typename Func>
+        struct y_combinator_result {
+            Func func;
+            template <typename... Args>
+            decltype(auto) operator()(Args&&... args) {
+                return func(*this, std::forward<Args>(args)...);
+            }
+        };
+        //Usage: auto func_name = y_combinator([](auto self, int param1, int param2 ...) -> return_type {  code; });
+        template <typename Func>
+        decltype(auto) y_combinator(Func&& func) {
+            return y_combinator_result<std::decay_t<Func>>{std::forward<Func>(func)};
         }
-    }
 
-    // Matrix
-    template<typename T>
-    bool inGrid(T x, T y, T n, T m = -1) {
-        if (m == -1) m = n;
-        return (x >= 1 && x <= n && y >= 1 && y <= m);
-    }
+        // BinPow for fast power calculation
+        long long rBinPow(long long a, long long b, long long m = -1) {
+            assert(b >= 0);
+            if (m == -1) m = mod;
+            long long  res = 1; a %= m;
+            for (; b > 0; b >>= 1) {
+                if (b & 1) res = res * a % m;
+                a = a * a % m;
+            }
+            return res;
+        }
 
-    // Strings
-    string readLine() {
-        string line;
-        getline(cin, line);
-        return line;
-    }
+        long long binPow(long long a, long long b) {
+            assert(b >= 0);
+            long long res = 1;
+            for (; b > 0; b >>= 1) {
+                if (b & 1) res = res * a;
+                a *= a;
+            }
+            return res;
+        }
 
-    vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
-        const unordered_set<char> delimiters(extraDelimiters.begin(), extraDelimiters.end());
-        vector<string> words;
-        string current;
+        // Number Theory
+        template<typename T>
+        T gcd(T a, T b) {
+            return b ? gcd(b, a % b) : a;
+        }
 
-        for (char ch : line) {
-            if (isalnum(ch)) {
-                current += ch;
-            } else if (!current.empty() && (isspace(ch) || delimiters.count(ch) || !isalnum(ch))) {
-                words.push_back(current);
-                current.clear();
+        long long lcm(const long long a, const long long b) {
+            return a / gcd(a, b) * b;
+        }
+
+        // Vectors Operations
+        template<typename T>
+        void makeUnique(vector<T>& v) {
+            sort(v.begin(), v.end());
+            v.erase(unique(v.begin(), v.end()), v.end());
+        }
+
+        // Bit operations
+        template<typename T>
+        bool hasBit(T x, int bit) {
+            return ((x >> bit) & 1) != 0;
+        }
+
+        template<typename T>
+        int countBits(T x) {
+            if constexpr (is_same_v<T, int>) {
+                return __builtin_popcount(x);
+            } else if constexpr (is_same_v<T, long long>) {
+                return __builtin_popcountll(x);
+            } else {
+                static_assert(is_integral_v<T>, "countBits requires an integral type");
+                return __builtin_popcountll(static_cast<long long>(x)); // fallback
             }
         }
 
-        if (!current.empty()) {
-            words.push_back(current);
+        template<typename T>
+        int highestBit(T x) {
+            if (x == 0) return -1;
+            if constexpr (is_same_v<T, int>) {
+                return 31 - __builtin_clz(x);
+            } else if constexpr (is_same_v<T, long long>) {
+                return 63 - __builtin_clzll(x);
+            } else {
+                static_assert(is_integral_v<T>, "highestBit requires an integral type");
+                return 63 - __builtin_clzll(static_cast<long long>(x));
+            }
         }
 
-        return words;
-    }
+        template<typename T>
+        int lowestBit(T x) {
+            if (x == 0) return -1;
+            if constexpr (is_same_v<T, int>) {
+                return __builtin_ctz(x);
+            } else if constexpr (is_same_v<T, long long>) {
+                return __builtin_ctzll(x);
+            } else {
+                static_assert(is_integral_v<T>, "lowestBit requires an integral type");
+                return __builtin_ctzll(static_cast<long long>(x));
+            }
+        }
 
-    // YES / NO
-    void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
-    void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
-};
-using namespace Functions;
+        // Matrix
+        template<typename T>
+        bool inGrid(T x, T y, T n, T m = -1) {
+            if (m == -1) m = n;
+            return (x >= 1 && x <= n && y >= 1 && y <= m);
+        }
 
-/* ========================================================================
-   -> Defines
-   ======================================================================== */
+        // Strings
+        string readLine() {
+            string line;
+            getline(cin, line);
+            return line;
+        }
+
+        vector<string> splitWords(const string& line, const string& extraDelimiters = "") {
+            const unordered_set delimiters(extraDelimiters.begin(), extraDelimiters.end());
+            vector<string> words;
+            string current;
+
+            for (char ch : line) {
+                if (isalnum(ch)) {
+                    current += ch;
+                } else if (!current.empty() && (isspace(ch) || delimiters.count(ch) || !isalnum(ch))) {
+                    words.push_back(current);
+                    current.clear();
+                }
+            }
+
+            if (!current.empty()) {
+                words.push_back(current);
+            }
+
+            return words;
+        }
+
+        // YES / NO
+        void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
+        void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
+    };
+    using namespace Functions;
+
+}
+using namespace Utils;
+
 namespace Define {
     #define all(x) (x).begin(), (x).end()
     #define all1(x) ++(x).begin(), (x).end()
@@ -288,9 +333,7 @@ namespace Define {
 }
 using namespace Define;
 
-namespace Template {
-
-}
+namespace Template {}
 using namespace Template;
 
 constexpr int MAXN = 2e5 + 2;
@@ -300,33 +343,23 @@ constexpr int MAXN = 2e5 + 2;
 void Compute(const int testId, const bool isLastTest) {
 
 
-
 }
 
 void Precompute() {}
 
-#define ComputeMultipleTests
 int main() {
 
     FastIO();
     HighPrecisionOutput();
 
     int numberOfTests = 1;
-    #ifdef ComputeMultipleTests
-        cin >> numberOfTests;
-    #endif
+    cin >> numberOfTests;
 
-    #if defined(DebugMode) && !defined(Generator)
-        auto getDuration = [] (auto start, auto end) {return chrono::duration<double>(end - start).count();};
-        const auto startPrecomputation = chrono::high_resolution_clock::now();
-    #endif
+    startPrecomputationTimer();
 
     Precompute();
 
-    #if defined(DebugMode) && !defined(Generator)
-        const auto endPrecomputation = chrono::high_resolution_clock::now();
-        const auto startComputation = endPrecomputation;
-    #endif
+    endPrecomputationTimerAndStartComputationTimer();
 
     for (int testId = 1; testId <= numberOfTests; ++testId) {
         // cout << "Case #" << testId << ": ";
@@ -334,14 +367,8 @@ int main() {
         Compute(testId, testId == numberOfTests);
     }
 
-    #if defined(DebugMode) && !defined(Generator)
-        const auto endComputation = chrono::high_resolution_clock::now();
-        cout << "\n\n=================================================================\n";
-        cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds." << '\n';
-        cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds." << "\n";
-        cout << "-> Total Computation Running Time: " << getDuration(startPrecomputation, endComputation) << " seconds." << "\n";
-        cout << "=================================================================\n";
-    #endif
+    endComputationTimer();
+    showTimings();
 
     return 0;
 }
