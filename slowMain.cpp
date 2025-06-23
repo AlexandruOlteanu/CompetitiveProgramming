@@ -94,6 +94,9 @@ namespace Debug {
 }
 using namespace Debug;
 
+/* ========================================================================
+   -> Utility Functions Ans Structures
+   ======================================================================== */
 namespace Utils {
     /* ========================================================================
        -> Policy‑based ordered set and multiset
@@ -316,6 +319,9 @@ namespace Utils {
 }
 using namespace Utils;
 
+/* ========================================================================
+   -> Defines
+   ======================================================================== */
 namespace Define {
     #define all(x) (x).begin(), (x).end()
     #define all1(x) ++(x).begin(), (x).end()
@@ -333,6 +339,9 @@ namespace Define {
 }
 using namespace Define;
 
+/* ========================================================================
+   -> Templates written before
+   ======================================================================== */
 namespace Template {}
 using namespace Template;
 
