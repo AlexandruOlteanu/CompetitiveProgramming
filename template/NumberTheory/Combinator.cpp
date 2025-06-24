@@ -6,16 +6,10 @@
         combinator.build();
         int res = combinator.comb(n, k)
 
-    If I need combinatorics with mod: 
-        Combinator combinator(n, invMod);
-        combinator.build();
-        int res = combinator.comb(n, k)
-
-    If I need just a few combs: 
-        Combinator combinator(n, invMod);  // or without mod
+    If I need just a few combs:
+        Combinator combinator(n);  // or without mod
         combinator.build();
 
-        // This doesn't work with mod, be careful, only for direct calculation
         int res = combinator.combOnce(n, k)
 */
 // https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/NumberTheory/Combinator.cpp
@@ -23,15 +17,13 @@ struct Combinator {
 
     vector<vector<int>> c;
     int N;
-    int invMod = -1;
 
     Combinator(int n){
         N = n;
     }
 
-    Combinator(int n, int mod) {
+    Combinator(int n) {
         N = n;
-        invMod = mod;
     }
 
     void build() {
@@ -41,7 +33,6 @@ struct Combinator {
             c[i][0] = c[i][i] = 1;
             for (int j = 1; j < i; ++j) {
                 c[i][j] = c[i - 1][j - 1] + c[i - 1][j];
-                if (invMod > 0) c[i][j] %= invMod;
             }
         }
     }

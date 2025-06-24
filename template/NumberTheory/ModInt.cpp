@@ -201,41 +201,70 @@ void print(Mint number) {
 vector<Mint> fact(1, 1);
 vector<Mint> inv_fact(1, 1);
 
-Mint C(int n, int k) {
-    if (k < 0 || k > n) {
-      return 0;
-    }
-    while ((int) fact.size() < n + 1) {
-        fact.push_back(fact.back() * (int) fact.size());
+constexpr int MAX_COMB_TABLE = 2000000;
+
+void computeFactUpToN(int n) {
+    if (n < static_cast<int>(fact.size())) return;
+    int cur = static_cast<int>(fact.size());
+    fact.reserve(n + 1);
+    inv_fact.reserve(n + 1);
+    while (cur <= n) {
+        fact.push_back(fact.back() * cur);
         inv_fact.push_back(1 / fact.back());
+        ++cur;
     }
-    return fact[n] * inv_fact[k] * inv_fact[n - k];
 }
 
-Mint BigC(long long n, long long k) {
-    if (k < 0 || n < k) return 0;
+Mint computeFactFromXtoY(long long x, long long y) {
+    if (x > y) return 1;
+    Mint res = 1;
+    if (MAX_COMB_TABLE >= x && MAX_COMB_TABLE <= y) {
+        computeFactUpToN(MAX_COMB_TABLE);
+        res = fact[MAX_COMB_TABLE] * inv_fact[x - 1];
+        x = MAX_COMB_TABLE + 1;
+    }
+    for (long long i = x; i <= y; i++) {
+        res *= i;
+    }
+    return res;
+}
+
+template <typename T>
+Mint A(T n, T k) {
+    k = n - k;
+    if (k < 0 || k > n) return 0;
+    if (k == n) return 1;
+
+    if (n <= MAX_COMB_TABLE) {
+        computeFactUpToN(n);
+        return fact[n] * inv_fact[k];
+    }
+
+    Mint res = 1;
+    res = computeFactFromXtoY(k + 1, n);
+
+    return res;
+}
+
+template <typename T>
+Mint C(T n, T k) {
+    if (k < 0 || k > n) return 0;
     if (k == 0 || n == k) return 1;
     if (k > n - k) k = n - k;
 
-    Mint num = 1;
-    for (long long i = 0; i < k; ++i) {
-        num *= Mint(n - i);
+    if (n <= MAX_COMB_TABLE) {
+        computeFactUpToN(n);
+        return fact[n] * inv_fact[k] * inv_fact[n - k];
     }
 
-    // Maybe change this
-    constexpr int MAX_PRECOMPUTED_K = 1000000;
-    if (inv_fact.size() > k) {
-        return num * inv_fact[k];
-    }
+    Mint res = 1;
+    res = computeFactFromXtoY(n - k + 1, n);
 
-    int min_k = min(1LL * MAX_PRECOMPUTED_K, k);
-    while ((long long)inv_fact.size() <= min_k) {
-        fact.push_back(fact.back() * Mint(fact.size()));
-        inv_fact.push_back(1 / fact.back());
-    }
-    num *= inv_fact[min_k];
+    int min_k = min(k, 1LL * MAX_COMB_TABLE);
+    computeFactUpToN(min_k);
+    res *= inv_fact[min_k];
     for (long long i = min_k + 1; i <= k; ++i) {
-        num /= Mint(i);
+        res /= Mint(i);
     }
-    return num;
+    return res;
 }
