@@ -201,7 +201,7 @@ void print(Mint number) {
 vector<Mint> fact(1, 1);
 vector<Mint> inv_fact(1, 1);
 
-constexpr int MAX_COMB_TABLE = 2000000;
+constexpr int MAX_FACT_COMPUTED = 2000000;
 
 void computeFactUpToN(int n) {
     if (n < static_cast<int>(fact.size())) return;
@@ -218,10 +218,10 @@ void computeFactUpToN(int n) {
 Mint computeFactFromXtoY(long long x, long long y) {
     if (x > y) return 1;
     Mint res = 1;
-    if (MAX_COMB_TABLE >= x && MAX_COMB_TABLE <= y) {
-        computeFactUpToN(MAX_COMB_TABLE);
-        res = fact[MAX_COMB_TABLE] * inv_fact[x - 1];
-        x = MAX_COMB_TABLE + 1;
+    if (MAX_FACT_COMPUTED >= x && MAX_FACT_COMPUTED <= y) {
+        computeFactUpToN(MAX_FACT_COMPUTED);
+        res = fact[MAX_FACT_COMPUTED] * inv_fact[x - 1];
+        x = MAX_FACT_COMPUTED + 1;
     }
     for (long long i = x; i <= y; i++) {
         res *= i;
@@ -229,13 +229,21 @@ Mint computeFactFromXtoY(long long x, long long y) {
     return res;
 }
 
+template<typename T>
+Mint P(T n) {
+    assert(n >= 0);
+    if (n == 0) return 1;
+    return computeFactFromXtoY(1, n);
+}
+
 template <typename T>
 Mint A(T n, T k) {
+    assert(n >= 0);
     k = n - k;
     if (k < 0 || k > n) return 0;
     if (k == n) return 1;
 
-    if (n <= MAX_COMB_TABLE) {
+    if (n <= MAX_FACT_COMPUTED) {
         computeFactUpToN(n);
         return fact[n] * inv_fact[k];
     }
@@ -248,11 +256,12 @@ Mint A(T n, T k) {
 
 template <typename T>
 Mint C(T n, T k) {
+    assert(n >= 0 && k >= 0);
     if (k < 0 || k > n) return 0;
     if (k == 0 || n == k) return 1;
     if (k > n - k) k = n - k;
 
-    if (n <= MAX_COMB_TABLE) {
+    if (n <= MAX_FACT_COMPUTED) {
         computeFactUpToN(n);
         return fact[n] * inv_fact[k] * inv_fact[n - k];
     }
@@ -260,7 +269,7 @@ Mint C(T n, T k) {
     Mint res = 1;
     res = computeFactFromXtoY(n - k + 1, n);
 
-    int min_k = min(k, 1LL * MAX_COMB_TABLE);
+    int min_k = min(1LL * k, 1LL * MAX_FACT_COMPUTED);
     computeFactUpToN(min_k);
     res *= inv_fact[min_k];
     for (long long i = min_k + 1; i <= k; ++i) {
