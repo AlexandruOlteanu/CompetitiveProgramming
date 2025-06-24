@@ -215,7 +215,7 @@ void computeFactUpToN(int n) {
     }
 }
 
-Mint computeFactFromXtoY(long long x, long long y) {
+Mint getFactFromXtoY(long long x, long long y) {
     if (x > y) return 1;
     Mint res = 1;
     if (MAX_FACT_COMPUTED >= x && MAX_FACT_COMPUTED <= y) {
@@ -233,7 +233,7 @@ template<typename T>
 Mint P(T n) {
     assert(n >= 0);
     if (n == 0) return 1;
-    return computeFactFromXtoY(1, n);
+    return getFactFromXtoY(1, n);
 }
 
 template <typename T>
@@ -249,7 +249,7 @@ Mint A(T n, T k) {
     }
 
     Mint res = 1;
-    res = computeFactFromXtoY(k + 1, n);
+    res = getFactFromXtoY(k + 1, n);
 
     return res;
 }
@@ -267,7 +267,7 @@ Mint C(T n, T k) {
     }
 
     Mint res = 1;
-    res = computeFactFromXtoY(n - k + 1, n);
+    res = getFactFromXtoY(n - k + 1, n);
 
     int min_k = min(1LL * k, 1LL * MAX_FACT_COMPUTED);
     computeFactUpToN(min_k);
