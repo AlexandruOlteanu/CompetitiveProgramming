@@ -38,15 +38,24 @@ constexpr int mod = 1000000007;
 // #define TestsGenerator
 namespace Debug {
     // Flow Debug
+    inline std::string strip_ansi(std::string s)
+    {
+        static const std::regex ansi_rx("\x1B\\[[0-9;]*[A-Za-z]");
+        return std::regex_replace(s, ansi_rx, "");
+    }
     #ifdef DebugMode
         #include "debug/debug.hpp"
-        #define dbg(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
+        #define debug(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
                 ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
-        #define dbgArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
+        #define debugArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
                 ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
+        #define Sdebug(...) strip_ansi(__DEBUG_UTIL__::sdebug_impl(__LINE__, #__VA_ARGS__, __VA_ARGS__))
+        #define SdebugArr(...) strip_ansi(__DEBUG_UTIL__::sdebugArr_impl(__LINE__, #__VA_ARGS__, __VA_ARGS__))
     #else
-        #define dbg(...) ((void)0)
-        #define dbgArr(...) ((void)0)
+        #define debug(...) ((void)0)
+        #define debugArr(...) ((void)0)
+        #define Sdebug(...) (std::string{})
+        #define SdebugArr(...) (std::string{})
     #endif
 
     // Timer Debug

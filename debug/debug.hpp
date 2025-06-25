@@ -188,5 +188,40 @@ namespace __DEBUG_UTIL__
             cerr << outer << "]\n"
                  << white;
     }
+
+    template <typename PrintCallable>
+    std::string _capture_to_string(int line, PrintCallable&& body)
+    {
+        std::ostringstream oss;
+        std::streambuf* old = std::cerr.rdbuf(oss.rdbuf());
+
+        std::cerr << outer << line << ": [";
+        body();
+        std::cerr.rdbuf(old);
+
+        return oss.str();
+    }
+
+    template <typename... Ts>
+    std::string sdebug_impl(int line,
+                            const char* names,
+                            Ts&&... args)
+    {
+        return _capture_to_string(line, [&] {
+            printer(names, std::forward<Ts>(args)...);
+        });
+    }
+
+    template <typename T, typename... Ts>
+    std::string sdebugArr_impl(int line,
+                               const char* names,
+                               T* firstArray,
+                               std::size_t N,
+                               Ts&&... tail)
+    {
+        return _capture_to_string(line, [&] {
+            printerArr(names, firstArray, N, std::forward<Ts>(tail)...);
+        });
+    }
 }
 
