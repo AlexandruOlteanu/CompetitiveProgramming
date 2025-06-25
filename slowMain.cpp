@@ -38,19 +38,14 @@ constexpr int mod = 1000000007;
 // #define TestsGenerator
 namespace Debug {
     // Flow Debug
-    inline std::string strip_ansi(std::string s)
-    {
-        static const std::regex ansi_rx("\x1B\\[[0-9;]*[A-Za-z]");
-        return std::regex_replace(s, ansi_rx, "");
-    }
     #ifdef DebugMode
         #include "debug/debug.hpp"
-        #define debug(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
-                ": [", __DEBUG_UTIL__::printer(#__VA_ARGS__, __VA_ARGS__)
-        #define debugArr(...) std::cerr << __DEBUG_UTIL__::outer << __LINE__ << \
-                ": [", __DEBUG_UTIL__::printerArr(#__VA_ARGS__, __VA_ARGS__)
-        #define Sdebug(...) strip_ansi(__DEBUG_UTIL__::sdebug_impl(__LINE__, #__VA_ARGS__, __VA_ARGS__))
-        #define SdebugArr(...) strip_ansi(__DEBUG_UTIL__::sdebugArr_impl(__LINE__, #__VA_ARGS__, __VA_ARGS__))
+        #define debug(...) std::cerr << DebugUtil::outer << __LINE__ << \
+                ": [", DebugUtil::debugImpl(#__VA_ARGS__, __VA_ARGS__)
+        #define debugArr(...) std::cerr << DebugUtil::outer << __LINE__ << \
+                ": [", DebugUtil::debugArrImpl(#__VA_ARGS__, __VA_ARGS__)
+        #define Sdebug(...) DebugUtil::SdebugImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define SdebugArr(...) DebugUtil::SdebugArrImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
     #else
         #define debug(...) ((void)0)
         #define debugArr(...) ((void)0)

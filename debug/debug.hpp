@@ -1,4 +1,4 @@
-namespace __DEBUG_UTIL__
+namespace DebugUtil
 {
     using namespace std;
     bool I_want_colored_output = true; /* ONLY WORKS WITH TERMINAL */
@@ -147,9 +147,9 @@ namespace __DEBUG_UTIL__
         cerr << "}";
     }
     /* Printer functions */
-    void printer(const char *) {} /* Base Recursive */
+    inline void debugImpl(const char *) {} /* Base Recursive */
     template <typename T, typename... V>
-    void printer(const char *names, T &&head, V &&...tail)
+    void debugImpl(const char *names, T &&head, V &&...tail)
     {
         /* Using && to capture both lvalues and rvalues */
         int i = 0;
@@ -162,15 +162,15 @@ namespace __DEBUG_UTIL__
         cerr.write(names, i) << outer << " = " << varValue;
         print(head);
         if (sizeof...(tail))
-            cerr << outer << " ||", printer(names + i + 1, tail...);
+            cerr << outer << " ||", debugImpl(names + i + 1, tail...);
         else
             cerr << outer << "]\n"
                  << white;
     }
-    /* PrinterArr */
-    void printerArr(const char *) {} /* Base Recursive */
+    /* debugArrImpl */
+    inline void debugArrImpl(const char *) {} /* Base Recursive */
     template <typename T, typename... V>
-    void printerArr(const char *names, T arr[], size_t N, V... tail)
+    void debugArrImpl(const char *names, T arr[], size_t N, V... tail)
     {
         size_t ind = 0;
         cerr << varName;
@@ -183,7 +183,7 @@ namespace __DEBUG_UTIL__
             cerr << (i ? "," : ""), print(arr[i]);
         cerr << "}";
         if (sizeof...(tail))
-            cerr << outer << " ||", printerArr(names + ind + 1, tail...);
+            cerr << outer << " ||", debugArrImpl(names + ind + 1, tail...);
         else
             cerr << outer << "]\n"
                  << white;
@@ -202,26 +202,32 @@ namespace __DEBUG_UTIL__
         return oss.str();
     }
 
+    inline std::string strip_ansi(std::string s)
+    {
+        static const std::regex ansi_rx("\x1B\\[[0-9;]*[A-Za-z]");
+        return std::regex_replace(s, ansi_rx, "");
+    }
+
     template <typename... Ts>
-    std::string sdebug_impl(int line,
+    std::string SdebugImpl(int line,
                             const char* names,
                             Ts&&... args)
     {
-        return _capture_to_string(line, [&] {
-            printer(names, std::forward<Ts>(args)...);
-        });
+        return strip_ansi(_capture_to_string(line, [&] {
+            debugImpl(names, std::forward<Ts>(args)...);
+        }));
     }
 
     template <typename T, typename... Ts>
-    std::string sdebugArr_impl(int line,
+    std::string SdebugArrImpl(int line,
                                const char* names,
                                T* firstArray,
                                std::size_t N,
                                Ts&&... tail)
     {
-        return _capture_to_string(line, [&] {
-            printerArr(names, firstArray, N, std::forward<Ts>(tail)...);
-        });
+        return strip_ansi(_capture_to_string(line, [&] {
+            debugArrImpl(names, firstArray, N, std::forward<Ts>(tail)...);
+        }));
     }
 }
 
