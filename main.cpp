@@ -64,7 +64,7 @@ namespace Debug {
             cout << "\n\n=================================================================\n";
             cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds.\n";
             cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds.\n";
-            cout << "-> Total Computation Running Time: " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
+            cout << "-> Total Running Time:             " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
             cout << "=================================================================\n";
         #endif
     }
