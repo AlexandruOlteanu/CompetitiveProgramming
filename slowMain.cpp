@@ -349,7 +349,7 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void Compute(const int testId, const bool isLastTest) {
+void Compute(const int testNr, const bool isLastTest) {
 
 
 }
@@ -370,10 +370,10 @@ int main() {
 
     endPrecomputationTimerAndStartComputationTimer();
 
-    for (int testId = 1; testId <= numberOfTests; ++testId) {
-        // cout << "Case #" << testId << ": ";
-        // cout << "Test #" << testId << ": ";
-        Compute(testId, testId == numberOfTests);
+    for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
+        // cout << "Case #" << testNr << ": ";
+        // cout << "Test #" << testNr << ": ";
+        Compute(testNr, testNr == numberOfTests);
     }
 
     endComputationTimer();
