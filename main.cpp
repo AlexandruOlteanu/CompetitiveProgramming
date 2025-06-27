@@ -63,16 +63,6 @@ namespace Debug {
         return chrono::duration<double>(end - start).count();
     }
 
-    void showTimings() {
-        #if defined(DebugMode) && !defined(TestsGenerator)
-            cout << "\n\n=================================================================\n";
-            cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds.\n";
-            cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds.\n";
-            cout << "-> Total Running Time:             " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
-            cout << "=================================================================\n";
-        #endif
-    }
-
     void reset() {
         startPrecomputation = endPrecomputation = startComputation = endComputation = TimePoint{};
     }
@@ -93,6 +83,16 @@ namespace Debug {
     void endComputationTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
                 endComputation = chrono::high_resolution_clock::now();
+        #endif
+    }
+
+    void debugTimings() {
+        #if defined(DebugMode) && !defined(TestsGenerator)
+                cout << "\n\n=================================================================\n";
+                cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds.\n";
+                cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds.\n";
+                cout << "-> Total Running Time:             " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
+                cout << "=================================================================\n";
         #endif
     }
 }
@@ -381,7 +381,7 @@ int main() {
     }
 
     endComputationTimer();
-    showTimings();
+    debugTimings();
 
     return 0;
 }
