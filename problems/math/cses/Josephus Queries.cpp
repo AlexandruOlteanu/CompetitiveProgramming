@@ -355,7 +355,46 @@ constexpr int MAXN = 2e5 + 2;
 
 void Compute(const int testNr, const bool isLastTest) {
 
-
+    int q;
+    cin >> q;
+    while (q--) {
+        int n, k;
+        cin >> n >> k;
+        bool startSecond = true;
+        vector<int> rounds;
+        while (true) {
+            int taken = 0;
+            if (startSecond) {
+                taken = n / 2;
+            } else {
+                taken = n / 2 + (n % 2);
+            }
+            if (taken >= k) {
+                int p = -1;
+                if (startSecond) {
+                    p = k * 2;
+                } else {
+                    p = k * 2 - 1;
+                }
+                int sz = rounds.size() - 1;
+                dbg(rounds);
+                while (sz >= 0) {
+                    p = p * 2 - rounds[sz];
+                    --sz;
+                }
+                dbg(k, p, startSecond);
+                cout << p << '\n';
+                goto end;
+            }
+            if (startSecond) rounds.push_back(1);
+            else rounds.push_back(0);
+            if (n & 1) startSecond ^= true;
+            k -= taken;
+            n -= taken;
+        }
+        end:
+            continue;
+    }
 }
 
 void Precompute() {}
@@ -366,7 +405,7 @@ int main() {
     HighPrecisionOutput();
 
     int numberOfTests = 1;
-    cin >> numberOfTests;
+    // cin >> numberOfTests;
 
     startPrecomputationTimer();
 

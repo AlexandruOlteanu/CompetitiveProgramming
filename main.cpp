@@ -40,17 +40,17 @@ namespace Debug {
     // Flow Debug
     #ifdef DebugMode
         #include "debug/debug.hpp"
-        #define debug(...) std::cerr << DebugUtil::outer << __LINE__ << \
+        #define dbg(...) std::cerr << DebugUtil::outer << __LINE__ << \
                 ": [", DebugUtil::debugImpl(#__VA_ARGS__, __VA_ARGS__)
-        #define debugArr(...) std::cerr << DebugUtil::outer << __LINE__ << \
+        #define dbgArr(...) std::cerr << DebugUtil::outer << __LINE__ << \
                 ": [", DebugUtil::debugArrImpl(#__VA_ARGS__, __VA_ARGS__)
-        #define Sdebug(...) DebugUtil::SdebugImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
-        #define SdebugArr(...) DebugUtil::SdebugArrImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define Sdbg(...) DebugUtil::SdebugImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define SdbgArr(...) DebugUtil::SdebugArrImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
     #else
-        #define debug(...) ((void)0)
-        #define debugArr(...) ((void)0)
-        #define Sdebug(...) (std::string{})
-        #define SdebugArr(...) (std::string{})
+        #define dbg(...) ((void)0)
+        #define dbgArr(...) ((void)0)
+        #define Sdbg(...) (std::string{})
+        #define SdbgArr(...) (std::string{})
     #endif
 
     // Timer Debug
