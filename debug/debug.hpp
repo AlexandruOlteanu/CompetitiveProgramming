@@ -25,8 +25,8 @@ namespace DebugUtil
     void print(string x) { cerr << '\"' << x << '\"'; }
     template <size_t N>
     void print(bitset<N> x) { cerr << x; }
-    void print(vector<bool> v)
-    { /* Overloaded this because stl optimizes vector<bool> by using
+    void print(vector<bool> v) {
+        /* Overloaded this because stl optimizes vector<bool> by using
           _Bit_reference instead of bool to conserve space. */
         int f = 0;
         cerr << '{';
@@ -57,8 +57,7 @@ namespace DebugUtil
     void print(queue<T> q);
     /* Template Datatypes Definitions */
     template <typename T>
-    void print(T &&x)
-    {
+    void print(T &&x) {
         /*  This works for every container that supports range-based loop
             i.e. vector, set, map, oset, omap, dequeue */
         int f = 0;
@@ -68,8 +67,7 @@ namespace DebugUtil
         cerr << "}";
     }
     template <typename T>
-    void print(vector<vector<T>> mat)
-    {
+    void print(vector<vector<T>> mat) {
         int f = 0;
         cerr << "\n~~~~~\n";
         for (auto &&i : mat)
@@ -79,8 +77,7 @@ namespace DebugUtil
         cerr << "~~~~~\n";
     }
     template <typename T, size_t N, size_t M>
-    void print(T (&mat)[N][M])
-    {
+    void print(T (&mat)[N][M]) {
         int f = 0;
         cerr << "\n~~~~~\n";
         for (auto &&i : mat)
@@ -90,8 +87,7 @@ namespace DebugUtil
         cerr << "~~~~~\n";
     }
     template <typename F, typename S>
-    void print(pair<F, S> x)
-    {
+    void print(pair<F, S> x) {
         cerr << '(';
         print(x.first);
         cerr << ',';
@@ -99,29 +95,24 @@ namespace DebugUtil
         cerr << ')';
     }
     template <typename T, size_t N>
-    struct Tuple
-    {
-        static void printTuple(T t)
-        {
+    struct Tuple {
+        static void printTuple(T t) {
             Tuple<T, N - 1>::printTuple(t);
             cerr << ",", print(get<N - 1>(t));
         }
     };
     template <typename T>
-    struct Tuple<T, 1>
-    {
+    struct Tuple<T, 1> {
         static void printTuple(T t) { print(get<0>(t)); }
     };
     template <typename... Args>
-    void print(tuple<Args...> t)
-    {
+    void print(tuple<Args...> t) {
         cerr << "(";
         Tuple<decltype(t), sizeof...(Args)>::printTuple(t);
         cerr << ")";
     }
     template <typename... T>
-    void print(priority_queue<T...> pq)
-    {
+    void print(priority_queue<T...> pq) {
         int f = 0;
         cerr << '{';
         while (!pq.empty())
@@ -129,8 +120,7 @@ namespace DebugUtil
         cerr << "}";
     }
     template <typename T>
-    void print(stack<T> st)
-    {
+    void print(stack<T> st) {
         int f = 0;
         cerr << '{';
         while (!st.empty())
@@ -138,19 +128,18 @@ namespace DebugUtil
         cerr << "}";
     }
     template <typename T>
-    void print(queue<T> q)
-    {
+    void print(queue<T> q) {
         int f = 0;
         cerr << '{';
         while (!q.empty())
             cerr << (f++ ? "," : ""), print(q.front()), q.pop();
         cerr << "}";
     }
+    
     /* Printer functions */
-    inline void debugImpl(const char *) {} /* Base Recursive */
+    inline void dbgPrinter(const char *) {} /* Base Recursive */
     template <typename T, typename... V>
-    void debugImpl(const char *names, T &&head, V &&...tail)
-    {
+    void dbgPrinter(const char *names, T &&head, V &&...tail) {
         /* Using && to capture both lvalues and rvalues */
         int i = 0;
         for (size_t bracket = 0; names[i] != '\0' and (names[i] != ',' or bracket != 0); i++)
@@ -162,16 +151,15 @@ namespace DebugUtil
         cerr.write(names, i) << outer << " = " << varValue;
         print(head);
         if (sizeof...(tail))
-            cerr << outer << " ||", debugImpl(names + i + 1, tail...);
+            cerr << outer << " ||", dbgPrinter(names + i + 1, tail...);
         else
             cerr << outer << "]\n"
                  << white;
     }
-    /* debugArrImpl */
-    inline void debugArrImpl(const char *) {} /* Base Recursive */
+    /* dbgArrPrinter */
+    inline void dbgArrPrinter(const char *) {} /* Base Recursive */
     template <typename T, typename... V>
-    void debugArrImpl(const char *names, T arr[], size_t N, V... tail)
-    {
+    void dbgArrPrinter(const char *names, T arr[], size_t N, V... tail) {
         size_t ind = 0;
         cerr << varName;
         for (; names[ind] and names[ind] != ','; ind++)
@@ -183,15 +171,14 @@ namespace DebugUtil
             cerr << (i ? "," : ""), print(arr[i]);
         cerr << "}";
         if (sizeof...(tail))
-            cerr << outer << " ||", debugArrImpl(names + ind + 1, tail...);
+            cerr << outer << " ||", dbgArrPrinter(names + ind + 1, tail...);
         else
             cerr << outer << "]\n"
                  << white;
     }
 
     template <typename PrintCallable>
-    std::string _capture_to_string(int line, PrintCallable&& body)
-    {
+    std::string _capture_to_string(int line, PrintCallable&& body) {
         std::ostringstream oss;
         std::streambuf* old = std::cerr.rdbuf(oss.rdbuf());
 
@@ -202,32 +189,33 @@ namespace DebugUtil
         return oss.str();
     }
 
-    inline std::string strip_ansi(std::string s)
-    {
+    inline std::string strip_ansi(std::string s) {
         static const std::regex ansi_rx("\x1B\\[[0-9;]*[A-Za-z]");
         return std::regex_replace(s, ansi_rx, "");
     }
 
     template <typename... Ts>
-    std::string SdebugImpl(int line,
-                            const char* names,
-                            Ts&&... args)
-    {
+    std::string SdbgImpl(int line, const char* names, Ts&&... args){
         return strip_ansi(_capture_to_string(line, [&] {
-            debugImpl(names, std::forward<Ts>(args)...);
+            dbgPrinter(names, std::forward<Ts>(args)...);
         }));
     }
 
     template <typename T, typename... Ts>
-    std::string SdebugArrImpl(int line,
-                               const char* names,
-                               T* firstArray,
-                               std::size_t N,
-                               Ts&&... tail)
-    {
+    std::string SdbgArrImpl(int line, const char* names, T* firstArray, std::size_t N, Ts&&... args) {
         return strip_ansi(_capture_to_string(line, [&] {
-            debugArrImpl(names, firstArray, N, std::forward<Ts>(tail)...);
+            dbgArrPrinter(names, firstArray, N, std::forward<Ts>(args)...);
         }));
+    }
+
+    template <typename... Ts>
+    void dbgImpl(int line, const char* names, Ts&&... args) {
+        cerr << outer << line << ": [", dbgPrinter(names, std::forward<Ts>(args)...);
+    }
+
+    template <typename T, typename... V>
+    void dbgArrImpl(int line, const char *names, T arr[], size_t N, V&&... args) {
+        cerr << outer << line << ": [", dbgArrPrinter(names, arr, N, std::forward<V>(args)...);
     }
 }
 

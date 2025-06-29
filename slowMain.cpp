@@ -13,7 +13,7 @@
     -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
     -> 12   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
     -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 91   Random Problems from different sites
+    -> 92   Random Problems from different sites
 */
 
 #include <bits/stdc++.h>
@@ -40,16 +40,14 @@ namespace Debug {
     // Flow Debug
     #ifdef DebugMode
         #include "debug/debug.hpp"
-        #define dbg(...) std::cerr << DebugUtil::outer << __LINE__ << \
-                ": [", DebugUtil::debugImpl(#__VA_ARGS__, __VA_ARGS__)
-        #define dbgArr(...) std::cerr << DebugUtil::outer << __LINE__ << \
-                ": [", DebugUtil::debugArrImpl(#__VA_ARGS__, __VA_ARGS__)
-        #define Sdbg(...) DebugUtil::SdebugImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
-        #define SdbgArr(...) DebugUtil::SdebugArrImpl(__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define dbg(...)     DebugUtil::dbgImpl     (__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define dbgArr(...)  DebugUtil::dbgArrImpl  (__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define Sdbg(...)    DebugUtil::SdbgImpl    (__LINE__, #__VA_ARGS__, __VA_ARGS__)
+        #define SdbgArr(...) DebugUtil::SdbgArrImpl (__LINE__, #__VA_ARGS__, __VA_ARGS__)
     #else
-        #define dbg(...) ((void)0)
-        #define dbgArr(...) ((void)0)
-        #define Sdbg(...) (std::string{})
+        #define dbg(...)     ((void)0)
+        #define dbgArr(...)  ((void)0)
+        #define Sdbg(...)    (std::string{})
         #define SdbgArr(...) (std::string{})
     #endif
 
