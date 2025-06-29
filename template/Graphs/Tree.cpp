@@ -61,28 +61,24 @@ struct Tree {
     // build overloads – same behaviour as Ancestor
     void build(int root = 1)                              { runBuild({root}); }
     void build(const vector<int>& roots)                  { runBuild(roots); }
+    void build(const vector<vector<int>>& adj)            { g = adj; runBuild({}); }
+    void build(const vector<vector<int>>& adj, int root)  { g = adj; runBuild({root}); }
+    void build(const vector<vector<int>>& adj, const vector<int>& roots) { g = adj; runBuild(roots); }
 
-    void build(const vector<vector<int>>& adj)                             { g = adj; runBuild({}); }
-    void build(const vector<vector<int>>& adj, int root)                  { g = adj; runBuild({root}); }
-    void build(const vector<vector<int>>& adj, const vector<int>& roots)  { g = adj; runBuild(roots); }
-
-    // classical binary-lifting / distance queries
-    int kth_ancestor(int v, int k) const { assertBuilt(); return lift(v,k); }
-    int lca(int u, int v)          const { assertBuilt(); return lcaImpl(u,v); }
-    int dist(int u, int v)         const {
+    int getKthAncestor(int v, int k) const { assertBuilt(); return lift(v,k); }
+    int getLCA(int u, int v)          const { assertBuilt(); return lcaImpl(u,v); }
+    int getDist(int u, int v)         const {
         assertBuilt();
         int a = lcaImpl(u,v);
         return a == -1 ? -1 : depth[u] + depth[v] - 2*depth[a];
     }
 
-    // Subtree / leaf helpers ---------------------------------------------- //
-    const vector<int>& leaves()         const { assertBuilt(); return leaf_nodes; }
-    int                nrLeaves()       const { assertBuilt(); return (int)leaf_nodes.size(); }
-    int                subtreeSize(int v) const { assertBuilt(); return subtree_sz[v]; }
-    const vector<int>& allSubtreeSizes() const { assertBuilt(); return subtree_sz; }
+    const vector<int>& getLeaves()         const { assertBuilt(); return leaf_nodes; }
+    int                getNrLeaves()       const { assertBuilt(); return (int)leaf_nodes.size(); }
+    int                getSubtreeSize(int v) const { assertBuilt(); return subtree_sz[v]; }
+    const vector<int>& getAllSubtreeSizes() const { assertBuilt(); return subtree_sz; }
 
-    /** Return *copy* of the vertices in the subtree rooted at v.  O(size). */
-    vector<int> subtreeOf(int v) const {
+    vector<int> getSubtreeOf(int v) const {
         assertBuilt();
         if (tin[v] == -1) return {};
         return vector<int>( euler.begin() + tin[v], euler.begin() + tout[v] );
@@ -93,7 +89,7 @@ struct Tree {
         return comp[u] == comp[v] && tin[u] <= tin[v] && tout[v] <= tout[u];
     }
 
-    int rootOf(int v) const {
+    int getRootOf(int v) const {
         assertBuilt();
         return root_of_comp[ comp[v] ];
     }
@@ -135,10 +131,9 @@ private:
 
     bool built = false;
 
-    // Initialisation ------------------------------------------------------- //
     void init(int _n) {
         n = _n;
-        LOG = 32 - __builtin_clz(max(1, n)) + 1;   // smallest LOG s.t. 2^LOG ≥ n
+        LOG = 32 - __builtin_clz(max(1, n)) + 1;
         g.assign(n + 1, {});
         up.assign(LOG, vector<int>(n + 1, 0));
         depth.assign(n + 1, 0);
@@ -172,7 +167,6 @@ private:
                 root_of_comp.push_back(v);
                 dfs(v, 0, cid++);
             }
-
         built = true;
     }
 
@@ -182,7 +176,6 @@ private:
         for (int k = 1; k < LOG; ++k)
             up[k][v] = up[k-1][v] ? up[k-1][ up[k-1][v] ] : 0;
 
-        // Enter Euler tour
         tin[v] = (int)euler.size();
         euler.push_back(v);
         subtree_sz[v] = 1;
@@ -196,11 +189,9 @@ private:
         }
 
         if (child_cnt == 0) leaf_nodes.push_back(v);
-
-        tout[v] = (int)euler.size();   // exit Euler tour (exclusive)
+        tout[v] = (int)euler.size();
     }
 
-    // Query helpers -------------------------------------------------------- //
     int lift(int v, int k) const {
         for (int i = 0; v && k; ++i, k >>= 1)
             if (k & 1) v = up[i][v];
