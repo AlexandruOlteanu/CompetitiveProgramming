@@ -48,6 +48,7 @@
 //   memory                    O(n log n)
 // ============================================================================
 
+// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/Tree.cpp
 struct Tree {
     explicit Tree(int _n = 0) { init(_n); }
 
