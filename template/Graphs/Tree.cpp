@@ -1,55 +1,53 @@
 // ============================================================================
 //                              GENERIC TREE UTILITY
-//                    Binary‑Lifting LCA  +  Subtree helpers
-//                    1‑indexed, supports FORESTS (multiple trees)
+//                    Binary-Lifting LCA  +  Subtree helpers
+//                    1-indexed, supports FORESTS (multiple trees)
 // ============================================================================
 //  QUICK REFERENCE   –  what you can call after `Tree T(n);`
 // ----------------------------------------------------------------------------
-//   addEdge(u,v)                 // undirected (u,v); repeat as needed
+//   addEdge(u,v)                     // undirected (u,v); repeat as needed
 //
-//   build()                      // auto‑root every component (no preference)
-//   build(root)                  // … but make `root` the root of *its* comp
-//   build({r1,r2,…})             // preferred root for *each* component
+//   build()                          // auto-root every component (no preference)
+//   build(root)                      // … but make `root` the root of *its* comp
+//   build({r1,r2,…})                 // preferred root for *each* component
 //
-//   build(adj)                   // build from existing adjacency list
-//   build(adj,root)              // … + single preferred root
-//   build(adj,{r1,r2,…})         // … + several preferred roots
+//   build(adj)                       // build from existing adjacency list
+//   build(adj,root)                  // … + single preferred root
+//   build(adj,{r1,r2,…})             // … + several preferred roots
 //
 //   /* classical LCA queries */
-//   lca(u,v)                     // lowest common ancestor (‑1 if diff comps)
-//   dist(u,v)                    // #edges on the u‑v path (‑1 if diff comps)
-//   kth_ancestor(v,k)            // k‑th ancestor (‑1 if non‑existent)
+//   lca(u,v)                         // lowest common ancestor (-1 if diff comps)
+//   dist(u,v)                        // #edges on the u-v path (-1 if diff comps)
+//   kth_ancestor(v,k)                // k-th ancestor (-1 if non-existent)
 //
 //   /* Subtree / leaf helpers */
-//   const vector<int>&   leaves() const            // all leaves in the forest
-//   int                  nrLeaves() const          // leaves().size()
-//   int                  subtreeSize(v) const      // |subtree of v|
-//   vector<int>          subtreeOf(v) const        // vertices in v‑subtree
-//   const vector<int>&   allSubtreeSizes() const   // size for every vertex
-//   bool                 isAncestor(u,v) const     // true ⇔ u is ancestor of v
-//   int                  rootOf(v) const           // root of v’s component
+//   const vector<int>& leaves() const           // all leaves in the forest
+//   int                nrLeaves() const         // leaves().size()
+//   int                subtreeSize(v) const     // |subtree of v|
+//   vector<int>        subtreeOf(v) const       // vertices in v-subtree
+//   const vector<int>& allSubtreeSizes() const  // size for every vertex
+//   bool               isAncestor(u,v) const    // true ⇔ u is ancestor of v
+//   int                rootOf(v) const          // root of v’s component
 //
-//   reset() / reset(new_n)                         // reuse object
+//   /* NEW — direct-children helpers */
+//   int                getNrOfChilds(v) const   // #direct children of v
+//   vector<int>        getChilds(v) const       // direct children of v
+//
+//   reset() / reset(new_n)                      // reuse object
 //
 //  GUARANTEES
-//   • All queries return ‑1 when vertices lie in *different* trees.
-//   • kth_ancestor(v,k) returns ‑1 if k ≥ depth(v)+1 (climbs past root).
-//   • addEdge() *after* build(), or query *before* build()  → assert‑fail.
+//   • All queries return -1 when vertices lie in *different* trees.
+//   • kth_ancestor(v,k) returns -1 if k ≥ depth(v)+1 (climbs past root).
+//   • addEdge() *after* build(), or query *before* build()  → assert-fail.
 //
 //  COMPLEXITIES
-//   build(...)            O(n log n)
-//   lca/dist/kth          O(log n) per query
-//   subtree helpers       O(1) per query (subtreeOf: O(|subtree|))
-//   memory                O(n log n)
-//
-// ─────────────────────────────────────────────────────────────────===========
-//  Implementation note
-//   • Internally, vertex 0 is a “null parent”. Real vertices are 1…n.
-//   • Each preferred root is accepted only if 1 ≤ r ≤ n and unvisited.
-//     If two roots fall in the same component the first encountered wins.
+//   build(...)                O(n log n)
+//   lca/dist/kth              O(log n) per query
+//   subtree helpers           O(1) per query (subtreeOf: O(|subtree|))
+//   NEW children helpers      O(deg(v)) (≤ n but tiny in a tree)
+//   memory                    O(n log n)
 // ============================================================================
 
-// https://github.com/AlexandruOlteanu/CompetitiveProgramming/blob/main/template/Graphs/Tree.cpp
 struct Tree {
     explicit Tree(int _n = 0) { init(_n); }
 
@@ -67,7 +65,7 @@ struct Tree {
     void build(const vector<vector<int>>& adj, int root)                  { g = adj; runBuild({root}); }
     void build(const vector<vector<int>>& adj, const vector<int>& roots)  { g = adj; runBuild(roots); }
 
-    // classical binary‑lifting / distance queries
+    // classical binary-lifting / distance queries
     int kth_ancestor(int v, int k) const { assertBuilt(); return lift(v,k); }
     int lca(int u, int v)          const { assertBuilt(); return lcaImpl(u,v); }
     int dist(int u, int v)         const {
@@ -99,7 +97,24 @@ struct Tree {
         return root_of_comp[ comp[v] ];
     }
 
-    // Re‑use --------------------------------------------------------------- //
+    // NEW: direct-children helpers ---------------------------------------- //
+    /** Number of direct children of `v` (O(deg(v))). */
+    int getNrOfChilds(int v) const {
+        assertBuilt();
+        int cnt = 0, p = up[0][v];
+        for (int to : g[v]) if (to != p) ++cnt;
+        return cnt;
+    }
+    /** List of direct children of `v` (unordered, O(deg(v))). */
+    vector<int> getChilds(int v) const {
+        assertBuilt();
+        vector<int> res;
+        int p = up[0][v];
+        for (int to : g[v]) if (to != p) res.push_back(to);
+        return res;
+    }
+
+    // Re-use --------------------------------------------------------------- //
     void reset()          { init(n); }
     void reset(int new_n) { init(new_n); }
 
@@ -107,7 +122,7 @@ private:
     // State ---------------------------------------------------------------- //
     int n = 0, LOG = 0;
     vector<vector<int>> g;            // adjacency list
-    vector<vector<int>> up;           // up[k][v] = 2^k‑ancestor (0 ⇒ none)
+    vector<vector<int>> up;           // up[k][v] = 2^k-ancestor (0 ⇒ none)
     vector<int> depth;                // depth[v]
     vector<int> comp;                 // component id of v
     vector<int> root_of_comp;         // root vertex for each component
@@ -142,7 +157,7 @@ private:
         vector<char> used_root(n + 1, 0);
         int cid = 0;
 
-        // 1) DFS from user‑designated roots
+        // 1) DFS from user-designated roots
         for (int r : roots)
             if (1 <= r && r <= n && !used_root[r] && comp[r] == -1) {
                 used_root[r] = 1;
