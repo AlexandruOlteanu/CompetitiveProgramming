@@ -1,13 +1,13 @@
 // ============================================================================
 //                              GENERIC TREE UTILITY
-//                    Binary-Lifting LCA  +  Subtree helpers
-//                    1-indexed, supports FORESTS (multiple trees)
+//            Binary‑Lifting LCA  +  Subtree & Diameter helpers
+//                    1‑indexed, supports FORESTS (multiple trees)
 // ============================================================================
 //  QUICK REFERENCE   –  what you can call after `Tree T(n);`
 // ----------------------------------------------------------------------------
 //   addEdge(u,v)                     // undirected (u,v); repeat as needed
 //
-//   build()                          // auto-root every component (no preference)
+//   build()                          // auto‑root every component (no preference)
 //   build(root)                      // … but make `root` the root of *its* comp
 //   build({r1,r2,…})                 // preferred root for *each* component
 //
@@ -16,35 +16,40 @@
 //   build(adj,{r1,r2,…})             // … + several preferred roots
 //
 //   /* classical LCA queries */
-//   lca(u,v)                         // lowest common ancestor (-1 if diff comps)
-//   dist(u,v)                        // #edges on the u-v path (-1 if diff comps)
-//   kth_ancestor(v,k)                // k-th ancestor (-1 if non-existent)
+//   lca(u,v)                         // lowest common ancestor (‑1 if diff comps)
+//   dist(u,v)                        // #edges on the u‑v path (‑1 if diff comps)
+//   kth_ancestor(v,k)                // k‑th ancestor (‑1 if non‑existent)
 //
 //   /* Subtree / leaf helpers */
 //   const vector<int>& leaves() const           // all leaves in the forest
 //   int                nrLeaves() const         // leaves().size()
 //   int                subtreeSize(v) const     // |subtree of v|
-//   vector<int>        subtreeOf(v) const       // vertices in v-subtree
+//   vector<int>        subtreeOf(v) const       // vertices in v‑subtree
 //   const vector<int>& allSubtreeSizes() const  // size for every vertex
-//   bool               isAncestor(u,v) const    // true ⇔ u is ancestor of v
+//   bool               isAncestor(u,v) const    // true ⇔ u ancestor of v
 //   int                rootOf(v) const          // root of v’s component
 //
-//   /* NEW — direct-children helpers */
+//   /* direct‑children helpers */
 //   int                getNrOfChilds(v) const   // #direct children of v
 //   vector<int>        getChilds(v) const       // direct children of v
+//
+//   /* NEW — diameter helpers */
+//   int                getDiameter(v) const     // diameter length of v’s comp
+//   const vector<int>& allDiameters() const     // diameter for every component
 //
 //   reset() / reset(new_n)                      // reuse object
 //
 //  GUARANTEES
-//   • All queries return -1 when vertices lie in *different* trees.
-//   • kth_ancestor(v,k) returns -1 if k ≥ depth(v)+1 (climbs past root).
-//   • addEdge() *after* build(), or query *before* build()  → assert-fail.
+//   • All queries return ‑1 when vertices lie in *different* trees.
+//   • kth_ancestor(v,k) returns ‑1 if k ≥ depth(v)+1 (climbs past root).
+//   • addEdge() *after* build(), or query *before* build()  → assert‑fail.
 //
 //  COMPLEXITIES
 //   build(...)                O(n log n)
 //   lca/dist/kth              O(log n) per query
 //   subtree helpers           O(1) per query (subtreeOf: O(|subtree|))
-//   NEW children helpers      O(deg(v)) (≤ n but tiny in a tree)
+//   children helpers          O(deg(v))
+//   diameter helpers          O(1) per query (overall extra O(n))
 //   memory                    O(n log n)
 // ============================================================================
 
@@ -65,6 +70,7 @@ struct Tree {
     void build(const vector<vector<int>>& adj, int root)  { g = adj; runBuild({root}); }
     void build(const vector<vector<int>>& adj, const vector<int>& roots) { g = adj; runBuild(roots); }
 
+    // classical LCA wrappers -------------------------------------------------
     int getKthAncestor(int v, int k) const { assertBuilt(); return lift(v,k); }
     int getLCA(int u, int v)          const { assertBuilt(); return lcaImpl(u,v); }
     int getDist(int u, int v)         const {
@@ -73,6 +79,7 @@ struct Tree {
         return a == -1 ? -1 : depth[u] + depth[v] - 2*depth[a];
     }
 
+    // subtree / leaf helpers -------------------------------------------------
     const vector<int>& getLeaves()         const { assertBuilt(); return leaf_nodes; }
     int                getNrLeaves()       const { assertBuilt(); return (int)leaf_nodes.size(); }
     int                getSubtreeSize(int v) const { assertBuilt(); return subtree_sz[v]; }
@@ -94,15 +101,13 @@ struct Tree {
         return root_of_comp[ comp[v] ];
     }
 
-    // NEW: direct-children helpers ---------------------------------------- //
-    /** Number of direct children of `v` (O(deg(v))). */
+    // direct‑children helpers ---------------------------------------------- //
     int getNrOfChilds(int v) const {
         assertBuilt();
         int cnt = 0, p = up[0][v];
         for (int to : g[v]) if (to != p) ++cnt;
         return cnt;
     }
-    /** List of direct children of `v` (unordered, O(deg(v))). */
     vector<int> getChilds(int v) const {
         assertBuilt();
         vector<int> res;
@@ -111,7 +116,16 @@ struct Tree {
         return res;
     }
 
-    // Re-use --------------------------------------------------------------- //
+    // NEW: diameter helpers ------------------------------------------------- //
+    /** Diameter length (in edges) of the component containing `v`. */
+    int getDiameter(int v) const {
+        assertBuilt();
+        return diam_of_comp[ comp[v] ];
+    }
+    /** Diameter for every component (same order as root_of_comp). */
+    const vector<int>& allDiameters() const { assertBuilt(); return diam_of_comp; }
+
+    // Re‑use --------------------------------------------------------------- //
     void reset()          { init(n); }
     void reset(int new_n) { init(new_n); }
 
@@ -119,7 +133,7 @@ private:
     // State ---------------------------------------------------------------- //
     int n = 0, LOG = 0;
     vector<vector<int>> g;            // adjacency list
-    vector<vector<int>> up;           // up[k][v] = 2^k-ancestor (0 ⇒ none)
+    vector<vector<int>> up;           // up[k][v] = 2^k‑ancestor (0 ⇒ none)
     vector<int> depth;                // depth[v]
     vector<int> comp;                 // component id of v
     vector<int> root_of_comp;         // root vertex for each component
@@ -128,6 +142,9 @@ private:
     vector<int> tin, tout, euler;     // entry/exit positions in Euler order
     vector<int> subtree_sz;           // |subtree rooted at v|
     vector<int> leaf_nodes;           // vertices with no children
+
+    // diameter per component
+    vector<int> diam_of_comp;         // length (edges) of diameter for comp
 
     bool built = false;
 
@@ -144,6 +161,7 @@ private:
         root_of_comp.clear();
         euler.clear();
         leaf_nodes.clear();
+        diam_of_comp.clear();
         built = false;
     }
 
@@ -153,7 +171,7 @@ private:
         vector<char> used_root(n + 1, 0);
         int cid = 0;
 
-        // 1) DFS from user-designated roots
+        // 1) DFS from user‑designated roots
         for (int r : roots)
             if (1 <= r && r <= n && !used_root[r] && comp[r] == -1) {
                 used_root[r] = 1;
@@ -167,6 +185,10 @@ private:
                 root_of_comp.push_back(v);
                 dfs(v, 0, cid++);
             }
+
+        // 3) Compute diameter for every component (extra O(n)).
+        computeDiameters(cid);
+
         built = true;
     }
 
@@ -192,6 +214,38 @@ private:
         tout[v] = (int)euler.size();
     }
 
+    // Diameter helpers ----------------------------------------------------- //
+    /** Return {vertex, dist} farthest from `src` within its component. */
+    pair<int,int> bfsFarthest(int src, vector<int>& dist) const {
+        queue<int> q;
+        q.push(src);
+        dist[src] = 0;
+        int far = src;
+        while (!q.empty()) {
+            int v = q.front(); q.pop();
+            for (int to : g[v]) if (comp[to] == comp[src] && dist[to] == -1) {
+                dist[to] = dist[v] + 1;
+                q.push(to);
+                if (dist[to] > dist[far]) far = to;
+            }
+        }
+        return {far, dist[far]};
+    }
+
+    void computeDiameters(int C) {
+        diam_of_comp.assign(C, 0);
+        vector<int> dist(n + 1, -1);
+        for (int cid = 0; cid < C; ++cid) {
+            int start = root_of_comp[cid];
+            fill(dist.begin(), dist.end(), -1);
+            auto [u, _du] = bfsFarthest(start, dist);
+            fill(dist.begin(), dist.end(), -1);
+            auto [v, diam] = bfsFarthest(u, dist);
+            diam_of_comp[cid] = diam;
+        }
+    }
+
+    // Lift & LCA ----------------------------------------------------------- //
     int lift(int v, int k) const {
         for (int i = 0; v && k; ++i, k >>= 1)
             if (k & 1) v = up[i][v];
