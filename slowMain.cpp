@@ -351,7 +351,7 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void Compute(const int testNr, const bool isLastTest) {
+void Compute(const int testNr, const bool onLastTest) {
 
 
 }
