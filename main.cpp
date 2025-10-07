@@ -334,9 +334,9 @@ namespace Define {
     constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
     constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
     constexpr pair<int, int> dirDiag[] = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
-    constexpr long long infBig = numeric_limits<long long> :: max() - 23;
+    constexpr long long infBig = numeric_limits<long long> :: max() - 24;
     constexpr long long infMid = 1e15;
-    constexpr int inf = numeric_limits<int> :: max() - 23;
+    constexpr int inf = numeric_limits<int> :: max() - 24;
     constexpr int infSmall = 1e9;
 }
 using namespace Define;
