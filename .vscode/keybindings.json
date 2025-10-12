@@ -1,0 +1,12 @@
+[
+    {
+        "key": "f7",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Build Current File (build.bat)"
+    },
+    {
+        "key": "f8",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Run Current File (run.bat)"
+    }
+]
