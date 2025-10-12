@@ -8,5 +8,15 @@
         "key": "ctrl+0",
         "command": "workbench.action.tasks.runTask",
         "args": "Run Current File (run.bat)"
+    },
+    {
+        "key": "ctrl+8",
+        "command": "workbench.action.debug.start",
+        "when": "debuggersAvailable && debugState == 'inactive'"
+    },
+    {
+        "key": "f5",
+        "command": "-workbench.action.debug.start",
+        "when": "debuggersAvailable && debugState == 'inactive'"
     }
 ]
