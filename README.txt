@@ -4,6 +4,6 @@ replace it)
 
 
 Usage:
-    - Press F7 for build current file
-    - Press F8 to run current file
+    - Press Ctrl+9 for build current file
+    - Press Ctrl+0 to run current file
     - Press F5 for debugging

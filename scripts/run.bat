@@ -44,3 +44,9 @@ if not exist "%inputName%" (
 
 REM --- Run program with input.in ---
 "%exeName%" < "%inputName%"
+
+REM --- Print a message after execution ---
+echo.
+echo %GREEN%[INFO]%RESET% "%exeName%" finished running.
+echo.
+pause
