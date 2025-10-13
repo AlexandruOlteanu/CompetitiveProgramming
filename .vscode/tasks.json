@@ -1,27 +1,35 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Build Current File (build.bat)",
-			"type": "shell",
-			"command": "./scripts/build.bat",
-			"args": [
-				"${file}"
-			],
-			"problemMatcher": [],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"label": "Run Current File (run.bat)",
-			"type": "shell",
-			"command": "./scripts/run.bat",
-			"args": [
-				"${file}"
-			],
-			"problemMatcher": []
-		}
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build Current File (build.bat)",
+      "type": "shell",
+      "command": "./scripts/build.bat",
+      "args": ["${file}"],
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Run Current File (run.bat)",
+      "type": "shell",
+      "command": "./scripts/run.bat",
+      "args": ["${file}"],
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "new",
+        "showReuseMessage": false,
+        "clear": false,
+        "reveal": "always"
+      }
+    }
   ]
 }

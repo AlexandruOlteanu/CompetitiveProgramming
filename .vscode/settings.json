@@ -1,5 +1,8 @@
 {
     "workbench.editor.enablePreview": false,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
-    "workbench.editor.empty.hint": "hidden"
+    "workbench.editor.empty.hint": "hidden",
+    "files.associations": {
+        "limits": "cpp"
+    }
 }
