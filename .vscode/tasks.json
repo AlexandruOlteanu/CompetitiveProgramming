@@ -12,10 +12,9 @@
         "isDefault": true
       },
       "presentation": {
-        "panel": "new",
+        "panel": "dedicated",
         "showReuseMessage": false,
-        "clear": false,
-        "reveal": "always"
+        "clear": true
       }
     },
     {
@@ -25,10 +24,9 @@
       "args": ["${file}"],
       "problemMatcher": [],
       "presentation": {
-        "panel": "new",
+        "panel": "dedicated",
         "showReuseMessage": false,
-        "clear": false,
-        "reveal": "always"
+        "clear": true
       }
     }
   ]
