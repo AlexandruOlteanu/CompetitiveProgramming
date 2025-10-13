@@ -8,7 +8,7 @@
   They forged me in fire, they broke me in battle, yet here I rise, Invictus!
 
   Conquered:
-    -> 26   Official Championships Problems
+    -> 33   Official Championships Problems
     -> 92   Hard Problems (Aimed to improve my skills and deep thinking)
     -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
     -> 12   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
@@ -334,9 +334,9 @@ namespace Define {
     constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
     constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
     constexpr pair<int, int> dirDiag[] = {{-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
-    constexpr long long infBig = numeric_limits<long long> :: max() - 23;
+    constexpr long long infBig = numeric_limits<long long> :: max() - 24;
     constexpr long long infMid = 1e15;
-    constexpr int inf = numeric_limits<int> :: max() - 23;
+    constexpr int inf = numeric_limits<int> :: max() - 24;
     constexpr int infSmall = 1e9;
 }
 using namespace Define;
@@ -353,7 +353,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void Compute(const int testNr, const bool onLastTest) {
 
-
+    
 }
 
 void Precompute() {}
