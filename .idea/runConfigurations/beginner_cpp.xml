@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="beginner.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="true" REDIRECT_INPUT_PATH="$PROJECT_DIR$/input.in" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompetitiveProgramming" TARGET_NAME="beginner.cpp" CONFIG_NAME="beginner.cpp">
+    <option name="sourceFile" value="A:\A - PROGRAMARE\CompetitiveProgramming\beginner.cpp" />
+    <method v="2">
+      <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>

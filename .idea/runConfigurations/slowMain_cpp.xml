@@ -1,9 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="slowMain.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="true" REDIRECT_INPUT_PATH="$PROJECT_DIR$/input.in" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CompetitiveProgramming" TARGET_NAME="slowMain.cpp" CONFIG_NAME="slowMain.cpp">
-    <option name="compilerOptions" value="-DDebugMode" />
-    <option name="sourceFile" value="slowMain.cpp" />
-    <method v="2">
-      <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
-    </method>
-  </configuration>
-</component>
