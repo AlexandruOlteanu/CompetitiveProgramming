@@ -26,11 +26,10 @@ int main() {
     cout << numberOfTests << '\n';
 
     for (int i = 1; i <= numberOfTests; i++) {
-        int n, x, y;
-        n = rnd(1, 10);
-        x = rnd(1, 10);
-        y = rnd(1, 10);
-        cout << n << " " << x << " " << y << '\n';
+        int x, y;
+        x = rnd(1, 1000);
+        y = rnd(1, 1000);
+        cout << x << " " << y << '\n';
     }
     
 

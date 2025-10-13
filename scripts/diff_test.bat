@@ -9,4 +9,6 @@ professional < input.in > output.out
 slowSolution < input.in > slowSolutionOutput.out
 fc output.out slowSolutionOutput.out
 if errorlevel 1 exit
+
+cd .\scripts
 diff_test
