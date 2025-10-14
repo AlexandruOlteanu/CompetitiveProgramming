@@ -115,3 +115,7 @@ Bit Operations:
 
         // Check i-th bit
         bool isSet = x & (1 << i);
+
+Divisibility:
+    - When checking divisible by 11 just make abs(sumOfEvenPositions - 
+    sumOfOddPositions) and check if divisible by 11
