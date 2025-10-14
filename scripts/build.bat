@@ -31,7 +31,8 @@ for %%F in ("%SRC%") do (
 )
 
 REM --- BUILD COMMAND ---
-echo %CYAN%[INFO]%RESET% Building "%SRC%" ...
+echo %CYAN%[INFO]%RESET% Building "%SRC%"
+echo ...
 "%GPP%" -fdiagnostics-color=always -g -DDebugMode "%SRC%" -o "%FILEDIR%%FILENAME%.exe"
 
 REM --- CHECK RESULT ---
