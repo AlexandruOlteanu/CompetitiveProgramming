@@ -358,14 +358,16 @@ void Compute(const int testNr, const bool onLastTest) {
 
 void Precompute() {}
 
+#define EnableMultipleTests
 int main() {
 
     FastIO();
     HighPrecisionOutput();
 
     int numberOfTests = 1;
-    cin >> numberOfTests;
-
+    #ifdef EnableMultipleTests
+        cin >> numberOfTests;
+    #endif
     startPrecomputationTimer();
 
     Precompute();
