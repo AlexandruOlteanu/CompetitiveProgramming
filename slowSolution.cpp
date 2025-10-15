@@ -135,12 +135,12 @@ namespace Utils {
         }
 
         // Fast IO and High Pecision
-        void FastIO() {
+        void fastIO() {
             ios_base::sync_with_stdio(false);
             cin.tie(nullptr);
         }
 
-        void HighPrecisionOutput() {
+        void highPrecisionOutput() {
             cout << fixed << setprecision(17);
         }
 
@@ -333,34 +333,34 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void Compute(const int testNr, const bool onLastTest) {
+void compute(const int testNr, const bool onLastTest) {
 
     
 }
 
-void Precompute() {}
+void precompute() {}
 
-#define EnableMultipleTests
+
+
+constexpr bool activateMultipleTests = true;
 int main() {
 
-    FastIO();
-    HighPrecisionOutput();
+    fastIO();
+    highPrecisionOutput();
 
     int numberOfTests = 1;
-    #ifdef EnableMultipleTests
+    if (activateMultipleTests) {
         cin >> numberOfTests;
-    #endif
+    }
 
     startPrecomputationTimer();
-
-    Precompute();
-
+    precompute();
     endPrecomputationTimerAndStartComputationTimer();
 
     for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
-        Compute(testNr, testNr == numberOfTests);
+        compute(testNr, testNr == numberOfTests);
     }
 
     endComputationTimer();
