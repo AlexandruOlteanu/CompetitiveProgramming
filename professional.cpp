@@ -55,41 +55,41 @@ namespace Debug {
     using Clock = std::chrono::high_resolution_clock;
     using TimePoint = Clock::time_point;
 
-    TimePoint startPrecomputation, endPrecomputation, startComputation, endComputation;
+    TimePoint startForgeInitialization, endForgeInitialization, startForgeExecute, endForgeExecute;
 
     static double getDuration(chrono::high_resolution_clock::time_point start, chrono::high_resolution_clock::time_point end) {
         return chrono::duration<double>(end - start).count();
     }
 
     void reset() {
-        startPrecomputation = endPrecomputation = startComputation = endComputation = TimePoint{};
+        startForgeInitialization = endForgeInitialization = startForgeExecute = endForgeExecute = TimePoint{};
     }
 
-    void startPrecomputationTimer() {
+    void startForgeInitializationTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                startPrecomputation = chrono::high_resolution_clock::now();
+                startForgeInitialization = chrono::high_resolution_clock::now();
         #endif
     }
 
-    void endPrecomputationTimerAndStartComputationTimer() {
+    void endForgeInitializationTimerAndStartForgeExecuteTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                endPrecomputation = chrono::high_resolution_clock::now();
-                startComputation = chrono::high_resolution_clock::now();
+                endForgeInitialization = chrono::high_resolution_clock::now();
+                startForgeExecute = chrono::high_resolution_clock::now();
         #endif
     }
 
-    void endComputationTimer() {
+    void endForgeExecuteTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                endComputation = chrono::high_resolution_clock::now();
+                endForgeExecute = chrono::high_resolution_clock::now();
         #endif
     }
 
     void debugTimings() {
         #if defined(DebugMode) && !defined(TestsGenerator)
                 cout << "\n\n=================================================================\n";
-                cout << "-> Precomputation Running Time:    " << getDuration(startPrecomputation, endPrecomputation) << " seconds.\n";
-                cout << "-> Computation Running Time:       " << getDuration(startComputation, endComputation) << " seconds.\n";
-                cout << "-> Total Running Time:             " << getDuration(startPrecomputation, endComputation) << " seconds.\n";
+                cout << "-> Initialization Running Time:    " << getDuration(startForgeInitialization, endForgeInitialization) << " seconds.\n";
+                cout << "-> Execution Running Time:         " << getDuration(startForgeExecute, endForgeExecute) << " seconds.\n";
+                cout << "-> Total Running Time:             " << getDuration(startForgeInitialization, endForgeExecute) << " seconds.\n";
                 cout << "=================================================================\n";
         #endif
     }
@@ -153,12 +153,12 @@ namespace Utils {
         }
 
         // Fast IO and High Pecision
-        void fastIO() {
+        void FastIO() {
             ios_base::sync_with_stdio(false);
             cin.tie(nullptr);
         }
 
-        void highPrecisionOutput() {
+        void HighPrecisionOutput() {
             cout << fixed << setprecision(17);
         }
 
@@ -351,35 +351,37 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void compute(const int testNr, const bool onLastTest) {
+void ExecuteForge(const int testNr, const bool onLastTest) {
 
     
 }
 
-void precompute() {}
+void InitializeForge() {}
 
 constexpr bool activateMultipleTests = true;
 int main() {
 
-    fastIO();
-    highPrecisionOutput();
+    FastIO();
+    HighPrecisionOutput();
 
     int numberOfTests = 1;
     if (activateMultipleTests) {
         cin >> numberOfTests;
     }
 
-    startPrecomputationTimer();
-    precompute();
-    endPrecomputationTimerAndStartComputationTimer();
+    startForgeInitializationTimer();
+
+    InitializeForge();
+
+    endForgeInitializationTimerAndStartForgeExecuteTimer();
 
     for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
-        compute(testNr, testNr == numberOfTests);
+        ExecuteForge(testNr, testNr == numberOfTests);
     }
 
-    endComputationTimer();
+    endForgeExecuteTimer();
     debugTimings();
 
     return 0;
