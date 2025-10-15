@@ -358,8 +358,6 @@ void compute(const int testNr, const bool onLastTest) {
 
 void precompute() {}
 
-
-
 constexpr bool activateMultipleTests = true;
 int main() {
 
