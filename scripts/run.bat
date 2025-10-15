@@ -42,6 +42,7 @@ if not exist "%inputName%" (
     exit /b 1
 )
 
+echo=
 REM --- Run program with input.in ---
 "%exeName%" < "%inputName%"
 
