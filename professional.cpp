@@ -55,42 +55,42 @@ namespace Debug {
     using Clock = std::chrono::high_resolution_clock;
     using TimePoint = Clock::time_point;
 
-    TimePoint startForgeInitialization, endForgeInitialization, startForgeExecute, endForgeExecute;
+    TimePoint startInitializationTime, endInitializationTime, startExecutionTime, endExecutionTime;
 
     static double getDuration(chrono::high_resolution_clock::time_point start, chrono::high_resolution_clock::time_point end) {
         return chrono::duration<double>(end - start).count();
     }
 
     void reset() {
-        startForgeInitialization = endForgeInitialization = startForgeExecute = endForgeExecute = TimePoint{};
+        startInitializationTime = endInitializationTime = startExecutionTime = endExecutionTime = TimePoint{};
     }
 
-    void startForgeInitializationTimer() {
+    void startInitializationTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                startForgeInitialization = chrono::high_resolution_clock::now();
+            startInitializationTime = chrono::high_resolution_clock::now();
         #endif
     }
 
-    void endForgeInitializationTimerAndStartForgeExecuteTimer() {
+    void endInitializationTimerAndStartExecutionTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                endForgeInitialization = chrono::high_resolution_clock::now();
-                startForgeExecute = chrono::high_resolution_clock::now();
+            endInitializationTime = chrono::high_resolution_clock::now();
+            startExecutionTime = chrono::high_resolution_clock::now();
         #endif
     }
 
-    void endForgeExecuteTimer() {
+    void endExecutionTimer() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                endForgeExecute = chrono::high_resolution_clock::now();
+            endExecutionTime = chrono::high_resolution_clock::now();
         #endif
     }
 
     void debugTimings() {
         #if defined(DebugMode) && !defined(TestsGenerator)
-                cout << "\n\n=================================================================\n";
-                cout << "-> Initialization Running Time:    " << getDuration(startForgeInitialization, endForgeInitialization) << " seconds.\n";
-                cout << "-> Execution Running Time:         " << getDuration(startForgeExecute, endForgeExecute) << " seconds.\n";
-                cout << "-> Total Running Time:             " << getDuration(startForgeInitialization, endForgeExecute) << " seconds.\n";
-                cout << "=================================================================\n";
+            cout << "\n\n=================================================================\n";
+            cout << "-> Initialization Running Time:    " << getDuration(startInitializationTime, endInitializationTime) << " seconds.\n";
+            cout << "-> Execution Running Time:         " << getDuration(startExecutionTime, endExecutionTime) << " seconds.\n";
+            cout << "-> Total Running Time:             " << getDuration(startInitializationTime, endExecutionTime) << " seconds.\n";
+            cout << "=================================================================\n";
         #endif
     }
 }
@@ -329,6 +329,9 @@ namespace Define {
     #define all1(x) ++(x).begin(), (x).end()
     #define rall(x) (x).rbegin(), (x).rend()
     #define rall1(x) (x).rbegin(), --(x).rend()
+    #define fi first
+    #define se second
+    #define pb push_back
     using ll  = long long;
     using pii = pair<int, int>;
     constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
@@ -351,12 +354,12 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
-void ExecuteForge(const int testNr, const bool onLastTest) {
+void Execute(const int testNr, const bool onLastTest) {
 
     
 }
 
-void InitializeForge() {}
+void Initialize() {}
 
 constexpr bool activateMultipleTests = true;
 int main() {
@@ -369,19 +372,19 @@ int main() {
         cin >> numberOfTests;
     }
 
-    startForgeInitializationTimer();
+    startInitializationTimer();
 
-    InitializeForge();
+    Initialize();
 
-    endForgeInitializationTimerAndStartForgeExecuteTimer();
+    endInitializationTimerAndStartExecutionTimer();
 
     for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
-        ExecuteForge(testNr, testNr == numberOfTests);
+        Execute(testNr, testNr == numberOfTests);
     }
 
-    endForgeExecuteTimer();
+    endExecutionTimer();
     debugTimings();
 
     return 0;
