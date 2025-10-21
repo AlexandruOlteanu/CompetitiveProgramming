@@ -22,7 +22,7 @@ T rnd(T x, T y) {
 int main() {
 
     int numberOfTests = 1;
-    numberOfTests = rnd(1, 10);
+    // numberOfTests = rnd(1, 10);
     cout << numberOfTests << '\n';
 
     for (int i = 1; i <= numberOfTests; i++) {

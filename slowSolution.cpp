@@ -294,9 +294,10 @@ namespace Utils {
             return words;
         }
 
-        // YES / NO
+        // Messages
         void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
         void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
+        void NoSolution() {cout << "-1\n";}
     };
     using namespace Functions;
 
