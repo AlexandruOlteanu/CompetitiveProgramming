@@ -13,7 +13,7 @@
     -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
     -> 32   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
     -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 92   Random Problems from different sites
+    -> 96   Random Problems from different sites
 */
 
 #include <bits/stdc++.h>
