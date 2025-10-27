@@ -156,10 +156,10 @@ namespace DebugUtil
             cerr << outer << "]\n"
                  << white;
     }
-    /* dbgArrPrinter */
-    inline void dbgArrPrinter(const char *) {} /* Base Recursive */
+    /* dbgRPrinter */
+    inline void dbgRPrinter(const char *) {} /* Base Recursive */
     template <typename T, typename... V>
-    void dbgArrPrinter(const char *names, T arr[], size_t N, V... tail) {
+    void dbgRPrinter(const char *names, T arr[], size_t N, V... tail) {
         size_t ind = 0;
         cerr << varName;
         for (; names[ind] and names[ind] != ','; ind++)
@@ -171,7 +171,7 @@ namespace DebugUtil
             cerr << (i ? "," : ""), print(arr[i]);
         cerr << "}";
         if (sizeof...(tail))
-            cerr << outer << " ||", dbgArrPrinter(names + ind + 1, tail...);
+            cerr << outer << " ||", dbgRPrinter(names + ind + 1, tail...);
         else
             cerr << outer << "]\n"
                  << white;
@@ -202,9 +202,9 @@ namespace DebugUtil
     }
 
     template <typename T, typename... Ts>
-    std::string SdbgArrImpl(int line, const char* names, T* firstArray, std::size_t N, Ts&&... args) {
+    std::string SdbgRImpl(int line, const char* names, T* firstArray, std::size_t N, Ts&&... args) {
         return strip_ansi(_capture_to_string(line, [&] {
-            dbgArrPrinter(names, firstArray, N, std::forward<Ts>(args)...);
+            dbgRPrinter(names, firstArray, N, std::forward<Ts>(args)...);
         }));
     }
 
@@ -214,8 +214,8 @@ namespace DebugUtil
     }
 
     template <typename T, typename... V>
-    void dbgArrImpl(int line, const char *names, T arr[], size_t N, V&&... args) {
-        cerr << outer << line << ": [", dbgArrPrinter(names, arr, N, std::forward<V>(args)...);
+    void dbgRImpl(int line, const char *names, T arr[], size_t N, V&&... args) {
+        cerr << outer << line << ": [", dbgRPrinter(names, arr, N, std::forward<V>(args)...);
     }
 }
 
