@@ -33,7 +33,14 @@ for %%F in ("%SRC%") do (
 REM --- BUILD COMMAND ---
 echo %CYAN%[INFO]%RESET% Building "%SRC%"
 echo ...
-"%GPP%" -fdiagnostics-color=always -g -DActivateDebug -DActivateTimings "%SRC%" -o "%FILEDIR%%FILENAME%.exe"
+
+"%GPP%" ^
+  -fdiagnostics-color=always ^
+  -g ^
+  -DActivateDebug ^
+  -DActivateTimings ^
+  -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wfloat-equal -Wuninitialized ^
+  "%SRC%" -o "%FILEDIR%%FILENAME%.exe"
 
 REM --- CHECK RESULT ---
 if %errorlevel% neq 0 (

@@ -1,21 +1,20 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
 using namespace std;
 
 constexpr int mod = 1000000007;
 // constexpr int mod = 998244353;
 
-/* ========================================================================
+/* ================================================================================================
    -> Read from file
-   ======================================================================== */
+   ================================================================================================ */
 // ifstream fin("input.in");
 // ofstream fout("output.out");
 // #define cin fin
 // #define cout fout
 
-/* ========================================================================
+/* ================================================================================================
    -> Debugging, Timings & Tests Generator
-   ======================================================================== */
+   ================================================================================================ */
 // #define ActivateDebug
 // #define ActivateTimings
 #define TestsGenerator
@@ -43,30 +42,15 @@ namespace External {
 }
 using namespace External;
 
-/* ========================================================================
-   -> Utility Functions And Structures
-   -> Code: https://github.com/AlexandruOlteanu/CompetitiveProgramming/tree/main/template/utils.cpp
-   ======================================================================== */
-namespace Utils {
+void ActivateFastIO() { ios_base::sync_with_stdio(false); cin.tie(nullptr); }
+void ActivateHighDoublePrecision() { cout << fixed << setprecision(17); }
+void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
+void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
+void NoSolution() {cout << "-1\n";}
 
-    void FastIO() {
-        ios_base::sync_with_stdio(false);
-        cin.tie(nullptr);
-    }
-
-    void HighPrecisionOutput() {
-        cout << fixed << setprecision(17);
-    }
-
-    void YES() { cout << "YES\n"; }  void Yes() { cout << "Yes\n"; }  void yes() { cout << "yes\n"; }
-    void NO () { cout << "NO\n"; }  void No () { cout << "No\n"; }  void no () { cout << "no\n"; }
-    void NoSolution() {cout << "-1\n";}
-}
-using namespace Utils;
-
-/* ========================================================================
+/* ================================================================================================
    -> Defines
-   ======================================================================== */
+   ================================================================================================ */
 namespace Define {
     #define all(x) (x).begin(), (x).end()
     #define all1(x) ++(x).begin(), (x).end()
@@ -87,10 +71,10 @@ namespace Define {
 }
 using namespace Define;
 
-/* ========================================================================
+/* ================================================================================================
    -> Templates written before
-   -> Code: https://github.com/AlexandruOlteanu/CompetitiveProgramming/tree/main/template
-   ======================================================================== */
+   -> Full Code: https://github.com/AlexandruOlteanu/CompetitiveProgramming/tree/main/template
+   ================================================================================================ */
 namespace Template {}
 using namespace Template;
 
@@ -99,6 +83,8 @@ constexpr int MAXN = 2e5 + 2;
 
 
 void Execute(const int testNr, const bool onLastTest) {
+    dbg(testNr);
+    if (onLastTest) {}
 
     
 }
@@ -108,8 +94,8 @@ void Initialize() {}
 constexpr bool activateMultipleTests = true;
 int main() {
 
-    FastIO();
-    HighPrecisionOutput();
+    ActivateFastIO();
+    ActivateHighDoublePrecision();
 
     int numberOfTests = 1;
     if (activateMultipleTests) {
