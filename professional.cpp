@@ -104,14 +104,14 @@ constexpr int MAXN = 2e5 + 2;
 
 
 
+void Initialize() {}
+
 void Execute(const int testNr, const bool onLastTest) {
     dbg(testNr);
     if (onLastTest) {}
 
     
 }
-
-void Initialize() {}
 
 constexpr bool activateMultipleTests = true;
 int main() {
