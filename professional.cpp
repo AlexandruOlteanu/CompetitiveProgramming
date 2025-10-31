@@ -12,9 +12,9 @@
     -> 33   Official Championships Problems
     -> 92   Hard Problems (Aimed to improve my skills and deep thinking)
     -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
-    -> 40   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
+    -> 44   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
     -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 96   Random Problems from different sites
+    -> 98   Random Problems from different sites
    ================================================================================================ */
 
 #include <bits/stdc++.h>
