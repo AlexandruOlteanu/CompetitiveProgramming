@@ -30,8 +30,13 @@ for %%F in ("%SRC%") do (
     set "FILEDIR=%%~dpF"
 )
 
+REM --- CALCULATE SOURCE FILE SIZE (in KB with 2 decimals) ---
+for %%A in ("%SRC%") do set "BYTES=%%~zA"
+for /f "usebackq" %%S in (`powershell -NoProfile -Command "[math]::Round(%BYTES% / 1024.0, 2)"`) do set "KBYTES=%%S"
+
 REM --- BUILD COMMAND ---
 echo %CYAN%[INFO]%RESET% Building "%SRC%"
+echo %YELLOW%[SIZE]%RESET% Source file size: %KBYTES% KB
 echo ...
 
 "%GPP%" ^
