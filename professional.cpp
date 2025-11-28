@@ -9,7 +9,7 @@
     https://www.nevsquare.com/
 
     Conquered:
-    ->   0  Official Championships Problems
+    ->   6  Official Championships Problems
     -> 125  Hard Problems (Aimed to improve my skills and deep thinking)
     ->  44  Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
     ->  17  Virtual Contests Problems (Aimed to simulate live performances)
