@@ -27,7 +27,10 @@ int main() {
     FastIO();
     HighPrecisionOutput();
 
-    
+    int a;
+    long long b;
+    cin >> a >> b;
+    cout << a - b << '\n';
 
 
     return 0;
