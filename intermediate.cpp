@@ -27,8 +27,25 @@ int main() {
     FastIO();
     HighPrecisionOutput();
 
+    int n , k , l = 0 , kk = 0 , v[100005] , kkmax=0; 
+    cin >> n >> k ;
+    for (int i = 1 ; i <= n ; i ++){
+         cin >> v[i];
+    }
     
-    
+    for(int i = 1 ; i < n ; i ++){
+         kk=0;
+         for(int j = i + 1 ; j <= n ; j ++){
+             if (v[i] != v[j]){
+                 ++kk;
+                 if(kk >= k){
+                     l++;
+                 }
+             }else{
+                kk=0;
+             }
+         }
+    }
 
 
     return 0;
