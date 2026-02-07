@@ -12,7 +12,7 @@
     ->   0  Hard Problems (Aimed to improve my skills and deep thinking)
     ->   0  Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
     ->   0  Virtual Contests Problems (Aimed to simulate live performances)
-    ->   0  Random Problems from different sites
+    ->   1  Random Problems from different sites
    ===================================================================================================== */
 
 #include <bits/stdc++.h>
