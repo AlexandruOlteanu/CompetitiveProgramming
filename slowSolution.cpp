@@ -17,7 +17,7 @@ constexpr int mod = 1000000007;
    ===================================================================================================== */
 // #define ActivateDebug
 // #define ActivateTimings
-#define TestsGenerator
+// #define TestsGenerator
 namespace External {
 
     #if defined(ActivateDebug) && !defined(TestsGenerator)
@@ -87,7 +87,7 @@ constexpr int MAXN = 2e5 + 2;
 
 void Initialize() {}
 
-void Execute(const int testNr, const bool onLastTest) {
+void Inject(const int testNr, const bool onLastTest) {
     dbg(testNr);
     if (onLastTest) {}
 
@@ -114,7 +114,7 @@ int main() {
     for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
         // cout << "Case #" << testNr << ": ";
         // cout << "Test #" << testNr << ": ";
-        Execute(testNr, testNr == numberOfTests);
+        Inject(testNr, testNr == numberOfTests);
     }
 
     endExecutionTimer();
