@@ -89,8 +89,7 @@ for file_idx in range(NUM_FILES):
                         "years_since_last_contest": f"{years_since_last_contest:.4f}",
                         "contest_id": contest['contestId'],
                         "contest_name": contest['contestName'],
-                        "rating": contest['oldRating'],
-                        "new_rating": contest['newRating'],
+                        "new_rating_after_contest": contest['newRating'],
                         "time_to_bucket_years": f"{years_to_bucket:.4f}",
                         "bucket_lower": lower,
                         "bucket_upper": upper
