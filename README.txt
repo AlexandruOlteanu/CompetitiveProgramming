@@ -6,3 +6,6 @@ Usage:
     - Press Ctrl+9 for build current file
     - Press Ctrl+0 to run current file
     - Press Ctrl+8 for debugging
+
+How to run statistics:
+    C:/msys64/ucrt64/bin/python.exe top/check.py
