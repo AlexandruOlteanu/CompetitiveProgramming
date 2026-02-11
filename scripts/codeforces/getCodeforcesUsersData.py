@@ -5,7 +5,7 @@ from pathlib import Path
 
 # ---------------- CONFIG ----------------
 STEP = 100
-WAIT_TIME = 1  # seconds between API calls
+WAIT_TIME = 2  # seconds between API calls
 USERS_PER_FILE = 200000  # number of users per CSV
 NUM_FILES = 5  # number of CSV files
 
