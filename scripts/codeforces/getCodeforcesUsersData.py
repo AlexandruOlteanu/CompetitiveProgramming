@@ -42,71 +42,97 @@ for file_idx in range(NUM_FILES):
     def process_user(user, index):
         handle = user['handle']
         if handle in processed_handles:
-            return  # skip users already processed
+            return
 
         maxRating = user.get('maxRating', 0)
-
         rating_url = f"https://codeforces.com/api/user.rating?handle={handle}"
+
         try:
             resp = requests.get(rating_url, timeout=5)
             resp.raise_for_status()
             contests = resp.json()['result']
             time.sleep(WAIT_TIME)
 
-            if len(contests) < 6:
-                return  # skip users with less than 6 contests
+            print(f"Processing user {index}: {handle} with max rating {maxRating}")
 
             registration = user.get('registrationTimeSeconds')
-            if not registration:
-                return
-            print(f"Processing user {index}: {handle} with max rating {maxRating}")
-            # Last rating update time & current rating
-            last_rating_update = contests[-1]['ratingUpdateTimeSeconds']
-            current_rating = contests[-1]['newRating']
-
-            # Years since last rated contest
             current_time = int(time.time())
-            years_since_last_contest = (current_time - last_rating_update) / (365*24*3600)
 
-            seen_buckets = set()
             rows_to_write = []
 
-            # iterate contests starting from the 6th
-            for contest in contests[5:]:
-                rating = contest['newRating']
-                lower = (rating // STEP) * STEP
-                upper = lower + STEP - 1
+            # ---------------- CASE 1: NOT ENOUGH CONTESTS ----------------
+            if len(contests) < 6 or not registration:
+                rows_to_write.append({
+                    "user_index": index,
+                    "handle": handle,
+                    "current_rating": "NOT_ENOUGH_CONTESTS",
+                    "years_since_last_contest": "NOT_ENOUGH_CONTESTS",
+                    "contest_id": "NOT_ENOUGH_CONTESTS",
+                    "contest_name": "NOT_ENOUGH_CONTESTS",
+                    "new_rating_after_contest": "NOT_ENOUGH_CONTESTS",
+                    "time_to_bucket_years": "NOT_ENOUGH_CONTESTS",
+                    "bucket_lower": "NOT_ENOUGH_CONTESTS",
+                    "bucket_upper": "NOT_ENOUGH_CONTESTS"
+                })
 
-                # record first time the user enters this bucket
-                if (lower, upper) not in seen_buckets:
-                    time_to_bucket = contest['ratingUpdateTimeSeconds'] - registration
-                    years_to_bucket = time_to_bucket / (365*24*3600)
+            # ---------------- CASE 2: NORMAL PROCESSING ----------------
+            else:
+                last_rating_update = contests[-1]['ratingUpdateTimeSeconds']
+                current_rating = contests[-1]['newRating']
+                years_since_last_contest = (current_time - last_rating_update) / (365*24*3600)
+
+                seen_buckets = set()
+
+                for contest in contests[5:]:
+                    rating = contest['newRating']
+                    lower = (rating // STEP) * STEP
+                    upper = lower + STEP - 1
+
+                    if (lower, upper) not in seen_buckets:
+                        time_to_bucket = contest['ratingUpdateTimeSeconds'] - registration
+                        years_to_bucket = time_to_bucket / (365*24*3600)
+
+                        rows_to_write.append({
+                            "user_index": index,
+                            "handle": handle,
+                            "current_rating": current_rating,
+                            "years_since_last_contest": f"{years_since_last_contest:.4f}",
+                            "contest_id": contest['contestId'],
+                            "contest_name": contest['contestName'],
+                            "new_rating_after_contest": contest['newRating'],
+                            "time_to_bucket_years": f"{years_to_bucket:.4f}",
+                            "bucket_lower": lower,
+                            "bucket_upper": upper
+                        })
+
+                        seen_buckets.add((lower, upper))
+
+                # If user had 6+ contests but no new buckets
+                if not rows_to_write:
                     rows_to_write.append({
                         "user_index": index,
                         "handle": handle,
                         "current_rating": current_rating,
                         "years_since_last_contest": f"{years_since_last_contest:.4f}",
-                        "contest_id": contest['contestId'],
-                        "contest_name": contest['contestName'],
-                        "new_rating_after_contest": contest['newRating'],
-                        "time_to_bucket_years": f"{years_to_bucket:.4f}",
-                        "bucket_lower": lower,
-                        "bucket_upper": upper
+                        "contest_id": "NO_NEW_BUCKET",
+                        "contest_name": "NO_NEW_BUCKET",
+                        "new_rating_after_contest": "NO_NEW_BUCKET",
+                        "time_to_bucket_years": "NO_NEW_BUCKET",
+                        "bucket_lower": "NO_NEW_BUCKET",
+                        "bucket_upper": "NO_NEW_BUCKET"
                     })
-                    seen_buckets.add((lower, upper))
 
-            # Write data to CSV immediately
-            if rows_to_write:
-                write_header = not data_path.exists()
-                with open(csv_filename, 'a', newline='', encoding='utf-8') as f:
-                    writer = csv.DictWriter(f, fieldnames=rows_to_write[0].keys())
-                    if write_header:
-                        writer.writeheader()
-                    for row in rows_to_write:
-                        writer.writerow(row)
+            # ---------------- WRITE TO CSV ----------------
+            write_header = not data_path.exists()
+            with open(csv_filename, 'a', newline='', encoding='utf-8') as f:
+                writer = csv.DictWriter(f, fieldnames=rows_to_write[0].keys())
+                if write_header:
+                    writer.writeheader()
+                for row in rows_to_write:
+                    writer.writerow(row)
 
-                # mark handle as processed
-                processed_handles.add(handle)
+            # Mark as processed ALWAYS
+            processed_handles.add(handle)
 
         except Exception as e:
             print(f"Failed {handle}: {e}")
