@@ -45,7 +45,6 @@ for file_idx in range(NUM_FILES):
             return  # skip users already processed
 
         maxRating = user.get('maxRating', 0)
-        print(f"Processing user {index}: {handle} with max rating {maxRating}")
 
         rating_url = f"https://codeforces.com/api/user.rating?handle={handle}"
         try:
@@ -60,7 +59,7 @@ for file_idx in range(NUM_FILES):
             registration = user.get('registrationTimeSeconds')
             if not registration:
                 return
-
+            print(f"Processing user {index}: {handle} with max rating {maxRating}")
             # Last rating update time & current rating
             last_rating_update = contests[-1]['ratingUpdateTimeSeconds']
             current_rating = contests[-1]['newRating']
