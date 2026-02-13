@@ -17,7 +17,7 @@ constexpr int mod = 1000000007;
    ===================================================================================================== */
 // #define ActivateDebug
 // #define ActivateTimings
-// #define TestsGenerator
+#define TestsGenerator
 namespace External {
 
     #if defined(ActivateDebug) && !defined(TestsGenerator)
