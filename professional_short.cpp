@@ -7,14 +7,7 @@
     ██║  ██║ ███████╗ ███████╗ ██╔╝╚██╗ ██║  ██║ ██║ ╚███║ ██████╔╝ ██║  ██║ ╚██████╔╝ ██║ ██║ ╚███║   ╚██╔╝  
     ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚══╝ ╚═════╝  ╚═╝  ╚═╝  ╚═════╝  ╚═╝ ╚═╝  ╚══╝    ╚═╝   
     They forged me in fire, they broke me in battle, yet here I rise, Invictus!
- 
-    Conquered:
-    -> 33   Official Championships Problems
-    -> 92   Hard Problems (Aimed to improve my skills and deep thinking)
-    -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
-    -> 44   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
-    -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 143  Random Problems from different sites
+
     =========================================================================================================== */
 
 #include <bits/stdc++.h>
@@ -30,7 +23,7 @@ constexpr int mod = 1000000007;
 using ll  = long long;
 using pii = pair<int, int>;
 
-void Inject() {
+void Execute() {
     
     
 
@@ -47,7 +40,7 @@ int main() {
     }
 
     for (int testNr = 1; testNr <= numberOfTests; ++testNr) {
-        Inject();
+        Execute();
     }
 
     return 0;
