@@ -10,11 +10,9 @@
  
     Conquered:
     -> 33   Official Championships Problems
-    -> 92   Hard Problems (Aimed to improve my skills and deep thinking)
-    -> 9    Fast Training Problems (Aimed to improve my speed on easier problems)
-    -> 44   Leveling Up Problems (A mix of speed and thinking, climbing the Level AK ladder)
+    -> 16   Leveling Up Problems (Step by step harder problems of my level)
     -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 216  Random Problems from different sites
+    -> 342  Random Problems from different sites
     =========================================================================================================== */
 
 #include <bits/stdc++.h>
