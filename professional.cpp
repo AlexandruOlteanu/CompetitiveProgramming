@@ -9,10 +9,10 @@
     They forged me in fire, they broke me in battle, yet here I rise, Invictus!
  
     Conquered:
-    -> 33   Official Championships Problems
-    -> 16   Leveling Up Problems (Step by step harder problems of my level)
-    -> 17   Virtual Contests Problems (Aimed to simulate live performances)
-    -> 342  Random Problems from different sites
+    -> 33  Official Championships Problems
+    -> 16  Leveling Up Problems (Step by step harder problems of my level)
+    -> 17  Virtual Contests Problems (Aimed to simulate live performances)
+    -> 368 Random Problems from different sites
     =========================================================================================================== */
 
 #include <bits/stdc++.h>
