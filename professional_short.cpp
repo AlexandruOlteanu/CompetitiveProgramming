@@ -20,8 +20,18 @@ constexpr int mod = 1000000007;
 // #define cin fin
 // #define cout fout
 
-using ll  = long long;
-using pii = pair<int, int>;
+namespace Define {
+    #define all(x) (x).begin(), (x).end()
+    #define all1(x) ++(x).begin(), (x).end()
+    #define rall(x) (x).rbegin(), (x).rend()
+    #define rall1(x) (x).rbegin(), --(x).rend()
+    using ll  = long long;
+    constexpr long long infBig = numeric_limits<long long> :: max() - 24;
+    constexpr long long infMid = 1e15;
+    constexpr int inf = numeric_limits<int> :: max() - 24;
+    constexpr int infSmall = 1e9;
+}
+using namespace Define;
 
 void Execute() {
     
