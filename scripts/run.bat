@@ -46,7 +46,7 @@ REM --- Run program asynchronously ---
 start "" /b "%exeName%" < "%inputName%" > "%outputName%" 2>&1
 
 ping 127.0.0.1 -n 2 > nul
-echo %YELLOW%[INFO]%RESET% Running with 10MB output limit...
+echo %YELLOW%[INFO]%RESET% Running %exeName% with 10MB output limit...
 
 REM --- Monitor output file size ---
 :LOOP
