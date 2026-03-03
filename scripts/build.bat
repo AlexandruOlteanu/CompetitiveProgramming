@@ -30,7 +30,8 @@ for %%F in ("%SRC%") do (
 )
 
 REM --- KILL PREVIOUS INSTANCE (SOLVES ACCESS DENIED) ---
-REM Cautam daca procesul ruleaza si il oprim fortat (/F) impreuna cu copiii lui (/T)
+REM Check if the process is running and force-stop it (/F) along with its child processes (/T)
+
 taskkill /F /IM "%FILENAME%.exe" /T >nul 2>&1
 
 REM --- CALCULATE SOURCE FILE SIZE ---
