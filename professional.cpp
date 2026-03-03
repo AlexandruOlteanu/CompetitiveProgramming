@@ -79,7 +79,7 @@ namespace Define {
     #define fi first
     #define se second
     #define pb push_back
-    using ll  = long long;
+    using ll = long long;
     using pii = pair<int, int>;
     constexpr pair<int, int> dir4[] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
     constexpr pair<int, int> dir8[] = {{-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1}};
