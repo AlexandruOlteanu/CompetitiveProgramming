@@ -72,11 +72,12 @@ if "%limitExceeded%"=="1" (
     echo %RED%[INFO]%RESET% Console display skipped to prevent terminal lag.
 ) else (
     echo %YELLOW%--- Program Output ---%RESET%
+    echo=
     type "%outputName%"
     echo=
-    echo %YELLOW%----------------------%RESET%
-    echo %GREEN%[SUCCESS]%RESET% Program finished normally.
+    echo=
+    echo %GREEN%[SUCCESS]%RESET% Program finished succesfully.
 )
 
-echo %GREEN%[INFO]%RESET% Final output saved to: "%outputName%"
+echo %GREEN%[INFO]%RESET% Output saved to: "%outputName%"
 exit /b 0
