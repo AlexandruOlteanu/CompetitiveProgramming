@@ -44,7 +44,9 @@ if exist "%outputName%" (
     if !size! GTR %maxBytes% (
         set "limitExceeded=1"
         echo %RED%[LIMIT EXCEEDED]%RESET% Output exceeded 10MB. Killing process...
-        taskkill /F /IM "%exeName%" >nul 2>&1
+        taskkill /F /T /IM "%exeName%" >nul 2>&1
+        rem
+        timeout /t 1 /nobreak >nul
         goto TRUNCATE_FINISH
     )
 )

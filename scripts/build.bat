@@ -18,7 +18,6 @@ set "RESET=[0m"
 REM --- EXPECT FILE PATH FROM ARGUMENT ---
 if "%~1"=="" (
     echo %RED%[ERROR]%RESET% No file path provided.
-    echo Please run this from VS Code with the file path argument.
     exit /b 1
 )
 
@@ -30,7 +29,11 @@ for %%F in ("%SRC%") do (
     set "FILEDIR=%%~dpF"
 )
 
-REM --- CALCULATE SOURCE FILE SIZE (in KB with 2 decimals) ---
+REM --- KILL PREVIOUS INSTANCE (SOLVES ACCESS DENIED) ---
+REM Cautam daca procesul ruleaza si il oprim fortat (/F) impreuna cu copiii lui (/T)
+taskkill /F /IM "%FILENAME%.exe" /T >nul 2>&1
+
+REM --- CALCULATE SOURCE FILE SIZE ---
 for %%A in ("%SRC%") do set "BYTES=%%~zA"
 for /f "usebackq" %%S in (`powershell -NoProfile -Command "[math]::Round(%BYTES% / 1024.0, 2)"`) do set "KBYTES=%%S"
 
