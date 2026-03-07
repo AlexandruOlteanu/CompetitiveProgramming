@@ -111,7 +111,6 @@ def print_rank_stats(ratings, title, f):
     for name, lo, _ in RANKS:
         users = ranks.get(name, 0)
         if users == 0: continue
-        # Compute top % for rank
         above = sum(1 for r in ratings if r >= lo)
         top_p = (above / total_users) * 100 if total_users > 0 else 0
         
@@ -138,9 +137,17 @@ for window, limit in ACTIVITY_WINDOWS.items():
         peak_r = [user_peak[u] for u in users_subset]
 
         print(f"{'='*30}\n ANALIZA: {window}\n{'='*30}", file=out)
+        
+        # STATISTICI CURRENT RATING
         print_bucket_stats(curr_r, "CURRENT RATING STATS (BUCKET 100)", out)
         print_rank_stats(curr_r, "CURRENT RANK STATS", out)
-        print_fine_grained_data(curr_r, window, out)
+        
+        # STATISTICI MAX RATING (PEAK) - ADAUGATE INAPOI
+        print_bucket_stats(peak_r, "MAX RATING STATS (BUCKET 100)", out)
+        print_rank_stats(peak_r, "MAX RANK STATS", out)
+        
+        # DATE PENTRU GRAFIC (de obicei se face pe Current Rating)
+        print_fine_grained_data(curr_r, f"{window} (CURRENT)", out)
 
 # 2. Generare fisier pentru analiza avansata
 print("Se genereaza advanced_analysis.txt...")
@@ -149,7 +156,6 @@ with open("advanced_analysis.txt", "w", encoding="utf-8") as adv:
     
     all_peak = list(user_peak.values())
     
-    # Probability to reach next rank
     print("\nPROBABILITY TO REACH NEXT RANK\n" + "-"*60, file=adv)
     print(f"{'FROM':<25}{'TO':<25}{'PROBABILITY'}", file=adv)
     for i in range(len(RANKS)-1):
@@ -161,7 +167,6 @@ with open("advanced_analysis.txt", "w", encoding="utf-8") as adv:
             prob = (reached_next / reached_curr) * 100
             print(f"{name:<25}{n_name:<25}{round(prob, 2)}%", file=adv)
 
-    # Median time between ranks
     print("\nMEDIAN TIME BETWEEN RANKS\n" + "-"*60, file=adv)
     print(f"{'FROM':<25}{'TO':<25}{'MEDIAN YEARS'}", file=adv)
     for i in range(len(RANKS)-1):
@@ -171,4 +176,4 @@ with open("advanced_analysis.txt", "w", encoding="utf-8") as adv:
         if times:
             print(f"{name:<25}{n_name:<25}{round(median(times), 3)}", file=adv)
 
-print("\nSucces! Fisierele au fost create in folderul curent.")
+print("\nSucces! Fisierele au fost create si contin acum si Max Rating Stats.")
