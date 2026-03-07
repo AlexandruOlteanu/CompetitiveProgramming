@@ -1,0 +1,29 @@
+========================================
+ ADVANCED CODEFORCES ANALYSIS
+========================================
+
+PROBABILITY TO REACH NEXT RANK
+------------------------------------------------------------
+FROM                     TO                       PROBABILITY
+Newbie                   Pupil                    58.18%
+Pupil                    Specialist               64.64%
+Specialist               Expert                   57.92%
+Expert                   Candidate Master         35.84%
+Candidate Master         Master                   48.76%
+Master                   International Master     33.1%
+International Master     Grandmaster              65.18%
+Grandmaster              International Grandmaster38.9%
+International GrandmasterLegendary Grandmaster    18.62%
+
+MEDIAN TIME BETWEEN RANKS
+------------------------------------------------------------
+FROM                     TO                       MEDIAN YEARS
+Newbie                   Pupil                    0.804
+Pupil                    Specialist               0.934
+Specialist               Expert                   1.091
+Expert                   Candidate Master         1.496
+Candidate Master         Master                   1.866
+Master                   International Master     2.454
+International Master     Grandmaster              2.75
+Grandmaster              International Grandmaster3.26
+International GrandmasterLegendary Grandmaster    4.189
