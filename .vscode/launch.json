@@ -1,23 +1,16 @@
-// Windows
-
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "g++.exe - Build and debug active file",
+            "name": "g++ - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "args": ["<", "input.in"],
             "stopAtEntry": true,
             "cwd": "${fileDirname}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\msys64\\ucrt64\\bin\\gdb.exe",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
@@ -25,7 +18,15 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build Current File (build.bat)"
+            "preLaunchTask": "Build Current File",
+            "windows": {
+                "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "miDebuggerPath": "C:\\msys64\\ucrt64\\bin\\gdb.exe"
+            },
+            "linux": {
+                "program": "${fileDirname}/${fileBasenameNoExtension}",
+                "miDebuggerPath": "gdb"
+            }
         }
     ]
 }

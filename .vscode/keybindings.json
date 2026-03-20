@@ -2,12 +2,12 @@
     {
         "key": "ctrl+9",
         "command": "workbench.action.tasks.runTask",
-        "args": "Build Current File (build.bat)"
+        "args": "Build Current File"
     },
     {
         "key": "ctrl+0",
         "command": "workbench.action.tasks.runTask",
-        "args": "Run Current File (run.bat)"
+        "args": "Run Current File"
     },
     {
         "key": "ctrl+8",

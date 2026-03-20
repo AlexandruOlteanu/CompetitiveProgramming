@@ -9,32 +9,39 @@ set "RESET=[0m"
 
 REM --- Check Parameters ---
 if "%~1" == "" (
-    echo %RED%[ERROR]%RESET% No executable path provided.
+    echo %RED%[ERROR]%RESET% No executable name provided.
     exit /b 1
 )
 
-for %%F in ("%~1") do (
-    set "exeName=%%~nF.exe"
-    set "fileDir=%%~dpF"
-)
+REM Extract just the filename (e.g., "main") in case a path was passed
+set "EXE_NAME=%~n1.exe"
 
+REM --- PATH SETUP ---
+REM Move to the parent directory (project root) where input/output lives
+cd ..
+
+set "EXE_PATH=.\executables\%EXE_NAME%"
 set "inputName=input.in"
 set "outputName=output.out"
 set "maxBytes=10485760"
 set "limitExceeded=0"
 
-cd /d "%fileDir%"
+REM Verify the executable exists in the new location
+if not exist "%EXE_PATH%" (
+    echo %RED%[ERROR]%RESET% Executable not found at: %EXE_PATH%
+    exit /b 1
+)
 
 REM Delete previous output if it exists
 if exist "%outputName%" del "%outputName%"
 
 REM --- Execution ---
-echo %YELLOW%[INFO]%RESET% Running %exeName%...
-start "" /b "%exeName%" < "%inputName%" > "%outputName%" 2>&1
+echo %YELLOW%[INFO]%RESET% Running %EXE_NAME% from /executables...
+start "" /b "%EXE_PATH%" < "%inputName%" > "%outputName%" 2>&1
 
 :LOOP
 REM Check if process is still running
-tasklist /FI "IMAGENAME eq %exeName%" 2>NUL | find /I "%exeName%" >NUL
+tasklist /FI "IMAGENAME eq %EXE_NAME%" 2>NUL | find /I "%EXE_NAME%" >NUL
 set "running=%errorlevel%"
 
 REM Monitor file size
@@ -44,8 +51,7 @@ if exist "%outputName%" (
     if !size! GTR %maxBytes% (
         set "limitExceeded=1"
         echo %RED%[LIMIT EXCEEDED]%RESET% Output exceeded 10MB. Killing process...
-        taskkill /F /T /IM "%exeName%" >nul 2>&1
-        rem
+        taskkill /F /T /IM "%EXE_NAME%" >nul 2>&1
         timeout /t 1 /nobreak >nul
         goto TRUNCATE_FINISH
     )
@@ -62,7 +68,6 @@ if exist "%outputName%" (
     for %%A in ("%outputName%") do set "finalSize=%%~zA"
     if !finalSize! GTR %maxBytes% (
         set "limitExceeded=1"
-        REM Truncate the file to exactly 10MB using PowerShell
         powershell -Command "$f=[System.IO.File]::OpenWrite('%outputName%'); $f.SetLength(%maxBytes%); $f.Close()"
     )
 )
@@ -78,8 +83,11 @@ if "%limitExceeded%"=="1" (
     type "%outputName%"
     echo=
     echo=
-    echo %GREEN%[SUCCESS]%RESET% Program finished succesfully.
+    echo %GREEN%[SUCCESS]%RESET% Program finished successfully.
 )
 
-echo %GREEN%[INFO]%RESET% Output saved to: "%outputName%"
+echo %GREEN%[INFO]%RESET% Output saved to: "%cd%\%outputName%"
+
+REM Return to scripts folder
+cd scripts
 exit /b 0

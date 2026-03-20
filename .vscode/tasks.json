@@ -2,9 +2,14 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build Current File (build.bat)",
+      "label": "Build Current File",
       "type": "shell",
-      "command": "./scripts/build.bat",
+      "windows": {
+        "command": ".\\scripts\\build.bat"
+      },
+      "linux": {
+        "command": "./scripts/build.sh"
+      },
       "args": ["${file}"],
       "problemMatcher": [],
       "group": {
@@ -18,9 +23,14 @@
       }
     },
     {
-      "label": "Run Current File (run.bat)",
+      "label": "Run Current File",
       "type": "shell",
-      "command": "./scripts/run.bat",
+      "windows": {
+        "command": ".\\scripts\\run.bat"
+      },
+      "linux": {
+        "command": "./scripts/run.sh"
+      },
       "args": ["${file}"],
       "problemMatcher": [],
       "presentation": {
