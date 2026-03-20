@@ -20,11 +20,11 @@
             ],
             "preLaunchTask": "Build Current File",
             "windows": {
-                "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "program": "${fileDirname}\\executables\\${fileBasenameNoExtension}.exe",
                 "miDebuggerPath": "C:\\msys64\\ucrt64\\bin\\gdb.exe"
             },
             "linux": {
-                "program": "${fileDirname}/${fileBasenameNoExtension}",
+                "program": "${fileDirname}/executables/${fileBasenameNoExtension}",
                 "miDebuggerPath": "gdb"
             }
         }
