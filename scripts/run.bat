@@ -13,31 +13,42 @@ if "%~1" == "" (
     exit /b 1
 )
 
-REM Extract just the filename (e.g., "main") in case a path was passed
-set "EXE_NAME=%~n1.exe"
-
 REM --- PATH SETUP ---
-REM Move to the parent directory (project root) where input/output lives
-cd ..
+REM %~dp0 gaseste folderul exact in care se afla acest script (ex: C:\...\scripts\)
+set "SCRIPTS_DIR=%~dp0"
 
-set "EXE_PATH=.\executables\%EXE_NAME%"
-set "inputName=input.in"
-set "outputName=output.out"
+REM Calculam calea catre folderul radacina (un nivel mai sus)
+for %%I in ("%SCRIPTS_DIR%..") do set "ROOT_DIR=%%~fI"
+
+REM Extragem doar numele fara extensie si ii adaugam fortat .exe
+set "EXE_NAME=%~n1.exe"
+set "EXE_PATH=%ROOT_DIR%\executables\%EXE_NAME%"
+set "inputName=%ROOT_DIR%\input.in"
+set "outputName=%ROOT_DIR%\output.out"
+
 set "maxBytes=10485760"
 set "limitExceeded=0"
 
-REM Verify the executable exists in the new location
+REM --- Context & Preparation ---
+REM Schimbam folderul curent in radacina proiectului
+cd /d "%ROOT_DIR%"
+
+REM Verificam daca executabilul exista
 if not exist "%EXE_PATH%" (
-    echo %RED%[ERROR]%RESET% Executable not found at: %EXE_PATH%
+    echo %RED%[ERROR]%RESET% Executable not found at: "%EXE_PATH%"
     exit /b 1
 )
 
-REM Delete previous output if it exists
-if exist "%outputName%" del "%outputName%"
+REM Stergem vechiul output daca exista
+if exist "%outputName%" del /Q "%outputName%"
+
+REM Daca nu exista fisierul de input, cream unul gol pentru a preveni erori la redirectionare
+if not exist "%inputName%" type nul > "%inputName%"
 
 REM --- Execution ---
-echo %YELLOW%[INFO]%RESET% Running %EXE_NAME% from /executables...
-start "" /b "%EXE_PATH%" < "%inputName%" > "%outputName%" 2>&1
+echo %YELLOW%[INFO]%RESET% Running %EXE_NAME% ...
+REM Am adaugat cmd /c pentru ca redirectarea ( < si > ) sa functioneze mai fiabil in background
+start "" /b cmd /c ""%EXE_PATH%" < "%inputName%" > "%outputName%" 2>&1"
 
 :LOOP
 REM Check if process is still running
@@ -86,8 +97,8 @@ if "%limitExceeded%"=="1" (
     echo %GREEN%[SUCCESS]%RESET% Program finished successfully.
 )
 
-echo %GREEN%[INFO]%RESET% Output saved to: "%cd%\%outputName%"
+echo %GREEN%[INFO]%RESET% Output saved to: "%outputName%"
 
-REM Return to scripts folder
-cd scripts
+REM Ne intoarcem in folderul scripts la final
+cd /d "%SCRIPTS_DIR%"
 exit /b 0
