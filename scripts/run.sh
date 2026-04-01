@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==========================================================
-# run.sh — execute the compiled C++ program with safety limits
+# run.sh — execute the compiled C++ program with size limit
 # ==========================================================
 
 # --- COLOR CONFIGURATION ---
@@ -16,13 +16,10 @@ if [ -z "$1" ]; then
 fi
 
 # --- SMART PATH SETUP ---
-# Get the absolute path of the directory where THIS script lives (/scripts)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-# Move to the project root (one level up from /scripts)
 cd "$SCRIPT_DIR/.." || exit 1
 
-# Extract executable name (strip path and extension)
+# Extract executable name
 EXE_NAME=$(basename -- "$1")
 EXE_NAME="${EXE_NAME%.*}"
 
@@ -32,9 +29,7 @@ OUTPUT_NAME="output.out"
 
 # --- LIMITS ---
 MAX_BYTES=10485760 # 10MB limit
-TIME_LIMIT=10       # 10 seconds max runtime
 LIMIT_EXCEEDED=0
-TIMEOUT_OCCURRED=0
 
 # --- VERIFY EXECUTABLE ---
 if [ ! -f "$EXE_PATH" ]; then
@@ -43,10 +38,7 @@ if [ ! -f "$EXE_PATH" ]; then
     exit 1
 fi
 
-# Ensure it has execution permissions
 chmod +x "$EXE_PATH"
-
-# Delete previous output if it exists
 rm -f "$OUTPUT_NAME"
 
 # Ensure input.in exists
@@ -57,25 +49,11 @@ fi
 # --- EXECUTION ---
 echo -e "${YELLOW}[INFO]${RESET} Running $EXE_NAME..."
 
-# Run in background
 "$EXE_PATH" < "$INPUT_NAME" > "$OUTPUT_NAME" 2>&1 &
 PID=$!
-START_TIME=$(date +%s)
 
-# --- MONITOR LOOP (Size & Time) ---
+# --- MONITOR LOOP (ONLY SIZE) ---
 while kill -0 $PID 2>/dev/null; do
-    # 1. Check Execution Time
-    CURRENT_TIME=$(date +%s)
-    ELAPSED=$((CURRENT_TIME - START_TIME))
-    
-    if [ "$ELAPSED" -ge "$TIME_LIMIT" ]; then
-        TIMEOUT_OCCURRED=1
-        echo -e "${RED}[TIME LIMIT]${RESET} Process exceeded ${TIME_LIMIT}s. Killing..."
-        kill -9 $PID 2>/dev/null
-        break
-    fi
-
-    # 2. Check File Size
     if [ -f "$OUTPUT_NAME" ]; then
         SIZE=$(stat -c%s "$OUTPUT_NAME" 2>/dev/null || echo 0)
         if [ "$SIZE" -gt "$MAX_BYTES" ]; then
@@ -85,11 +63,9 @@ while kill -0 $PID 2>/dev/null; do
             break
         fi
     fi
-    
     sleep 0.2
 done
 
-# Clean up background job reference
 wait $PID 2>/dev/null
 
 # --- FINAL TRUNCATION ---
@@ -103,9 +79,7 @@ fi
 
 # --- DISPLAY LOGIC ---
 echo ""
-if [ "$TIMEOUT_OCCURRED" -eq 1 ]; then
-    echo -e "${RED}[FAILURE]${RESET} Program timed out."
-elif [ "$LIMIT_EXCEEDED" -eq 1 ]; then
+if [ "$LIMIT_EXCEEDED" -eq 1 ]; then
     echo -e "${RED}[WARNING]${RESET} Output file was truncated (10MB limit)."
     echo -e "${RED}[INFO]${RESET} Console display skipped to prevent lag."
 else

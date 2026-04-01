@@ -14,40 +14,42 @@ if "%~1" == "" (
 )
 
 REM --- PATH SETUP ---
-REM %~dp0 gaseste folderul exact in care se afla acest script (ex: C:\...\scripts\)
+REM %~dp0 gets the exact directory where this script is located (e.g., C:\...\scripts\)
 set "SCRIPTS_DIR=%~dp0"
 
-REM Calculam calea catre folderul radacina (un nivel mai sus)
+REM Compute the root directory (one level above /scripts)
 for %%I in ("%SCRIPTS_DIR%..") do set "ROOT_DIR=%%~fI"
 
-REM Extragem doar numele fara extensie si ii adaugam fortat .exe
+REM Extract executable name without extension and force .exe
 set "EXE_NAME=%~n1.exe"
 set "EXE_PATH=%ROOT_DIR%\executables\%EXE_NAME%"
 set "inputName=%ROOT_DIR%\input.in"
 set "outputName=%ROOT_DIR%\output.out"
 
+REM --- Limits ---
 set "maxBytes=10485760"
 set "limitExceeded=0"
 
 REM --- Context & Preparation ---
-REM Schimbam folderul curent in radacina proiectului
+REM Change working directory to project root
 cd /d "%ROOT_DIR%"
 
-REM Verificam daca executabilul exista
+REM Check if executable exists
 if not exist "%EXE_PATH%" (
     echo %RED%[ERROR]%RESET% Executable not found at: "%EXE_PATH%"
     exit /b 1
 )
 
-REM Stergem vechiul output daca exista
+REM Delete previous output file if it exists
 if exist "%outputName%" del /Q "%outputName%"
 
-REM Daca nu exista fisierul de input, cream unul gol pentru a preveni erori la redirectionare
+REM Ensure input file exists (create empty if missing)
 if not exist "%inputName%" type nul > "%inputName%"
 
 REM --- Execution ---
 echo %YELLOW%[INFO]%RESET% Running %EXE_NAME% ...
-REM Am adaugat cmd /c pentru ca redirectarea ( < si > ) sa functioneze mai fiabil in background
+
+REM Use cmd /c to ensure proper redirection (< and >) in background execution
 start "" /b cmd /c ""%EXE_PATH%" < "%inputName%" > "%outputName%" 2>&1"
 
 :LOOP
@@ -55,7 +57,7 @@ REM Check if process is still running
 tasklist /FI "IMAGENAME eq %EXE_NAME%" 2>NUL | find /I "%EXE_NAME%" >NUL
 set "running=%errorlevel%"
 
-REM Monitor file size
+REM Monitor output file size
 if exist "%outputName%" (
     for %%A in ("%outputName%") do set "size=%%~zA"
     
@@ -68,6 +70,7 @@ if exist "%outputName%" (
     )
 )
 
+REM If still running, continue monitoring
 if %running%==0 (
     timeout /t 1 /nobreak >nul
     goto LOOP
@@ -99,6 +102,6 @@ if "%limitExceeded%"=="1" (
 
 echo %GREEN%[INFO]%RESET% Output saved to: "%outputName%"
 
-REM Ne intoarcem in folderul scripts la final
+REM Return to scripts directory at the end
 cd /d "%SCRIPTS_DIR%"
 exit /b 0
