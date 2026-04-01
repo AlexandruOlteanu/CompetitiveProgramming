@@ -2,6 +2,28 @@
     "workbench.editor.enablePreview": false,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "workbench.editor.empty.hint": "hidden",
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "editor.inlineSuggest.enabled": false,
+    "workbench.colorTheme": "Dark+",
+    "editor.tokenColorCustomizations": {
+        "[Dark+]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "keyword.control",
+                        "keyword.operator.new",
+                        "keyword.operator.expression",
+                        "keyword.operator.logical",
+                        "entity.name.function"
+                    ],
+                    "settings": {
+                        "foreground": "#FF6B6B"
+                    }
+                }
+            ]
+        }
+    },
     "files.associations": {
         "any": "cpp",
         "bitset": "cpp",
