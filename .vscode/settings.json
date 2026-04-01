@@ -11,11 +11,8 @@
             "textMateRules": [
                 {
                     "scope": [
-                        "keyword.control",
-                        "keyword.operator.new",
-                        "keyword.operator.expression",
-                        "keyword.operator.logical",
-                        "entity.name.function"
+                        "comment",
+                        "punctuation.definition.comment"
                     ],
                     "settings": {
                         "foreground": "#FF6B6B"
@@ -118,5 +115,5 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp"
-    },
+    }
 }
