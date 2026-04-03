@@ -6,13 +6,9 @@
     ██╔══██║ ██║      ██╔══╝    ██╔██╗  ██╔══██║ ██║╚████║ ██║  ██║ ██╔══██╗ ██║   ██║ ██║ ██║╚████║  ╚████╔╝ 
     ██║  ██║ ███████╗ ███████╗ ██╔╝╚██╗ ██║  ██║ ██║ ╚███║ ██████╔╝ ██║  ██║ ╚██████╔╝ ██║ ██║ ╚███║   ╚██╔╝  
     ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚═╝  ╚══╝ ╚═════╝  ╚═╝  ╚═╝  ╚═════╝  ╚═╝ ╚═╝  ╚══╝    ╚═╝   
-    They forged me in fire, they broke me in battle, yet here I rise, Invictus!
- 
-    Conquered:
-    -> 33  Official Championships Problems
-    -> 16  Leveling Up Problems (Step by step harder problems of my level)
-    -> 17  Virtual Contests Problems (Aimed to simulate live performances)
-    -> 391 Random Problems from different sites
+
+    Forged in fire by the gods, fighting through 557 trials, yet here I rise, Invictus!
+
     =========================================================================================================== */
 
 #include <bits/stdc++.h>
