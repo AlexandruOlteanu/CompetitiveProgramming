@@ -104,21 +104,7 @@ void Execute(const int testNr, const bool onLastTest) {
     dbg(testNr);
     if (onLastTest) {}
 
-    ll n;
-    cin >> n;
-    ll k1 = ll(sqrt(n));
-    if (k1 * k1 != n) ++k1;
-    if (k1 % 2 == 0) ++k1;
-    k1 = (k1 + 1) / 2;
-    ll ans = 2 * (k1 - 1);
-    // 0 2 4 6 ...
-    // 1 3 5 7 ...
-    ll k2 = ll(sqrt(n));
-    if (k2 * k2 != n) ++k2;
-    if (k2 % 2 != 0) ++k2;
-    k2 /= 2;
-    ans = min(ans, 2 * k2 - 1);
-    cout << ans << '\n';
+    
 }
 
 constexpr bool activateMultipleTests = true;
