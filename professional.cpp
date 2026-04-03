@@ -104,7 +104,7 @@ void Execute(const int testNr, const bool onLastTest) {
     dbg(testNr);
     if (onLastTest) {}
 
-    
+        
 }
 
 constexpr bool activateMultipleTests = true;
